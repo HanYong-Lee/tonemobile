@@ -1089,3 +1089,69 @@ a, button { touch-action: manipulation; }
   .headHero__line1{ font-size: 18px; }
   .headHero__line2{ font-size: 12px; }
 }
+
+/* =========================
+   FIX 1) heroCard__media 캡션이 이미지 하단 라운드 덮기
+   ========================= */
+
+.heroCard__media{
+  position: relative;
+  overflow: hidden;       /* figure 라운드 안에서 다 처리 */
+  border-radius: 18px;
+}
+
+/* img는 라운드 제거(figure가 담당), 아래 라운드 노출 방지 */
+.heroCard__media img{
+  display: block;
+  width: 100%;
+  border-radius: 0 !important;
+}
+
+/* 캡션을 위로 당겨서 이미지 하단 라운드를 완전히 덮기 */
+.heroCard__media figcaption{
+  position: relative;
+  z-index: 2;
+  margin-top: -14px;      /* ← 핵심: 캡션을 위로 당김 (필요하면 -10 ~ -18 조절) */
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -8px 20px rgba(0,0,0,.10);
+}
+
+/* =========================
+   FIX 2) heroCard 배경은 흰색 유지 + 전체 배경을 mainpage.png로 고정
+   ========================= */
+
+/* heroCard--bg가 혹시 남아 있어도 카드 배경은 흰색으로 강제 */
+.heroCard.heroCard--bg{
+  background: #fff !important;
+}
+
+/* 전체 배경 고정 레이어 (모바일/iOS 포함 안정 동작) */
+body{
+  position: relative;
+  background: var(--navy); /* fallback */
+}
+
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("assets/mainpage.png") center / cover no-repeat;
+  transform: translateZ(0);
+}
+
+/* 배경 위 가독성을 위한 어두운 틴트(원하면 투명도 조절) */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgba(11,27,59,.55); /* ← 0.45~0.65 사이로 취향 조절 */
+  pointer-events: none;
+}
+
+/* 기존 body에 들어가 있던 흰색 그라데이션 배경은 확실히 무효화 */
+html, body{
+  background: transparent !important;
+}
