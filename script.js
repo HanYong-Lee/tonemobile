@@ -128,37 +128,20 @@
   });
 })();
 
-// ---------- Bullet Accordion (smooth open/close) ----------
-document.addEventListener("DOMContentLoaded", () => {
-  const accord = document.querySelector("[data-bullet-accord]");
-  if (!accord) return;
+(function () {
+  const wrap = document.querySelector("[data-bullet-accord]");
+  if (!wrap) return;
 
-  const items = Array.from(accord.querySelectorAll(".bulletCard"));
+  const items = Array.from(wrap.querySelectorAll(".bulletCard"));
 
-  const setPanelHeight = (li, open) => {
-    const panel = li.querySelector(".bulletCard__panel");
-    const inner = li.querySelector(".bulletCard__panelInner");
-    if (!panel || !inner) return;
-
-    if (open) {
-      // 열릴 때: 실제 높이로 max-height 지정
-      panel.style.maxHeight = inner.scrollHeight + "px";
-    } else {
-      // 닫힐 때
-      panel.style.maxHeight = "0px";
-    }
-  };
-
-  // 초기 세팅
-  items.forEach(li => {
+  // 초기 aria 동기화
+  items.forEach((li) => {
     const btn = li.querySelector(".bulletCard__btn");
-    const isOpen = li.classList.contains("is-open");
-    if (btn) btn.setAttribute("aria-expanded", String(isOpen));
-    setPanelHeight(li, isOpen);
+    if (!btn) return;
+    btn.setAttribute("aria-expanded", String(li.classList.contains("is-open")));
   });
 
-  // 클릭 이벤트 (이벤트 위임)
-  accord.addEventListener("click", (e) => {
+  wrap.addEventListener("click", (e) => {
     const btn = e.target.closest(".bulletCard__btn");
     if (!btn) return;
 
@@ -167,24 +150,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const willOpen = !li.classList.contains("is-open");
 
-    // 하나만 열리게 유지 (원치 않으면 이 블록 삭제)
-    items.forEach(other => {
-      const b = other.querySelector(".bulletCard__btn");
+    // 하나만 열리게
+    items.forEach((other) => {
       other.classList.remove("is-open");
+      const b = other.querySelector(".bulletCard__btn");
       if (b) b.setAttribute("aria-expanded", "false");
-      setPanelHeight(other, false);
     });
 
-    // 선택 항목 토글
-    li.classList.toggle("is-open", willOpen);
-    btn.setAttribute("aria-expanded", String(willOpen));
-    setPanelHeight(li, willOpen);
+    // 선택한 것만 토글
+    if (willOpen) {
+      li.classList.add("is-open");
+      btn.setAttribute("aria-expanded", "true");
+      li.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
   });
-
-  // 리사이즈/회전 대응
-  window.addEventListener("resize", () => {
-    items.forEach(li => {
-      if (li.classList.contains("is-open")) setPanelHeight(li, true);
-    });
-  });
-});
+})();
