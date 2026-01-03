@@ -1102,16 +1102,19 @@ a, button { touch-action: manipulation; }
 
 /* img는 라운드 제거(figure가 담당), 아래 라운드 노출 방지 */
 .heroCard__media img{
+  position: relative;
+  z-index: 2;            /* 👈 제일 위 */
   display: block;
   width: 100%;
   border-radius: 0 !important;
 }
 
-/* 캡션을 위로 당겨서 이미지 하단 라운드를 완전히 덮기 */
+/* 캡션: 아래 레이어 + 위로 겹치기 */
 .heroCard__media figcaption{
   position: relative;
-  z-index: 2;
-  margin-top: -14px;      /* ← 핵심: 캡션을 위로 당김 (필요하면 -10 ~ -18 조절) */
+  z-index: 1;            /* 👈 img보다 아래 */
+  margin-top: -14px;     /* 이미지 하단 덮기 */
+  background: rgba(255,255,255,.92);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   box-shadow: 0 -8px 20px rgba(0,0,0,.10);
