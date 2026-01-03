@@ -75,20 +75,23 @@
       <!-- Head 1: Store Intro -->
       <div class="section">
         <div class="section__head">
-          <!-- NEW: Head Top Image + Overlay Text -->
-          <div class="headHero">
-            <img class="headHero__img" src="assets/mainpage.png" alt="KT플라자 만남로점 메인 이미지" loading="lazy" />
-            <div class="headHero__overlay" aria-hidden="true">
-              <div class="headHero__line1">안녕하세요, KT플라자 만남로점입니다!</div>
-              <div class="headHero__line2">저희 홈페이지를 방문해주셔서 감사합니다!</div>
-            </div>
-          </div>
         
 
     
-        <div class="heroCard">
+        <div class="heroCard heroCard--bg">
           <div class="heroCard__text">
-
+            <!-- NEW: heroCard 주제/부제 (Fade In & Out) -->
+            <div class="heroIntro" aria-hidden="true">
+              <div class="heroIntro__line1">안녕하세요, KT플라자입니다!</div>
+              <div class="heroIntro__line2">무엇을 도와드릴까요?</div>
+            </div>
+        
+            <!-- 기존 fadeLines는 유지해도 되고, 필요 없으면 제거 가능 -->
+            <h3 class="fadeLines" data-fade-lines>
+              <span>반갑습니다 KT 플라자 만남로점입니다!</span>
+              <span>무엇을 도와드릴까요?</span>
+            </h3>
+            
             <!-- ✅ NEW: 핵심 역량(아코디언 카드형 bullets) -->
             <div class="coreBullets">
               <div class="coreBullets__head">
@@ -199,7 +202,6 @@
 
     
           <figure class="heroCard__media">
-            <!-- 업로드 후 이미지 교체: assets/team.jpg -->
             <img src="assets/team.jpg" alt="KT플라자 만남로점 직원 단체사진" loading="lazy" />
             <figcaption>
               우리 매장 팀이 도와드리겠습니다.
