@@ -649,7 +649,7 @@ a, button { touch-action: manipulation; }
 }
 
 /* 카드들이 '살짝 튀어나와' 보이게 상단 하이라이트 */
-.card, .heroCard, .bigCard, .profileCard, .actionTile{
+.card, .heroCard:not(.heroCard--bg), .bigCard, .profileCard, .actionTile{
   background:
     linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,1));
 }
