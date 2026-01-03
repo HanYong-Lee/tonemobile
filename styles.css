@@ -970,32 +970,3 @@ a, button { touch-action: manipulation; }
   .headHero__line1{ font-size: 18px; }
   .headHero__line2{ font-size: 12px; }
 }
-
-/* =========================
-   Accordion animation (smooth open/close)
-   ========================= */
-
-/* 패널을 "높이 애니메이션"으로 부드럽게 */
-.bulletCard__panel{
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: max-height .32s ease, opacity .22s ease, transform .22s ease;
-}
-
-/* 열렸을 때 */
-.bulletCard.is-open .bulletCard__panel{
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 화살표 회전(있으면 더 자연스러움) */
-.bulletCard__icon{
-  transition: transform .22s ease;
-}
-.bulletCard.is-open .bulletCard__icon{
-  transform: rotate(180deg);
-}
-/* ✅ JS가 죽어도 열리게 하는 fallback */
-.bulletCard.is-open .bulletCard__panel{ max-height: 800px; }
