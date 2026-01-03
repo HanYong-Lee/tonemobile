@@ -219,8 +219,6 @@ body{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    linear-gradient(180deg, rgba(11,27,59,.40) 0%, rgba(11,27,59,.70) 55%, rgba(11,27,59,.88) 100%);
   pointer-events:none;
 }
 
