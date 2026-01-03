@@ -997,3 +997,5 @@ a, button { touch-action: manipulation; }
 .bulletCard.is-open .bulletCard__icon{
   transform: rotate(180deg);
 }
+/* ✅ JS가 죽어도 열리게 하는 fallback */
+.bulletCard.is-open .bulletCard__panel{ max-height: 800px; }
