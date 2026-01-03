@@ -194,6 +194,7 @@ body{
 }
 .heroCard__text{padding: 4px 2px 8px}
 .heroCard__media{
+  background: transparent;
   margin:0;
   border-radius: 18px;
   overflow:hidden;
@@ -204,15 +205,18 @@ body{
   padding: 10px 12px;
   font-size: 12px;
   color: rgba(10,18,36,.65);
-  background: #fff;
+  background: rgba(255,255,255,.92);
 }
 .heroCard--bg{
   position: relative;
-  background-image: url("assets/mainpage.png"); /* 👈 적용하고자 하는 이미지 */
+  background-image: url("assets/mainpage.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  min-height: 420px;        /* 높이 부여 */
 }
+
 
 /* 배경 위 글씨 가독성용 오버레이 */
 .heroCard--bg::before{
