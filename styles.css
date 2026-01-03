@@ -206,6 +206,79 @@ body{
   color: rgba(10,18,36,.65);
   background: #fff;
 }
+.heroCard--bg{
+  position: relative;
+  background: url("assets/mainpage.png") center / cover no-repeat;
+}
+
+/* 배경 위 글씨 가독성용 오버레이 */
+.heroCard--bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(11,27,59,.40) 0%, rgba(11,27,59,.70) 55%, rgba(11,27,59,.88) 100%);
+  pointer-events:none;
+}
+
+/* 내부 콘텐츠가 오버레이 위로 올라오게 */
+.heroCard--bg > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* heroCard 안에 들어간 텍스트는 흰색 톤으로 */
+.heroCard--bg .section__head h2,
+.heroCard--bg .section__desc{
+  color:#fff;
+}
+.heroCard--bg .heroCard__text{
+  color:#fff;
+}
+
+/* (선택) coreBullets 영역은 흰 배경 유지하고 싶으면 이렇게 */
+.heroCard--bg .coreBullets{
+  background: rgba(255,255,255,.96);
+  border-radius: 18px;
+  padding: 12px;
+  color: var(--navy);
+}
+
+/* =========================
+   heroIntro (Fade In & Out)
+   ========================= */
+
+.heroIntro{
+  margin: 6px 0 12px;
+  color:#fff;
+  animation: heroIntroFade 4.6s ease-in-out infinite;
+}
+.heroIntro__line1{
+  font-weight: 1000;
+  letter-spacing: -.4px;
+  font-size: 22px; /* 첫 줄 크게 */
+  line-height: 1.15;
+  text-shadow: 0 12px 26px rgba(0,0,0,.45);
+}
+.heroIntro__line2{
+  margin-top: 6px;
+  font-weight: 850;
+  font-size: 13px; /* 둘째 줄 작게 */
+  opacity: .95;
+  text-shadow: 0 12px 26px rgba(0,0,0,.45);
+}
+
+@keyframes heroIntroFade{
+  0%   { opacity: 0; transform: translateY(6px); }
+  12%  { opacity: 1; transform: translateY(0); }
+  70%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+
+@media (max-width: 360px){
+  .heroIntro__line1{ font-size: 19px; }
+  .heroIntro__line2{ font-size: 12px; }
+}
 
 /* Fade lines */
 .fadeLines{
