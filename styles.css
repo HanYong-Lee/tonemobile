@@ -208,7 +208,10 @@ body{
 }
 .heroCard--bg{
   position: relative;
-  background: url("assets/mainpage.png") center / cover no-repeat;
+  background-image: url("assets/mainpage.png"); /* 👈 적용하고자 하는 이미지 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* 배경 위 글씨 가독성용 오버레이 */
