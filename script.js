@@ -129,34 +129,35 @@
 })();
 
 // ---------- Bullet Accordion (smooth open/close) ----------
-(() => {
+document.addEventListener("DOMContentLoaded", () => {
   const accord = document.querySelector("[data-bullet-accord]");
   if (!accord) return;
 
   const items = Array.from(accord.querySelectorAll(".bulletCard"));
 
-  // 열린 패널의 실제 높이를 max-height로 설정해 애니메이션 되게 함
   const setPanelHeight = (li, open) => {
     const panel = li.querySelector(".bulletCard__panel");
     const inner = li.querySelector(".bulletCard__panelInner");
     if (!panel || !inner) return;
 
     if (open) {
-      // 먼저 max-height를 0에서 scrollHeight로
+      // 열릴 때: 실제 높이로 max-height 지정
       panel.style.maxHeight = inner.scrollHeight + "px";
     } else {
+      // 닫힐 때
       panel.style.maxHeight = "0px";
     }
   };
 
-  // 초기 상태(처음 열려있는 항목이 있으면 높이 세팅)
+  // 초기 세팅
   items.forEach(li => {
-    const isOpen = li.classList.contains("is-open");
     const btn = li.querySelector(".bulletCard__btn");
+    const isOpen = li.classList.contains("is-open");
     if (btn) btn.setAttribute("aria-expanded", String(isOpen));
     setPanelHeight(li, isOpen);
   });
 
+  // 클릭 이벤트 (이벤트 위임)
   accord.addEventListener("click", (e) => {
     const btn = e.target.closest(".bulletCard__btn");
     if (!btn) return;
@@ -164,28 +165,26 @@
     const li = btn.closest(".bulletCard");
     if (!li) return;
 
-    const isOpen = li.classList.contains("is-open");
+    const willOpen = !li.classList.contains("is-open");
 
-    // 원하면 "하나만 열리게" 유지
+    // 하나만 열리게 유지 (원치 않으면 이 블록 삭제)
     items.forEach(other => {
-      if (other !== li) {
-        other.classList.remove("is-open");
-        const b = other.querySelector(".bulletCard__btn");
-        if (b) b.setAttribute("aria-expanded", "false");
-        setPanelHeight(other, false);
-      }
+      const b = other.querySelector(".bulletCard__btn");
+      other.classList.remove("is-open");
+      if (b) b.setAttribute("aria-expanded", "false");
+      setPanelHeight(other, false);
     });
 
-    // 토글
-    li.classList.toggle("is-open", !isOpen);
-    btn.setAttribute("aria-expanded", String(!isOpen));
-    setPanelHeight(li, !isOpen);
+    // 선택 항목 토글
+    li.classList.toggle("is-open", willOpen);
+    btn.setAttribute("aria-expanded", String(willOpen));
+    setPanelHeight(li, willOpen);
   });
 
-  // 화면 회전/리사이즈 시 열린 패널 높이 재계산
+  // 리사이즈/회전 대응
   window.addEventListener("resize", () => {
     items.forEach(li => {
       if (li.classList.contains("is-open")) setPanelHeight(li, true);
     });
   });
-})();
+});
