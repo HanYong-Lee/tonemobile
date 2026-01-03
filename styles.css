@@ -186,68 +186,109 @@ body{
   color: rgba(10,18,36,.65);
 }
 
-/* Hero card */
+/* =========================
+   Hero Card (Background Image Version)
+   ========================= */
+
 .heroCard{
-  display:grid;
+  display: grid;
   gap: 10px;
   padding: 14px;
+  border-radius: 22px;
 }
-.heroCard__text{padding: 4px 2px 8px}
-.heroCard__media{
-  background: transparent;
-  margin:0;
+
+/* 배경 이미지 카드 */
+.heroCard--bg{
+  position: relative;
+  overflow: hidden;
+
+  background-image: url("assets/mainpage.png"); /* ← 메인 배경 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: 420px; /* 모바일 기준 히어로 높이 */
+}
+
+/* 배경 위 가독성 확보용 오버레이 (색만, 이미지 가리지 않음) */
+.heroCard--bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    180deg,
+    rgba(11,27,59,.30) 0%,
+    rgba(11,27,59,.55) 55%,
+    rgba(11,27,59,.75) 100%
+  );
+  pointer-events:none;
+  z-index: 0;
+}
+
+/* 내부 콘텐츠를 배경 위로 */
+.heroCard--bg > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* 텍스트 영역 (배경 위에서 읽히게) */
+.heroCard--bg .heroCard__text{
+  color: #fff;
+}
+
+/* =========================
+   Team Image 영역 (배경을 덮지 않게)
+   ========================= */
+
+.heroCard--bg .heroCard__media{
+  background: transparent; /* ← 배경 덮지 않음 */
+  border: none;
+  margin: 0;
   border-radius: 18px;
-  overflow:hidden;
-  border: 1px solid rgba(11,27,59,.08);
+  overflow: hidden;
 }
-.heroCard__media img{width:100%; display:block}
+
+.heroCard__media img{
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+}
+
+/* 캡션만 흰 배경 유지 */
 .heroCard__media figcaption{
   padding: 10px 12px;
   font-size: 12px;
   color: rgba(10,18,36,.65);
   background: rgba(255,255,255,.92);
 }
-.heroCard--bg{
-  position: relative;
-  background-image: url("assets/mainpage.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 
-  min-height: 420px;        /* 높이 부여 */
-}
+/* =========================
+   Optional: Core bullets 카드 톤 정리
+   ========================= */
 
-
-/* 배경 위 글씨 가독성용 오버레이 */
-.heroCard--bg::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-}
-
-/* 내부 콘텐츠가 오버레이 위로 올라오게 */
-.heroCard--bg > *{
-  position: relative;
-  z-index: 1;
-}
-
-/* heroCard 안에 들어간 텍스트는 흰색 톤으로 */
-.heroCard--bg .section__head h2,
-.heroCard--bg .section__desc{
-  color:#fff;
-}
-.heroCard--bg .heroCard__text{
-  color:#fff;
-}
-
-/* (선택) coreBullets 영역은 흰 배경 유지하고 싶으면 이렇게 */
 .heroCard--bg .coreBullets{
   background: rgba(255,255,255,.96);
   border-radius: 18px;
   padding: 12px;
   color: var(--navy);
 }
+
+/* =========================
+   Mobile fine tuning
+   ========================= */
+
+@media (max-width: 420px){
+  .heroCard--bg{
+    min-height: 380px;
+  }
+}
+
+@media (max-width: 360px){
+  .heroCard--bg{
+    min-height: 340px;
+  }
+}
+
 
 /* =========================
    heroIntro (Fade In & Out)
