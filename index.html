@@ -197,58 +197,31 @@
         </div>
       </div>
 
-      <!-- Head 2: This Month News (Naver Clip Card) -->
+      <!-- Head 2: This Month News (YouTube Embed) -->
       <div class="section">
         <div class="section__head">
           <h2>KT Plaza 홍보영상</h2>
           <p class="section__desc">우리 회사의 홍보 영상입니다!<br>재미있게 시청해주세요~</p>
         </div>
       
-        <!-- ✅ 링크 이동 대신, 클릭 이벤트로 재생 -->
-        <button type="button" class="clipCard js-open-video"
-                data-video-id="SkzZH_pqx2g"
-                aria-label="유튜브 쇼츠 재생">
-        
-          <div class="clipCard__thumb">
-            <img class="clipCard__img" src="assets/news-thumb.png" alt="이 달의 소식 클립 썸네일" />
-            <div class="clipCard__badge">Youtube Shorts</div>
-            <div class="clipCard__play">▶</div>
-        
-            <!-- ✅ 카드 내부 플레이어 (처음엔 숨김) -->
-            <div class="clipCard__player hidden">
-              <button type="button" class="clipCard__close js-close-video" aria-label="영상 닫기">✕</button>
-              <iframe class="clipCard__iframe"
-                src=""
-                title="KT Plaza 홍보영상"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen></iframe>
-            </div>
-          </div>
-        
-          <div class="clipCard__body">
-            <div class="clipCard__title">호갱이라는 단어, 이제는 없어져야 합니다.</div>
-            <div class="clipCard__sub">촬영: KT플라자 관저중로점</div>
-          </div>
-        </button>
-
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/SkzZH_pqx2g?playsinline=1&rel=0&modestbranding=1"
+            title="KT Plaza 홍보영상"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+        </div>
       
-        <!-- ✅ 페이지 내부 재생 영역(기본 숨김) -->
-        <div class="ytInline hidden" id="promoVideo">
-          <div class="ytInline__wrap">
-            <iframe
-              id="promoIframe"
-              src=""
-              title="KT Plaza 홍보영상"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-            ></iframe>
-          </div>
-      
-          <button type="button" class="ytInline__close js-close-inline-video">닫기</button>
+        <div class="clipCard__body">
+          <div class="clipCard__title">호갱이라는 단어, 이제는 없어져야 합니다.</div>
+          <div class="clipCard__sub">촬영: KT플라자 관저중로점</div>
         </div>
       </div>
+
 
       
       <!-- Head 3: 판매상품/소식 소개 -->
