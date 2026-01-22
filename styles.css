@@ -195,7 +195,8 @@ a{ color: inherit; }
 .heroCard--bg{
   position: relative;
   overflow: hidden;
-  background: #fff;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(6px);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -224,7 +225,7 @@ a{ color: inherit; }
 /* hero intro animation */
 .heroIntro{
   margin: 6px 0 12px;
-  color:#fff;
+  color: var(--navy);
   animation: heroIntroFade 4.6s ease-in-out infinite;
 }
 .heroIntro__line1{
