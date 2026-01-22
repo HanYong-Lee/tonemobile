@@ -1,33 +1,42 @@
+/* KT Plaza - styles.css (cleaned)
+   목표: 현재 index.html / admin.html에서 사용되는 스타일만 유지 + 중복 제거
+*/
+
 :root{
-  --navy:#0B1B3B;          /* Bright Navy Base */
+  --navy:#0B1B3B;
   --navy2:#10285A;
   --white:#FFFFFF;
-  --red:#E60012;           /* Point Red */
+  --red:#E60012;
   --muted:#EAF0FF;
   --text:#0A1224;
-  --shadow: 0 10px 30px rgba(0,0,0,.18);
+
   --radius: 18px;
   --radius2: 22px;
+
+  --elev-1: 0 10px 26px rgba(12, 18, 40, .14);
+  --elev-2: 0 16px 34px rgba(12, 18, 40, .18);
+
   --safeTop: env(safe-area-inset-top, 0px);
   --safeBottom: env(safe-area-inset-bottom, 0px);
 }
 
-*{box-sizing:border-box}
-html,body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Segoe UI, Roboto, Arial, sans-serif;
-  color:var(--text);
-  background: var(--navy); /* Navy 단색 */
-  overscroll-behavior: none; /* 드래그/바운스 시 배경 따라다니는 느낌 완화 */
-}
+*{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+html,body{ margin:0; padding:0; }
 body{
-  margin:0;
   font-family: ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", Segoe UI, Roboto, Arial, sans-serif;
-  color:var(--text);
+  color: var(--text);
   background: linear-gradient(180deg, #06142B 0%, #0B1B3B 24%, #0B1B3B 24%, #F6F8FF 90%);
+  overscroll-behavior: none;
 }
 
-/* Intro */
+/* Utilities */
+.hidden{ display:none !important; }
+a, button { touch-action: manipulation; }
+a{ color: inherit; }
+
+/* ---------------------------
+   Intro overlay
+--------------------------- */
 .intro{
   position:fixed;
   inset:0;
@@ -39,19 +48,18 @@ body{
   justify-content:center;
   padding: calc(14px + var(--safeTop)) 14px calc(14px + var(--safeBottom));
 }
-.intro.is-hidden{display:none}
+.intro.is-hidden{ display:none; }
 .intro__video{
   width:min(520px, 100%);
   aspect-ratio: 9 / 16;
   border-radius: var(--radius2);
-  box-shadow: var(--shadow);
+  box-shadow: var(--elev-2);
   background:#000;
 }
 .intro__hint{
   position:absolute;
   bottom: calc(18px + var(--safeBottom));
-  left: 0;
-  right: 0;
+  left:0; right:0;
   display:flex;
   justify-content:center;
   pointer-events:none;
@@ -62,7 +70,7 @@ body{
   color: #fff;
   padding: 10px 14px;
   border-radius: 999px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -.2px;
   backdrop-filter: blur(10px);
 }
@@ -75,28 +83,29 @@ body{
   color:#fff;
   padding:10px 12px;
   border-radius: 12px;
-  font-weight:800;
+  font-weight: 900;
   cursor:pointer;
 }
 
-/* Topbar */
+/* ---------------------------
+   Topbar
+--------------------------- */
 .topbar{
   position:fixed;
-  top:0;
-  left:0;
-  right:0;
+  top:0; left:0; right:0;
   z-index:50;
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding: calc(12px + var(--safeTop)) 14px 12px;
-  background: #fff; /* White 배경 */
+  background:#fff;
   border-bottom: 1px solid rgba(11,27,59,.12);
   box-shadow: 0 10px 24px rgba(12,18,40,.12);
 }
-.topbar__title{color:var(--navy); line-height:1.05}
-.brand{font-weight:900; letter-spacing:-.3px; font-size:14px; color: rgba(11,27,59,.82)}
-.branch{font-weight:900; font-size:16px; margin-top:4px; color: var(--navy)}
+.topbar__title{ color:var(--navy); line-height:1.05; }
+.brand{ font-weight:900; letter-spacing:-.3px; font-size:14px; color: rgba(11,27,59,.82); }
+.branch{ font-weight:950; font-size:16px; margin-top:4px; color: var(--navy); }
+
 .topbar__cta{
   display:flex;
   align-items:center;
@@ -108,22 +117,19 @@ body{
   border-radius: 14px;
   box-shadow: 0 10px 20px rgba(230,0,18,.28);
 }
-.topbar__ctaText{
-  font-size:12px;
-  line-height:1.1;
-}
-.topbar__ctaText b{font-weight:900}
-.icon{display:grid; place-items:center}
+.topbar__ctaText{ font-size:12px; line-height:1.1; }
+.topbar__ctaText b{ font-weight:950; }
+.icon{ display:grid; place-items:center; }
 
-/* App wrapper */
+/* ---------------------------
+   App wrapper / Tabs / Panels
+--------------------------- */
 .app{
-  padding-top: 86px; /* topbar height approximation */
+  padding-top: 86px; /* topbar 높이 보정 */
   padding-bottom: calc(16px + var(--safeBottom));
   max-width: 720px;
   margin: 0 auto;
 }
-
-/* Tabs */
 .tabs{
   position: sticky;
   top: calc(60px + var(--safeTop));
@@ -139,29 +145,29 @@ body{
   color:#fff;
   padding: 10px 10px;
   border-radius: 14px;
-  font-weight: 900;
+  font-weight: 950;
   font-size: 12px;
   cursor:pointer;
   backdrop-filter: blur(10px);
 }
 .tab.is-active{
-  background: #fff;
+  background:#fff;
   color: var(--navy);
   border-color: rgba(255,255,255,.55);
-  box-shadow: 0 12px 25px rgba(0,0,0,.18);
+  box-shadow: var(--elev-2);
 }
+.panel{ display:none; padding: 0 14px 12px; }
+.panel.is-active{ display:block; }
 
-/* Panels */
-.panel{display:none; padding: 0 14px 12px}
-.panel.is-active{display:block}
-
-/* Section */
-.section{margin: 14px 0 18px}
+/* ---------------------------
+   Sections / generic cards
+--------------------------- */
+.section{ margin: 14px 0 18px; }
 .section__head h2{
   margin: 0;
   font-size: 18px;
   letter-spacing: -.3px;
-  color: #fff; /* Head 글 White */
+  color: #fff;
 }
 .section__desc{
   margin: 8px 0 0;
@@ -170,47 +176,31 @@ body{
   font-size: 13px;
 }
 
-/* Cards */
-.card, .heroCard, .bigCard, .profileCard, .callBanner{
-  background: #fff;
+.card, .heroCard, .profileCard, .callBanner, .actionTile, .promoCard, .clipCard{
+  background:#fff;
   border-radius: var(--radius2);
-  box-shadow: var(--elev-2);
   border: 1px solid rgba(11,27,59,.10);
+  box-shadow: var(--elev-1);
   overflow:hidden;
 }
 
-.card{padding: 12px}
-.card__note{
-  padding: 10px 12px 2px;
-  font-size: 12px;
-  color: rgba(10,18,36,.65);
-}
-
-/* =========================
-   Hero Card (Background Image Version)
-   ========================= */
-
+/* ---------------------------
+   Hero card (background image)
+--------------------------- */
 .heroCard{
-  display: grid;
+  display:grid;
   gap: 10px;
   padding: 14px;
-  border-radius: 22px;
 }
-
-/* 배경 이미지 카드 */
 .heroCard--bg{
   position: relative;
   overflow: hidden;
-
-  background-image: url("assets/mainpage.png"); /* ← 메인 배경 */
+  background-image: url("assets/mainpage.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
-  min-height: 420px; /* 모바일 기준 히어로 높이 */
+  min-height: 420px;
 }
-
-/* 배경 위 가독성 확보용 오버레이 (색만, 이미지 가리지 않음) */
 .heroCard--bg::before{
   content:"";
   position:absolute;
@@ -222,78 +212,26 @@ body{
     rgba(11,27,59,.75) 100%
   );
   pointer-events:none;
-  z-index: 0;
+  z-index:0;
 }
-
-/* 내부 콘텐츠를 배경 위로 */
-.heroCard--bg > *{
-  position: relative;
-  z-index: 1;
-}
-
-/* 텍스트 영역 (배경 위에서 읽히게) */
-.heroCard--bg .heroCard__text{
-  color: #fff;
-}
-
-/* =========================
-   Team Image 영역 (배경을 덮지 않게)
-   ========================= */
-
-.heroCard--bg .heroCard__media{
-  background: transparent; /* ← 배경 덮지 않음 */
+.heroCard--bg > *{ position: relative; z-index:1; }
+.heroCard__media{
+  background: transparent;
   border: none;
   margin: 0;
   border-radius: 18px;
   overflow: hidden;
 }
-
-.heroCard__media img{
-  width: 100%;
-  display: block;
-  border-radius: 18px;
-}
-
-/* 캡션만 흰 배경 유지 */
+.heroCard__media img{ width:100%; display:block; border-radius: 18px; }
 .heroCard__media figcaption{
   padding: 10px 12px;
   font-size: 12px;
   color: rgba(10,18,36,.65);
   background: rgba(255,255,255,.92);
 }
+.heroCard__trust{ display:block; margin-top: 4px; font-weight: 900; color: rgba(10,18,36,.72); }
 
-/* =========================
-   Optional: Core bullets 카드 톤 정리
-   ========================= */
-
-.heroCard--bg .coreBullets{
-  background: rgba(255,255,255,.96);
-  border-radius: 18px;
-  padding: 12px;
-  color: var(--navy);
-}
-
-/* =========================
-   Mobile fine tuning
-   ========================= */
-
-@media (max-width: 420px){
-  .heroCard--bg{
-    min-height: 380px;
-  }
-}
-
-@media (max-width: 360px){
-  .heroCard--bg{
-    min-height: 340px;
-  }
-}
-
-
-/* =========================
-   heroIntro (Fade In & Out)
-   ========================= */
-
+/* hero intro animation */
 .heroIntro{
   margin: 6px 0 12px;
   color:#fff;
@@ -302,390 +240,177 @@ body{
 .heroIntro__line1{
   font-weight: 1000;
   letter-spacing: -.4px;
-  font-size: 22px; /* 첫 줄 크게 */
+  font-size: 22px;
   line-height: 1.15;
   text-shadow: 0 12px 26px rgba(0,0,0,.45);
 }
 .heroIntro__line2{
   margin-top: 6px;
   font-weight: 850;
-  font-size: 13px; /* 둘째 줄 작게 */
+  font-size: 13px;
   opacity: .95;
   text-shadow: 0 12px 26px rgba(0,0,0,.45);
 }
-
 @keyframes heroIntroFade{
   0%   { opacity: 0; transform: translateY(6px); }
   12%  { opacity: 1; transform: translateY(0); }
   70%  { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-4px); }
 }
-
+@media (max-width: 420px){ .heroCard--bg{ min-height: 380px; } }
 @media (max-width: 360px){
+  .heroCard--bg{ min-height: 340px; }
   .heroIntro__line1{ font-size: 19px; }
   .heroIntro__line2{ font-size: 12px; }
 }
 
-/* Fade lines */
-.fadeLines{
-  margin: 0 0 10px;
-  font-size: 18px;
-  letter-spacing: -.4px;
-  line-height:1.2;
-}
-.fadeLines span{
-  display:block;
-  opacity:0;
-  transform: translateY(6px);
-  animation: fadeUp .7s ease forwards;
-}
-.fadeLines span:nth-child(1){animation-delay:.1s}
-.fadeLines span:nth-child(2){animation-delay:.3s}
-@keyframes fadeUp{
-  to{opacity:1; transform: translateY(0)}
-}
-
-/* Bullets */
-.bullets{
-  margin: 10px 0 0;
-  padding: 0;
-  list-style:none;
-  display:grid;
-  gap: 8px;
-}
-.bullets li{
-  font-weight: 700;
-  font-size: 13px;
-  color: rgba(10,18,36,.78);
-  padding-left: 12px;
-  position:relative;
-}
-.bullets li::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:.55em;
-  width:6px;
-  height:6px;
-  border-radius:999px;
-  background: var(--red);
-}
-
-/* 9:16 ratio */
-.ratioVideo{
-  position:relative;
-  width:100%;
-  border-radius: 18px;
-  overflow:hidden;
-  background:#0A1224;
-}
-.ratioVideo--9x16{ padding-top: 177.7778%; } /* 9:16 */
-.ratioVideo__video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:0;
-  display:block;
-  object-fit: cover;
-}
-
-/* Big cards */
-.stack{display:grid; gap: 12px; margin-top: 12px}
-.bigCard{padding: 14px; position:relative}
-.bigCard__badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-weight: 900;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--red), #FF2A3A);
-  color:#fff;
-}
-.bigCard__badge--outline{
-  background: linear-gradient(135deg, var(--red), #FF2A3A);
-  color:#fff;
-  border: none;
-}
-.bigCard__title{
-  margin: 12px 0 6px;
-  font-size: 16px;
-  letter-spacing: -.3px;
-}
-.bigCard__body{
-  margin: 0;
-  font-size: 13px;
-  color: rgba(10,18,36,.75);
-  line-height:1.55;
-  font-weight: 650;
-}
-.bigCard__actions{margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap}
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  font-weight: 900;
-  padding: 10px 12px;
-  border-radius: 14px;
-  background: var(--navy);
-  color:#fff;
-}
-.btn--ghost{
-  background: #fff;
-  color: var(--navy);
-  border: 2px solid rgba(11,27,59,.14);
-}
-
-/* Profile cards */
-.profileCard{
-  display:flex;
-  gap: 12px;
+/* ---------------------------
+   Core bullets accordion
+--------------------------- */
+.coreBullets{
+  margin-top: 12px;
   padding: 12px;
-  text-decoration:none;
-  color: inherit;
-}
-.profileCard--primary{
-  border: 2px solid rgba(230,0,18,.18);
-  box-shadow: 0 14px 30px rgba(230,0,18,.12);
-}
-.profileCard__img{
-  width: 74px;
-  height: 74px;
-  border-radius: 18px;
-  object-fit: cover;
+  border-radius: var(--radius2);
   border: 1px solid rgba(11,27,59,.10);
-  background: var(--muted);
+  background: linear-gradient(180deg, rgba(245,248,255,.94), rgba(255,255,255,1));
+  box-shadow: var(--elev-1);
 }
-.profileCard__meta{min-width:0}
-.profileCard__name{
+.coreBullets__head{ display:grid; gap:6px; margin-bottom: 10px; }
+.coreBullets__title{
+  margin:0;
   font-weight: 950;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: -.2px;
-}
-.profileCard__tags{margin-top: 8px; display:flex; gap: 6px; flex-wrap:wrap}
-.tag{
-  font-size: 12px;
-  font-weight: 850;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #F2F5FF;
   color: var(--navy);
-  border: 1px solid rgba(11,27,59,.10);
 }
-.profileCard__hint{
-  margin-top: 8px;
+.coreBullets__sub{
+  margin:0;
   font-size: 12px;
-  color: rgba(10,18,36,.60);
+  line-height: 1.5;
+  color: rgba(10,18,36,.66);
   font-weight: 750;
 }
 
-/* Action grid */
-.grid{
-  margin-top: 12px;
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.actionTile{
-  text-decoration:none;
-  color: inherit;
+.bulletCards{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+.bulletCard{
   background:#fff;
-  border-radius: 18px;
-  padding: 12px;
-  border: 1px solid rgba(11,27,59,.08);
-  box-shadow: 0 10px 20px rgba(12,18,40,.10);
+  border-radius: 16px;
+  border: 1px solid rgba(11,27,59,.10);
+  box-shadow: var(--elev-1);
+  overflow:hidden;
 }
-.actionTile__title{font-weight: 950; font-size: 13px; letter-spacing: -.2px}
-.actionTile__sub{margin-top: 6px; font-size: 12px; color: rgba(10,18,36,.62); font-weight: 700}
-
-/* Call banner */
-.callBanner{
-  margin-top: 12px;
+.bulletCard__btn{
+  width:100%;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding: 14px;
-  text-decoration:none;
-  background: linear-gradient(135deg, var(--navy), var(--navy2));
-  color:#fff;
-  border: 1px solid rgba(255,255,255,.12);
+  gap: 10px;
+  padding: 12px 12px;
+  border:0;
+  background: transparent;
+  cursor:pointer;
+  text-align:left;
 }
-.callBanner__title{font-weight: 950; font-size: 18px; letter-spacing: -.3px}
-.callBanner__sub{margin-top: 6px; font-size: 12px; opacity:.9; font-weight: 750}
-.callBanner__right{
-  font-weight: 950;
-  background: linear-gradient(135deg, var(--red), #FF2A3A);
-  padding: 10px 14px;
-  border-radius: 14px;
-}
-
-/* Wide buttons */
-.btnWide{
-  margin-top: 12px;
-  display:flex;
+.bulletCard__kicker{
+  flex:0 0 auto;
+  display:inline-flex;
   align-items:center;
   justify-content:center;
-  text-decoration:none;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
   font-weight: 950;
-  padding: 14px 12px;
-  border-radius: 18px;
-  background: #fff;
-  color: var(--navy);
-  border: 2px solid rgba(11,27,59,.10);
-  box-shadow: 0 10px 20px rgba(12,18,40,.10);
-}
-.btnWide--accent{
-  background: linear-gradient(135deg, var(--red), #FF2A3A);
+  font-size: 12px;
   color:#fff;
-  border-color: rgba(255,255,255,.25);
+  background: linear-gradient(135deg, var(--red), #FF2A3A);
+  box-shadow: 0 10px 18px rgba(230,0,18,.18);
+}
+.bulletCard__title{
+  font-weight: 950;
+  font-size: 13px;
+  letter-spacing: -.2px;
+  color: rgba(11,27,59,.92);
+  line-height: 1.2;
+}
+.bulletCard__icon{
+  margin-left:auto;
+  font-weight: 950;
+  color: rgba(11,27,59,.55);
+  transition: transform .22s ease;
+  opacity: .9;
+}
+.bulletCard__panel{
+  display:grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .28s ease;
+  border-top: 1px solid rgba(11,27,59,.08);
+}
+.bulletCard__panelInner{
+  overflow:hidden;
+  padding: 0 12px 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity .20s ease, transform .20s ease, padding .20s ease;
+}
+.bulletCard.is-open .bulletCard__panel{ grid-template-rows: 1fr; }
+.bulletCard.is-open .bulletCard__panelInner{
+  padding: 10px 12px 12px;
+  opacity: 1;
+  transform: translateY(0);
+}
+.bulletCard.is-open .bulletCard__icon{ transform: rotate(180deg); }
+
+.bulletCard__headline{
+  margin: 0 0 6px;
+  font-weight: 950;
+  font-size: 13px;
+  color: var(--navy);
+  letter-spacing: -.2px;
+}
+.bulletCard__desc{
+  margin:0;
+  font-weight: 750;
+  font-size: 12px;
+  color: rgba(10,18,36,.72);
+  line-height: 1.55;
+}
+.coreBullets__cta{
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px dashed rgba(230,0,18,.26);
+  background: rgba(230,0,18,.06);
+  font-weight: 900;
+  font-size: 12px;
+  color: rgba(11,27,59,.86);
 }
 
-/* Footer */
-.footer{
-  margin: 18px 0 8px;
-  padding: 14px 6px 0;
-  text-align:center;
-  color: rgba(255,255,255,.70);
-}
-.footer__line{font-weight: 900}
-.footer__small{margin-top: 6px; font-size: 12px; font-weight: 650}
-
-/* Small screens tweaks */
-@media (max-width: 320px){
-  .grid{grid-template-columns: 1fr}
-  .topbar__ctaText{display:none}
-  .topbar__cta{padding:10px 12px}
-}
-
-/* =========================
-   Interaction + Depth System
-   ========================= */
-
-/* 터치 하이라이트 제거(모바일) */
-* { -webkit-tap-highlight-color: transparent; }
-
-/* 공통: 눌림/호버 반응 */
-a, button { touch-action: manipulation; }
-
-:root{
-  --elev-1: 0 10px 26px rgba(12, 18, 40, .14);
-  --elev-2: 0 16px 34px rgba(12, 18, 40, .18);
-  --elev-3: 0 22px 46px rgba(12, 18, 40, .22);
-}
-
-/* "클릭 가능한" 요소들에 기본 인터랙션 부여 */
-.tab,
-.topbar__cta,
-.btn,
-.btnWide,
-.actionTile,
-.profileCard,
-.bigCard,
-.callBanner{
-  transition:
-    transform .14s ease,
-    box-shadow .14s ease,
-    filter .14s ease,
-    background-color .14s ease,
-    border-color .14s ease;
-  will-change: transform, box-shadow;
-  transform: translateZ(0);
-}
-
-/* 데스크탑/마우스 환경: 호버 시 살짝 떠오름 */
-@media (hover:hover) and (pointer:fine){
-  .tab:hover,
-  .topbar__cta:hover,
-  .btn:hover,
-  .btnWide:hover,
-  .actionTile:hover,
-  .profileCard:hover,
-  .bigCard:hover,
-  .callBanner:hover{
-    transform: translateY(-2px);
-    box-shadow: var(--elev-2);
-    filter: brightness(1.02);
-  }
-}
-
-/* 모바일 포함: 눌렀을 때 '딸깍' 느낌 */
-.tab:active,
-.topbar__cta:active,
-.btn:active,
-.btnWide:active,
-.actionTile:active,
-.profileCard:active,
-.bigCard:active,
-.callBanner:active{
-  transform: translateY(1px) scale(.99);
-  box-shadow: var(--elev-1);
-  filter: brightness(.98);
-}
-
-/* 키보드 접근성 포커스 링 */
-.tab:focus-visible,
-.topbar__cta:focus-visible,
-.btn:focus-visible,
-.btnWide:focus-visible,
-.actionTile:focus-visible,
-.profileCard:focus-visible,
-.bigCard:focus-visible,
-.callBanner:focus-visible{
-  outline: 3px solid rgba(230,0,18,.35);
-  outline-offset: 3px;
-  border-radius: 18px;
-}
-
-/* 큰 카드/타일의 입체감 기본값을 조금 더 강화 */
-.actionTile,
-.profileCard,
-.bigCard,
-.card,
-.heroCard{
-  box-shadow: var(--elev-1);
-}
-
-/* 카드들이 '살짝 튀어나와' 보이게 상단 하이라이트 */
-.card, .heroCard:not(.heroCard--bg), .bigCard, .profileCard, .actionTile{
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,1));
-}
-
-/* 모션 최소화 설정 사용자 배려 */
-@media (prefers-reduced-motion: reduce){
-  .tab,
-  .topbar__cta,
-  .btn,
-  .btnWide,
-  .actionTile,
-  .profileCard,
-  .bigCard,
-  .callBanner{
-    transition: none !important;
-  }
-}
-
-/* 네이버 플레이스 클립 */
+/* ---------------------------
+   ClipCard (YouTube Shorts)
+--------------------------- */
 .clipCard{
+  appearance:none;
+  border: 0;
+  background: transparent;
   display:block;
+  width:100%;
   text-decoration:none;
   color:inherit;
-  background:#fff;
-  border-radius: 22px;
+  border-radius: var(--radius2);
   overflow:hidden;
+  background:#fff;
   border: 1px solid rgba(255,255,255,.14);
   box-shadow: 0 16px 34px rgba(0,0,0,.22);
+  cursor:pointer;
+  padding:0;
 }
 .clipCard__thumb{
   position:relative;
   aspect-ratio: 9 / 16;
   background:#0A1224;
 }
-.clipCard__thumb img{
-  width:100%; height:100%;
+.clipCard__img{
+  width:100%;
+  height:100%;
   object-fit:cover;
   display:block;
   filter: saturate(1.05) contrast(1.02);
@@ -693,7 +418,7 @@ a, button { touch-action: manipulation; }
 .clipCard__badge{
   position:absolute;
   top:12px; left:12px;
-  background: linear-gradient(135deg, #E60012, #FF2A3A);
+  background: linear-gradient(135deg, var(--red), #FF2A3A);
   color:#fff;
   font-weight:900;
   font-size:12px;
@@ -714,226 +439,49 @@ a, button { touch-action: manipulation; }
   border: 1px solid rgba(255,255,255,.22);
   backdrop-filter: blur(8px);
 }
-.clipCard__body{
-  padding: 12px 14px 14px;
-}
-.clipCard__title{
-  font-weight: 950;
-  letter-spacing: -.2px;
-}
-.clipCard__sub{
-  margin-top:6px;
-  font-size:12px;
-  color: rgba(10,18,36,.62);
-  font-weight: 700;
-}
+.clipCard__body{ padding: 12px 14px 14px; }
+.clipCard__title{ font-weight: 950; letter-spacing: -.2px; }
+.clipCard__sub{ margin-top:6px; font-size:12px; color: rgba(10,18,36,.62); font-weight: 700; }
 
-
-/* =========================
-   Core Bullets Accordion (Mobile-first)
-   ========================= */
-
-.coreBullets{
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: var(--radius2);
-  border: 1px solid rgba(11,27,59,.10);
-  background: linear-gradient(180deg, rgba(245,248,255,.94), rgba(255,255,255,1));
-  box-shadow: var(--elev-1);
-}
-
-.coreBullets__head{display:grid; gap:6px; margin-bottom: 10px;}
-.coreBullets__title{
-  margin:0;
-  font-weight: 950;
-  font-size: 14px;
-  letter-spacing: -.2px;
-  color: var(--navy);
-}
-.coreBullets__sub{
-  margin:0;
-  font-size: 12px;
-  line-height: 1.5;
-  color: rgba(10,18,36,.66);
-  font-weight: 750;
-}
-
-.bulletCards{
-  list-style:none;
-  padding:0;
-  margin: 0;
-  display:grid;
-  gap: 10px;
-}
-
-.bulletCard{
-  background:#fff;
-  border-radius: 16px;
-  border: 1px solid rgba(11,27,59,.10);
-  box-shadow: var(--elev-1);
-  overflow:hidden;
-}
-
-.bulletCard__btn{
-  width:100%;
+/* player overlay */
+.clipCard__player{
+  position:absolute;
+  inset:0;
+  background:#000;
   display:flex;
-  align-items:center;
-  gap: 10px;
-  padding: 12px 12px;
-  border:0;
-  background: transparent;
-  cursor:pointer;
-  text-align:left;
+  align-items:stretch;
+  justify-content:stretch;
 }
-
-.bulletCard__kicker{
-  flex: 0 0 auto;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width: 26px;
-  height: 26px;
+.clipCard__iframe{ width:100%; height:100%; border:0; }
+.clipCard__close{
+  position:absolute;
+  top: 8px;
+  right: 8px;
+  width: 34px;
+  height: 34px;
   border-radius: 999px;
-  font-weight: 950;
-  font-size: 12px;
-  color: #fff;
-  background: linear-gradient(135deg, var(--red), #FF2A3A);
-  box-shadow: 0 10px 18px rgba(230,0,18,.18);
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(0,0,0,.45);
+  color:#fff;
+  font-size: 16px;
+  cursor:pointer;
+  z-index: 2;
 }
+.clipCard.is-playing .clipCard__badge,
+.clipCard.is-playing .clipCard__play{ display:none; }
 
-.bulletCard__title{
-  font-weight: 950;
-  font-size: 13px;
-  letter-spacing: -.2px;
-  color: rgba(11,27,59,.92);
-  line-height: 1.2;
-}
-
-.bulletCard__icon{
-  margin-left:auto;
-  font-weight: 950;
-  color: rgba(11,27,59,.55);
-  transition: transform .22s ease, opacity .22s ease;
-  opacity: .9;
-}
-
-/* Panel: grid trick for smooth height animation */
-.bulletCard__panel{
-  display:grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .28s ease;
-  border-top: 1px solid rgba(11,27,59,.08);
-}
-.bulletCard__panelInner{
-  overflow:hidden;
-  padding: 0 12px 0;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity .20s ease, transform .20s ease, padding .20s ease;
-}
-
-.bulletCard.is-open .bulletCard__panel{
-  grid-template-rows: 1fr;
-}
-.bulletCard.is-open .bulletCard__panelInner{
-  padding: 10px 12px 12px;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.bulletCard.is-open .bulletCard__icon{
-  transform: rotate(180deg);
-  opacity: 1;
-}
-
-.bulletCard__headline{
-  margin: 0 0 6px;
-  font-weight: 950;
-  font-size: 13px;
-  color: var(--navy);
-  letter-spacing: -.2px;
-}
-.bulletCard__desc{
-  margin:0;
-  font-weight: 750;
-  font-size: 12px;
-  color: rgba(10,18,36,.72);
-  line-height: 1.55;
-}
-
-.coreBullets__cta{
-  margin-top: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border: 1px dashed rgba(230,0,18,.26);
-  background: rgba(230,0,18,.06);
-  font-weight: 900;
-  font-size: 12px;
-  color: rgba(11,27,59,.86);
-}
-
-/* 사진 하단 신뢰 문구(없으면 추가) */
-.heroCard__trust{
-  display:block;
-  margin-top: 4px;
-  font-weight: 900;
-  color: rgba(10,18,36,.72);
-}
-
-/* Reduce motion */
-@media (prefers-reduced-motion: reduce){
-  .bulletCard__panel,
-  .bulletCard__panelInner,
-  .bulletCard__icon{
-    transition: none !important;
-    transform: none !important;
-  }
-  .bulletCard__panelInner{opacity: 1 !important;}
-}
-
-/* =========================
-   Promo Cards (판매상품 소개)
-   - Mobile first / 1열 / BigCard 체감 2배 높이
-   ========================= */
-
-.promoStack{
-  display:grid;
-  gap: 14px;
-  margin-top: 12px;
-}
-
-/* 카드 전체 */
-.promoCard{
-  background:#fff;
-  border-radius: 22px;
-  overflow:hidden;
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 18px 40px rgba(0,0,0,.22);
-  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
-  will-change: transform, box-shadow;
-}
-.promoCard__link{
-  display:block;
-  text-decoration:none;
-  color: inherit;
-}
-
-/* 이미지 영역이 "크게" 들어가서 BigCard보다 확실히 길게 보이게 */
+/* ---------------------------
+   Promo cards (블로그)
+--------------------------- */
+.promoStack{ display:grid; gap: 14px; margin-top: 12px; }
+.promoCard__link{ display:block; text-decoration:none; color:inherit; }
 .promoCard__media{
   position:relative;
   width:100%;
-  height: 320px; /* 핵심: 큰 세로 사이즈 */
+  height: 320px;
   background:#0A1224;
 }
-.promoCard__media img{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit: cover;
-  filter: saturate(1.05) contrast(1.02);
-}
-
-/* BLOG 배지 (기존 Hot 배지 느낌 통일) */
+.promoCard__media img{ width:100%; height:100%; object-fit:cover; display:block; }
 .promoBadge{
   position:absolute;
   top: 12px;
@@ -946,27 +494,10 @@ a, button { touch-action: manipulation; }
   border-radius: 999px;
   box-shadow: 0 10px 20px rgba(230,0,18,.25);
 }
+.promoCard__content{ padding: 14px 14px 16px; }
+.promoCard__title{ margin: 0 0 10px; font-size: 16px; letter-spacing: -.3px; font-weight: 950; color: var(--navy); }
 
-/* 본문 */
-.promoCard__content{
-  padding: 14px 14px 16px;
-}
-.promoCard__title{
-  margin: 0 0 10px;
-  font-size: 16px;
-  letter-spacing: -.3px;
-  font-weight: 950;
-  color: var(--navy);
-}
-
-/* 불릿 */
-.promoBullets{
-  margin: 0;
-  padding: 0;
-  list-style:none;
-  display:grid;
-  gap: 8px;
-}
+.promoBullets{ margin:0; padding:0; list-style:none; display:grid; gap:8px; }
 .promoBullets li{
   position:relative;
   padding-left: 12px;
@@ -980,13 +511,10 @@ a, button { touch-action: manipulation; }
   position:absolute;
   left:0;
   top:.55em;
-  width:6px;
-  height:6px;
+  width:6px; height:6px;
   border-radius:999px;
   background: var(--red);
 }
-
-/* CTA 바 */
 .promoCta{
   margin-top: 12px;
   display:flex;
@@ -999,422 +527,187 @@ a, button { touch-action: manipulation; }
   font-weight: 950;
   color: var(--navy);
 }
+@media (max-width: 420px){ .promoCard__media{ height: 300px; } }
+@media (max-width: 360px){ .promoCard__media{ height: 280px; } }
 
-/* 인터랙션 */
+/* ---------------------------
+   Profile cards / grid / banners
+--------------------------- */
+.stack{ display:grid; gap: 12px; margin-top: 12px; }
+
+.profileCard{
+  display:flex;
+  gap: 12px;
+  padding: 12px;
+  text-decoration:none;
+  color: inherit;
+}
+.profileCard--primary{
+  border: 2px solid rgba(230,0,18,.18);
+  box-shadow: 0 14px 30px rgba(230,0,18,.12);
+}
+.profileCard__img{
+  width: 74px;
+  height: 74px;
+  border-radius: 18px;
+  object-fit: cover;
+  border: 1px solid rgba(11,27,59,.10);
+  background: var(--muted);
+}
+.profileCard__meta{ min-width:0; }
+.profileCard__name{
+  font-weight: 950;
+  font-size: 15px;
+  letter-spacing: -.2px;
+}
+.profileCard__tags{ margin-top: 8px; display:flex; gap: 6px; flex-wrap:wrap; }
+.tag{
+  font-size: 12px;
+  font-weight: 850;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #F2F5FF;
+  color: var(--navy);
+  border: 1px solid rgba(11,27,59,.10);
+}
+.profileCard__hint{ margin-top: 8px; font-size: 12px; color: rgba(10,18,36,.60); font-weight: 750; }
+
+.grid{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.actionTile{
+  text-decoration:none;
+  color: inherit;
+  border-radius: 18px;
+  padding: 12px;
+  border: 1px solid rgba(11,27,59,.08);
+  box-shadow: 0 10px 20px rgba(12,18,40,.10);
+}
+.actionTile__title{ font-weight: 950; font-size: 13px; letter-spacing: -.2px; }
+.actionTile__sub{ margin-top: 6px; font-size: 12px; color: rgba(10,18,36,.62); font-weight: 700; }
+
+.callBanner{
+  margin-top: 12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 14px;
+  text-decoration:none;
+  background: linear-gradient(135deg, var(--navy), var(--navy2));
+  color:#fff;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.callBanner__title{ font-weight: 950; font-size: 18px; letter-spacing: -.3px; }
+.callBanner__sub{ margin-top: 6px; font-size: 12px; opacity:.9; font-weight: 750; }
+.callBanner__right{
+  font-weight: 950;
+  background: linear-gradient(135deg, var(--red), #FF2A3A);
+  padding: 10px 14px;
+  border-radius: 14px;
+}
+
+/* Wide buttons (full width CTA) */
+.btnWide{
+  margin-top: 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  font-weight: 950;
+  padding: 14px 12px;
+  border-radius: 18px;
+  background: #fff;
+  color: var(--navy);
+  border: 2px solid rgba(11,27,59,.10);
+  box-shadow: 0 10px 20px rgba(12,18,40,.10);
+}
+.btnWide--accent{
+  background: linear-gradient(135deg, var(--red), #FF2A3A);
+  color:#fff;
+  border-color: rgba(255,255,255,.25);
+}
+
+/* ---------------------------
+   Footer
+--------------------------- */
+.footer{
+  margin: 18px 0 8px;
+  padding: 14px 6px 0;
+  text-align:center;
+  color: rgba(255,255,255,.70);
+}
+.footer__line{ font-weight: 900; }
+.footer__small{ margin-top: 6px; font-size: 12px; font-weight: 650; }
+
+/* ---------------------------
+   Interactive feel + accessibility
+--------------------------- */
+.tab,
+.topbar__cta,
+.actionTile,
+.profileCard,
+.callBanner,
+.promoCard,
+.clipCard{
+  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease, background-color .14s ease, border-color .14s ease;
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
 @media (hover:hover) and (pointer:fine){
-  .promoCard:hover{
+  .tab:hover,
+  .topbar__cta:hover,
+  .actionTile:hover,
+  .profileCard:hover,
+  .callBanner:hover,
+  .promoCard:hover,
+  .clipCard:hover{
     transform: translateY(-2px);
-    box-shadow: 0 26px 56px rgba(0,0,0,.26);
+    box-shadow: var(--elev-2);
     filter: brightness(1.02);
   }
 }
-.promoCard:active{
+.tab:active,
+.topbar__cta:active,
+.actionTile:active,
+.profileCard:active,
+.callBanner:active,
+.promoCard:active,
+.clipCard:active{
   transform: translateY(1px) scale(.99);
+  box-shadow: var(--elev-1);
   filter: brightness(.98);
 }
-
-/* 작은 화면 대응 */
-@media (max-width: 420px){
-  .promoCard__media{ height: 300px; }
-}
-@media (max-width: 360px){
-  .promoCard__media{ height: 280px; }
-}
-
-/* =========================
-   Head Top Image + Overlay Text
-   ========================= */
-
-.headHero{
-  position: relative;
-  width: 100%;
-  margin-bottom: 12px;
-  border-radius: 22px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 18px 40px rgba(0,0,0,.22);
-  background: #0A1224;
-}
-
-/* 모바일에서 보기 좋게 16:9 비율(원하면 9:16으로 바꿀 수 있음) */
-.headHero__img{
-  width: 100%;
-  height: auto;
-  display: block;
-  aspect-ratio: 9 / 16;
-  object-fit: cover;
-  filter: saturate(1.05) contrast(1.05);
-}
-
-/* 문구 오버레이 */
-.headHero__overlay{
-  position:absolute;
-  inset: 0;
-  display:flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 16px 16px 18px;
-  color: #fff;
-  /* 텍스트 가독성용 어두운 그라데이션 */
-  background: linear-gradient(180deg, rgba(0,0,0,.00) 35%, rgba(0,0,0,.55) 100%);
-  animation: headFade 4.6s ease-in-out infinite;
-}
-
-.headHero__line1{
-  font-weight: 1000;
-  letter-spacing: -.4px;
-  font-size: 20px;  /* 첫 줄 크게 */
-  line-height: 1.15;
-  text-shadow: 0 10px 24px rgba(0,0,0,.45);
-}
-.headHero__line2{
-  margin-top: 6px;
-  font-weight: 850;
-  font-size: 13px;  /* 두 번째 줄 작게 */
-  opacity: .95;
-  text-shadow: 0 10px 24px rgba(0,0,0,.45);
-}
-
-/* Fade In & Out */
-@keyframes headFade{
-  0%   { opacity: 0; transform: translateY(6px); }
-  12%  { opacity: 1; transform: translateY(0); }
-  70%  { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-4px); }
-}
-
-/* 작은 화면 대응 */
-@media (max-width: 360px){
-  .headHero__line1{ font-size: 18px; }
-  .headHero__line2{ font-size: 12px; }
-}
-
-/* =========================
-   FIX 1) heroCard__media 캡션이 이미지 하단 라운드 덮기
-   ========================= */
-
-.heroCard__media{
-  position: relative;
-  overflow: hidden;       /* figure 라운드 안에서 다 처리 */
+.tab:focus-visible,
+.topbar__cta:focus-visible,
+.actionTile:focus-visible,
+.profileCard:focus-visible,
+.callBanner:focus-visible,
+.promoCard:focus-visible,
+.clipCard:focus-visible{
+  outline: 3px solid rgba(230,0,18,.35);
+  outline-offset: 3px;
   border-radius: 18px;
 }
 
-/* img는 라운드 제거(figure가 담당), 아래 라운드 노출 방지 */
-.heroCard__media img{
-  position: relative;
-  z-index: 2;            /* 👈 제일 위 */
-  display: block;
-  width: 100%;
-  border-radius: 0 !important;
+@media (max-width: 320px){
+  .grid{ grid-template-columns: 1fr; }
+  .topbar__ctaText{ display:none; }
+  .topbar__cta{ padding:10px 12px; }
 }
 
-/* 캡션: 아래 레이어 + 위로 겹치기 */
-.heroCard__media figcaption{
-  position: relative;
-  z-index: 1;            /* 👈 img보다 아래 */
-  margin-top: -11px;     /* 이미지 하단 덮기 */
-  background: rgba(255,255,255,.92);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  box-shadow: 0 -8px 20px rgba(0,0,0,.10);
-}
-
-/* =========================
-   FIX 2) heroCard 배경은 흰색 유지 + 전체 배경을 mainpage.png로 고정
-   ========================= */
-
-/* heroCard--bg가 혹시 남아 있어도 카드 배경은 흰색으로 강제 */
-.heroCard.heroCard--bg{
-  background: #fff !important;
-}
-
-/* 전체 배경 고정 레이어 (모바일/iOS 포함 안정 동작) */
-body{
-  position: relative;
-  background: var(--navy); /* fallback */
-}
-
-body::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: url("assets/mainpage.png") center / cover no-repeat;
-  transform: translateZ(0);
-}
-
-/* 배경 위 가독성을 위한 어두운 틴트(원하면 투명도 조절) */
-body::after{
-  content:"";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: rgba(11,27,59,.55); /* ← 0.45~0.65 사이로 취향 조절 */
-  pointer-events: none;
-}
-
-/* 기존 body에 들어가 있던 흰색 그라데이션 배경은 확실히 무효화 */
-html, body{
-  background: transparent !important;
-}
-
-/* =========================
-   Floating Naver Reservation Button (FAB)
-   ========================= */
-.fabNaver{
-  position: fixed;
-  right: 14px;
-  bottom: calc(14px + var(--safeBottom));
-  z-index: 120;
-
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  height: 52px;
-  padding: 0 14px;
-
-  border-radius: 18px; /* 둥근 직사각형 */
-  text-decoration: none;
-
-  background: #03C75A; /* Naver Green */
-  color: #fff;
-
-  box-shadow: 0 18px 38px rgba(0,0,0,.26);
-  border: 1px solid rgba(255,255,255,.18);
-
-  font-weight: 950;
-  letter-spacing: -.2px;
-
-  /* 귀여운 통통 튀는 애니메이션 */
-  animation: naverBounce 2s ease-in-out infinite;
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-/* 로고(간단 N 뱃지) */
-.fabNaver__logo{
-  width: 28px;
-  height: 28px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-
-  background: rgba(255,255,255,.18);
-  border: 1px solid rgba(255,255,255,.24);
-
-  font-weight: 1000;
-  font-size: 16px;
-  line-height: 1;
-}
-
-.fabNaver__text{
-  font-size: 14px;
-}
-
-/* 눌림 반응 */
-.fabNaver:active{
-  transform: translateY(1px) scale(.98);
-  filter: brightness(.98);
-}
-
-/* 2초마다 통통 튀기(공처럼) */
-@keyframes naverBounce{
-  0%, 100% { transform: translateY(0); }
-  10%      { transform: translateY(-10px); }
-  20%      { transform: translateY(0); }
-  30%      { transform: translateY(-6px); }
-  40%      { transform: translateY(0); }
-  100%     { transform: translateY(0); }
-}
-
-/* 모션 최소화 사용자 배려 */
 @media (prefers-reduced-motion: reduce){
-  .fabNaver{ animation: none !important; }
-}
-
-.hidden { display: none !important; }
-
-/* 카드가 button이 되어도 기존 카드처럼 보이게 */
-.clipCard {
-  width: 100%;
-  border: 0;
-  background: transparent;
-  padding: 0;
-  text-align: left;
-  cursor: pointer;
-}
-
-/* clipCard 하단 텍스트 영역 가독성 복구 */
-.clipCard__body{
-  background: rgba(255,255,255,0.86); /* 너무 투명하면 0.92로 올려 */
-  border: 1px solid rgba(196,233,196,0.7);
-  border-top: 0;                       /* 썸네일과 붙는 느낌 */
-  padding: 10px 12px;
-  border-radius: 0 0 14px 14px;
-  backdrop-filter: blur(6px);
-}
-
-/* 카드 내부 재생을 위한 썸네일 영역 기준 */
-.clipCard__thumb{
-  position: relative;
-  border-radius: 14px 14px 0 0;
-  overflow: hidden;
-}
-
-/* 카드 이미지 클래스(기존 img에 클래스 부여) */
-.clipCard__img{
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* 플레이어를 썸네일 위에 덮어씌움 */
-.clipCard__player{
-  position: absolute;
-  inset: 0;
-  background: #000;
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
-}
-
-/* iframe 꽉 채우기 */
-.clipCard__iframe{
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-/* 닫기 버튼(오른쪽 상단) */
-.clipCard__close{
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.35);
-  background: rgba(0,0,0,0.45);
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  z-index: 2;
-}
-
-/* 재생 중에는 배지/재생버튼 숨김 */
-.clipCard.is-playing .clipCard__badge,
-.clipCard.is-playing .clipCard__play{
-  display: none;
-}
-
-
-/* 인라인 재생 영역 */
-.ytInline {
-  margin-top: 12px;
-}
-
-.ytInline__wrap {
-  width: 100%;
-  aspect-ratio: 9 / 16; /* 쇼츠 비율 */
-  border-radius: 14px;
-  overflow: hidden;
-  background: #000;
-}
-
-.ytInline__wrap iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.ytInline__close {
-  margin-top: 10px;
-  width: 100%;
-  border-radius: 999px;
-  border: 1px solid #cceacd;
-  padding: 10px 14px;
-  background: #ffffff;
-  cursor: pointer;
-}
-
-/* ===== ClipCard z-index patch (영상이 안 보이는 문제 해결) ===== */
-.clipCard__thumb { position: relative; }
-
-.clipCard__player{
-  position: absolute;
-  inset: 0;
-  z-index: 50;          /* ✅ 썸네일 이미지보다 위 */
-  background: #000;
-}
-
-.clipCard__iframe{
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-
-.clipCard__badge,
-.clipCard__play{
-  position: absolute;
-  z-index: 40;          /* ✅ 플레이어보다 아래(재생 시 숨김 처리) */
-}
-
-.clipCard.is-playing .clipCard__thumb img{
-  opacity: 0;           /* ✅ 이미지가 위에 덮는 케이스 차단 */
-  pointer-events: none;
-}
-
-/* ===== ClipCard Inline Player Patch (필수) ===== */
-.hidden { display: none !important; }
-
-/* clipCard를 button으로 써도 모양 유지 */
-.clipCard{
-  width: 100%;
-  text-align: left;
-  padding: 0;
-  border: 0;
-  cursor: pointer;
-}
-
-/* 카드 내부에서 영상이 썸네일 위로 정확히 덮이게 */
-.clipCard__thumb{ position: relative; }
-
-.clipCard__player{
-  position: absolute;
-  inset: 0;
-  z-index: 50;
-  background: #000;
-}
-
-.clipCard__iframe{
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-}
-
-/* 재생 중엔 배지/재생버튼 숨김 */
-.clipCard.is-playing .clipCard__badge,
-.clipCard.is-playing .clipCard__play{
-  display: none !important;
-}
-
-/* 닫기 버튼 */
-.clipCard__close{
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 60;
-  width: 36px;
-  height: 36px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.25);
-  background: rgba(0,0,0,.45);
-  color: #fff;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
+  .tab,
+  .topbar__cta,
+  .actionTile,
+  .profileCard,
+  .callBanner,
+  .promoCard,
+  .clipCard{ transition: none !important; }
+  .heroIntro{ animation: none !important; }
+  .bulletCard__panel,
+  .bulletCard__panelInner,
+  .bulletCard__icon{ transition: none !important; }
 }
