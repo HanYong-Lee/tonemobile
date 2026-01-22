@@ -195,7 +195,7 @@ a{ color: inherit; }
 .heroCard--bg{
   position: relative;
   overflow: hidden;
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.66);
   backdrop-filter: blur(6px);
   background-size: cover;
   background-position: center;
