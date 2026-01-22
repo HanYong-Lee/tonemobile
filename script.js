@@ -1,9 +1,8 @@
-/* KT Plaza - main script
-   - Intro overlay
+/* KT Plaza - script.js (cleaned)
+   - Intro overlay (optional)
    - Tabs
    - Bullet accordion
-   - YouTube Shorts inline player (ClipCard)
-   - Lightweight analytics
+   - Lightweight analytics (Google Apps Script)
 */
 (() => {
   "use strict";
@@ -15,7 +14,7 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   // ---------------------------
-  // 1) Intro (tap to skip)
+  // 1) Intro (optional)
   // ---------------------------
   const intro = $("#intro");
   const introVideo = $("#introVideo");
@@ -33,7 +32,10 @@
     intro.addEventListener("click", hideIntro);
   }
   if (skipBtn) {
-    skipBtn.addEventListener("click", (e) => { e.stopPropagation(); hideIntro(); });
+    skipBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      hideIntro();
+    });
   }
   if (introVideo) {
     introVideo.addEventListener("ended", hideIntro);
@@ -47,6 +49,7 @@
   const panels = $$(".panel");
 
   const setActiveTab = (id) => {
+    if (!id) return;
     tabButtons.forEach((btn) => {
       const on = btn.dataset.tab === id;
       btn.classList.toggle("is-active", on);
@@ -58,7 +61,7 @@
 
   tabButtons.forEach((btn) => btn.addEventListener("click", () => setActiveTab(btn.dataset.tab)));
 
-  // Jump links inside cards (data-jump-tab)
+  // Jump links (data-jump-tab="t2" 같은 형태)
   $$("[data-jump-tab]").forEach((el) => {
     el.addEventListener("click", (e) => {
       const id = el.getAttribute("data-jump-tab");
@@ -68,7 +71,7 @@
     });
   });
 
-  // (Optional) retrigger fade lines when returning to Tab1
+  // (Optional) fadeLines 재실행 (t1 복귀 시)
   const reRunFadeLines = () => {
     const container = $("#t1 .fadeLines[data-fade-lines]");
     if (!container) return;
@@ -78,6 +81,7 @@
       s.style.animation = "";
     });
   };
+
   tabButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       if (btn.dataset.tab === "t1") reRunFadeLines();
@@ -123,77 +127,10 @@
   }
 
   // ---------------------------
-  // 4) YouTube Shorts (ClipCard)
-  //    - IMPORTANT: iOS/Safari autoplay is usually blocked unless muted.
-  //    - We set autoplay=1&mute=1&playsinline=1
+  // 4) Analytics (simple)
   // ---------------------------
-  const buildEmbedUrl = (videoId) => {
-    const params = new URLSearchParams({
-      autoplay: "1",
-      mute: "1",
-      playsinline: "1",
-      rel: "0",
-      modestbranding: "1",
-    });
-    return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}?${params.toString()}`;
-  };
-
-  const closeClipCard = (card) => {
-    const player = $(".clipCard__player", card);
-    const iframe = $(".clipCard__iframe", card);
-    player?.classList.add("hidden");
-    if (iframe) iframe.src = ""; // stop
-    card.classList.remove("is-playing");
-  };
-
-  const openClipCard = (card) => {
-    const videoId = card.dataset.videoId;
-    const player = $(".clipCard__player", card);
-    const iframe = $(".clipCard__iframe", card);
-    if (!videoId || !player || !iframe) return;
-
-    iframe.src = buildEmbedUrl(videoId);
-    player.classList.remove("hidden");
-    card.classList.add("is-playing");
-  };
-
-  // Single delegated handler (no duplicates)
-  document.addEventListener("click", (e) => {
-    const closeBtn = e.target.closest(".js-close-video");
-    if (closeBtn) {
-      e.preventDefault();
-      e.stopPropagation();
-      const card = closeBtn.closest(".clipCard");
-      if (card) closeClipCard(card);
-      return;
-    }
-
-    const openEl = e.target.closest(".js-open-video");
-    if (openEl) {
-      e.preventDefault();
-      const card = openEl.closest(".clipCard") || openEl;
-      if (!card) return;
-      // close other playing cards (optional)
-      $$(".clipCard.is-playing").forEach((c) => { if (c !== card) closeClipCard(c); });
-      openClipCard(card);
-    }
-  });
-
-  // Keyboard open (Space/Enter) if clipCard is a div/role=button
-  document.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    const el = document.activeElement;
-    if (!(el instanceof HTMLElement)) return;
-    if (!el.classList.contains("js-open-video")) return;
-    e.preventDefault();
-    $$(".clipCard.is-playing").forEach((c) => { if (c !== el) closeClipCard(c); });
-    openClipCard(el);
-  });
-
-  // ---------------------------
-  // 5) Analytics (simple)
-  // ---------------------------
-  const ANALYTICS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxTL6tU-PwMX5MOX0AHQGTaBbMfju_wz8GelbeWdfdhAivqzG8P8xGYErRIVPj76B1Sjg/exec";
+  const ANALYTICS_ENDPOINT =
+    "https://script.google.com/macros/s/AKfycbxTL6tU-PwMX5MOX0AHQGTaBbMfju_wz8GelbeWdfdhAivqzG8P8xGYErRIVPj76B1Sjg/exec";
 
   const getUaSummary = () => {
     const ua = (navigator.userAgent || "").toLowerCase();
@@ -248,7 +185,7 @@
     const url = `${ANALYTICS_ENDPOINT}?path=collect`;
     const json = JSON.stringify(bodyObj);
 
-    // sendBeacon first
+    // 1) sendBeacon 우선
     if (navigator.sendBeacon) {
       try {
         const blob = new Blob([json], { type: "text/plain;charset=UTF-8" });
@@ -256,7 +193,7 @@
       } catch (_) {}
     }
 
-    // fallback
+    // 2) fallback fetch
     fetch(url, {
       method: "POST",
       body: json,
@@ -266,6 +203,7 @@
     }).catch(() => {});
   };
 
+  // page view
   sendEvent({ event: "page_view" });
 
   const recordTabDwell = (nextTab) => {
@@ -283,15 +221,25 @@
     });
   });
 
+  // 클릭 이벤트 수집: 컨설턴트/CTA
   document.addEventListener("click", (e) => {
     const c = e.target.closest("[data-consultant]");
     if (c) {
-      sendEvent({ event: "consultant_click", targetType: "consultant", targetId: c.dataset.consultant || "unknown" });
+      sendEvent({
+        event: "consultant_click",
+        targetType: "consultant",
+        targetId: c.dataset.consultant || "unknown",
+      });
     }
 
     const a = e.target.closest("[data-cta]");
     if (a) {
-      sendEvent({ event: "cta_click", targetType: "cta", targetId: a.dataset.cta || "unknown", cardId: a.dataset.card || "default" });
+      sendEvent({
+        event: "cta_click",
+        targetType: "cta",
+        targetId: a.dataset.cta || "unknown",
+        cardId: a.dataset.card || "default",
+      });
     }
   });
 
@@ -301,9 +249,11 @@
 
     const now = Date.now();
 
+    // 마지막 탭 체류시간
     const dur = now - tabStart;
     if (dur > 300) sendEvent({ event: "tab_dwell", tab: activeTab, durationMs: dur });
 
+    // 세션 총 시간
     const total = now - sessionStart;
     if (total > 300) sendEvent({ event: "session_end", durationMs: total });
   };
