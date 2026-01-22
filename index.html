@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0B1B3B" />
-  <title>KT플라자 만남로점 | 통합 안내</title>
+  <title>KT플라자 유성점 | 통합 안내</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="style.css">
   <!-- PWA manifest & icons -->
@@ -14,7 +14,7 @@
   <meta name="theme-color" content="#25a25a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="KT플라자 만남로점">
+  <meta name="apple-mobile-web-app-title" content="KT플라자 유성점">
 </head>
 
 
@@ -39,10 +39,10 @@
   <header class="topbar">
     <div class="topbar__title">
       <div class="brand">KT플라자</div>
-      <div class="branch">만남로직영점</div>
+      <div class="branch">유성직영점</div>
     </div>
 
-    <a class="topbar__cta" href="tel:010-3232-2007" aria-label="불편사항 문의 점장 전화">
+    <a class="topbar__cta" data-cta="call_store" data-card="topbar" href="tel:010-1234-5678" aria-label="불편사항 문의 점장 전화">
       <span class="icon" aria-hidden="true">
         <!-- Phone SVG -->
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
@@ -56,7 +56,7 @@
   </header>
 
   <!-- Main -->
-  <main class="app" id="app" aria-label="KT플라자 만남로점 통합 페이지">
+  <main class="app" id="app" aria-label="KT플라자 유성점 통합 페이지">
     <!-- Tabs -->
     <nav class="tabs" aria-label="메인 탭">
       <button class="tab is-active" type="button" data-tab="t1" aria-controls="t1" aria-selected="true">
@@ -78,15 +78,14 @@
           <div class="heroCard__text">
             <!-- NEW: heroCard 주제/부제 (Fade In & Out) -->
             <div class="heroIntro" aria-hidden="true">
-              <div class="heroIntro__line1">안녕하세요, KT플라자입니다!</div>
-              <div class="heroIntro__line2">무엇을 도와드릴까요?</div>
+              <div class="heroIntro__line1">안녕하세요!!<br>우리동네 최적의 통신설계도우미</div>
+              <div class="heroIntro__line2">KT플라자 유성점입니다!</div>
             </div>
         
             <figure class="heroCard__media">
-              <img src="assets/team.png" alt="KT플라자 만남로점 직원 단체사진" loading="lazy" />
+              <img src="assets/team.png" alt="KT플라자 유성점 직원 단체사진" loading="lazy" />
               <figcaption>
-                우리 매장 팀이 도와드리겠습니다.
-                <span class="heroCard__trust">KT 공식 교육을 받은 전문 상담인력이 함께합니다.</span>
+                <span class="heroCard__trust">KT 공식 교육을 받은 전문 상담인력이<br>성심성의껏 도와드리겠습니다.</span>
               </figcaption>
             </figure>
             
@@ -113,7 +112,7 @@
                     <div class="bulletCard__panelInner">
                       <p class="bulletCard__headline">저희는 KT 투자 100% 직영점입니다.</p>
                       <p class="bulletCard__desc">
-                        많은 상품과 서비스를, 정확하고 투명한 기준에 따라 제공합니다.
+                        많은 상품과 서비스를,<br> 정확하고 투명한 기준에 따라 제공합니다.
                       </p>
                     </div>
                   </div>
@@ -134,8 +133,7 @@
                         요금·결합·명의·분실·해지까지,<br>문제 발생 시 다시 찾아오실 수 있는 매장입니다.
                       </p>
                     </div>
-                  </div>
-                </li>
+                              </div>     </li>
             
                 <!-- C -->
                 <li class="bulletCard">
@@ -204,24 +202,55 @@
       <div class="section">
         <div class="section__head">
           <h2>KT Plaza 홍보영상</h2>
-          <p class="section__desc">모르시면 손해봅니다!<br>KT에서 제공하는 소식을 동영상으로 만나보세요.</p>
+          <p class="section__desc">우리 회사의 홍보 영상입니다!<br>재미있게 시청해주세요~</p>
         </div>
       
-        <a class="clipCard" target="_blank" rel="noopener"
-           href="https://m.naver.com/shorts/?mediaId=F6567E2F212E021108671BC3E08F6DBD2B83&serviceType=MOMENT&blogId=kt_mannamro&docNo=12753335">
+        <!-- ✅ 링크 이동 대신, 클릭 이벤트로 재생 -->
+        <button type="button" class="clipCard js-open-video"
+                data-video-id="SkzZH_pqx2g"
+                aria-label="유튜브 쇼츠 재생">
+        
           <div class="clipCard__thumb">
-            <!-- 썸네일은 ① 직접 만든 이미지 업로드(권장) 또는 ② 네이버가 제공하는 이미지 URL -->
-            <img src="assets/news-thumb.jpg" alt="이 달의 소식 클립 썸네일" />
-            <div class="clipCard__badge">NAVER CLIP</div>
+            <img class="clipCard__img" src="assets/news-thumb.png" alt="이 달의 소식 클립 썸네일" />
+            <div class="clipCard__badge">Youtube Shorts</div>
             <div class="clipCard__play">▶</div>
+        
+            <!-- ✅ 카드 내부 플레이어 (처음엔 숨김) -->
+            <div class="clipCard__player hidden">
+              <button type="button" class="clipCard__close js-close-video" aria-label="영상 닫기">✕</button>
+              <iframe class="clipCard__iframe"
+                src=""
+                title="KT Plaza 홍보영상"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+          </div>
+        
+          <div class="clipCard__body">
+            <div class="clipCard__title">호갱이라는 단어, 이제는 없어져야 합니다.</div>
+            <div class="clipCard__sub">촬영: KT플라자 관저중로점</div>
+          </div>
+        </button>
+
+      
+        <!-- ✅ 페이지 내부 재생 영역(기본 숨김) -->
+        <div class="ytInline hidden" id="promoVideo">
+          <div class="ytInline__wrap">
+            <iframe
+              id="promoIframe"
+              src=""
+              title="KT Plaza 홍보영상"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
           </div>
       
-          <div class="clipCard__body">
-            <div class="clipCard__title">내가 KT플라자에서 이뤄낸 것들..!</div>
-            <div class="clipCard__sub">네이버 클립 바로 재생하기</div>
-          </div>
-        </a>
+          <button type="button" class="ytInline__close js-close-inline-video">닫기</button>
+        </div>
       </div>
+
       
       <!-- Head 3: 판매상품/소식 소개 -->
       <div class="section" id="products">
@@ -233,14 +262,14 @@
         <div class="promoStack">
           <!-- 카드 1 -->
           <article class="promoCard">
-            <a class="promoCard__link" href="https://blog.naver.com/kt_mannamro/224123069041" target="_blank" rel="noopener">
+            <a class="promoCard__link" href="https://blog.naver.com/yc20508/224099159989" target="_blank" rel="noopener">
               <div class="promoCard__media">
                 <img src="assets/promo/promo1.png" alt="홍보물 1 썸네일" loading="lazy" />
                 <span class="promoBadge">BLOG</span>
               </div>
       
               <div class="promoCard__content">
-                <h3 class="promoCard__title">🐎2026 병오년도 KT플라자 만남로점과 함께!🐎</h3>
+                <h3 class="promoCard__title">이미 굿바이한 2025</h3>
                 <ul class="promoBullets">
                   <li>연말정산 대비 요금제 점검</li>
                   <li>통신비 절약 컨설팅</li>
@@ -257,9 +286,9 @@
       
           <!-- 카드 2 -->
           <article class="promoCard">
-            <a class="promoCard__link" href="https://www.naver.com" target="_blank" rel="noopener">
+            <a class="promoCard__link" href="https://blog.naver.com/yc20508/224086303332" target="_blank" rel="noopener">
               <div class="promoCard__media">
-                <img src="assets/promo/promo2.jpg" alt="홍보물 2 썸네일" loading="lazy" />
+                <img src="assets/promo/promo2.png" alt="홍보물 2 썸네일" loading="lazy" />
                 <span class="promoBadge">BLOG</span>
               </div>
       
@@ -281,14 +310,14 @@
       
           <!-- 카드 3 -->
           <article class="promoCard">
-            <a class="promoCard__link" href="https://www.naver.com" target="_blank" rel="noopener">
+            <a class="promoCard__link" href="https://blog.naver.com/yc20508/224079732122" target="_blank" rel="noopener">
               <div class="promoCard__media">
-                <img src="assets/promo/promo3.jpg" alt="홍보물 3 썸네일" loading="lazy" />
+                <img src="assets/promo/promo3.png" alt="홍보물 3 썸네일" loading="lazy" />
                 <span class="promoBadge">BLOG</span>
               </div>
       
               <div class="promoCard__content">
-                <h3 class="promoCard__title">기기변경·번호이동 추천 조합</h3>
+                <h3 class="promoCard__title">왜 KT플라자를 선택해야 할까요?</h3>
                 <ul class="promoBullets">
                   <li>사용 패턴 기반 요금제 추천</li>
                   <li>부가서비스 구성까지 월 요금 안내</li>
@@ -315,16 +344,16 @@
           <p class="section__desc">카드를 누르면 개인 안내(Manus) 페이지로 이동합니다.</p>
         </div>
 
-        <a class="profileCard profileCard--primary" href="https://www.naver.com" target="_blank" rel="noopener">
+        <a class="profileCard profileCard--primary" data-consultant="김수현 점장" href="https://kimsuhyun-bnzjxwpe.manus.space" target="_blank" rel="noopener">
           <img class="profileCard__img" src="assets/profile/boss.jpg" alt="점장 프로필" loading="lazy" />
           <div class="profileCard__meta">
-            <div class="profileCard__name">조아라 점장</div>
+            <div class="profileCard__name">김수현 점장</div>
             <div class="profileCard__tags">
               <span class="tag">빠른 응대</span>
               <span class="tag">정확한 설계</span>
               <span class="tag">사후케어</span>
               <span class="tag">하이오더</span>
-              <span class="tag">VOC처리</span>
+              <span class="tag">불만케어</span>
               <span class="tag">미모도 1등</span>
             </div>
             <div class="profileCard__hint">눌러서 자세히 보기 →</div>
@@ -340,10 +369,10 @@
         </div>
 
         <div class="stack">
-          <a class="profileCard" href="https://predeploy-2ec096ab-hanjunfolio-aemswqav.manus.space/" target="_blank" rel="noopener">
-            <img class="profileCard__img" src="assets/profile/m1.jpg" alt="매니저 1 프로필" loading="lazy" />
+          <a class="profileCard" data-consultant="김승원 부점장" href="https://ktplaza-hfzq9ucj.manus.space/" target="_blank" rel="noopener">
+            <img class="profileCard__img" src="assets/profile/manager1.jpg" alt="매니저 1 프로필" loading="lazy" />
             <div class="profileCard__meta">
-              <div class="profileCard__name">한준원 매니저</div>
+              <div class="profileCard__name">김승원 매니저</div>
               <div class="profileCard__tags">
                 <span class="tag">친절 설명</span>
                 <span class="tag">요금 최적화</span>
@@ -354,10 +383,10 @@
             </div>
           </a>
 
-          <a class="profileCard" href="https://ktconsultant-resu9b4t.manus.space/" target="_blank" rel="noopener">
-            <img class="profileCard__img" src="assets/profile/m2.jpg" alt="매니저 2 프로필" loading="lazy" />
+          <a class="profileCard" data-consultant="윤기석 매니저" href="https://m.booking.naver.com/booking/5/bizes/957817/items/6484624" target="_blank" rel="noopener">
+            <img class="profileCard__img" src="assets/profile/manager2.jpg" alt="매니저 2 프로필" loading="lazy" />
             <div class="profileCard__meta">
-              <div class="profileCard__name">정지윤 매니저</div>
+              <div class="profileCard__name">윤기석 매니저</div>
               <div class="profileCard__tags">
                 <span class="tag">결합 전문가</span>
                 <span class="tag">속도 상담</span>
@@ -368,10 +397,38 @@
             </div>
           </a>
 
-          <a class="profileCard" href="https://www.naver.com" target="_blank" rel="noopener">
-            <img class="profileCard__img" src="assets/profile/m3.jpg" alt="매니저 3 프로필" loading="lazy" />
+          <a class="profileCard" data-consultant="이병훈 매니저" href="https://ktportfolio-jjzmfgav.manus.space" target="_blank" rel="noopener">
+            <img class="profileCard__img" src="assets/profile/manager3.jpg" alt="매니저 3 프로필" loading="lazy" />
             <div class="profileCard__meta">
-              <div class="profileCard__name">허성민 매니저</div>
+              <div class="profileCard__name">이병훈 매니저</div>
+              <div class="profileCard__tags">
+                <span class="tag">꼼꼼한 비교</span>
+                <span class="tag">가성비 설계</span>
+                <span class="tag">활기찬 막내</span>
+                <span class="tag">영상속 그남자</span>
+              </div>
+              <div class="profileCard__hint">눌러서 자세히 보기 →</div>
+            </div>
+          </a>
+          
+          <a class="profileCard" data-consultant="이호준 매니저" href="https://hojunfolio-fphshg9y.manus.space" target="_blank" rel="noopener">
+            <img class="profileCard__img" src="assets/profile/manager4.jpg" alt="매니저 4 프로필" loading="lazy" />
+            <div class="profileCard__meta">
+              <div class="profileCard__name">이호준 매니저</div>
+              <div class="profileCard__tags">
+                <span class="tag">꼼꼼한 비교</span>
+                <span class="tag">가성비 설계</span>
+                <span class="tag">활기찬 막내</span>
+                <span class="tag">영상속 그남자</span>
+              </div>
+              <div class="profileCard__hint">눌러서 자세히 보기 →</div>
+            </div>
+          </a>
+          
+          <a class="profileCard" data-consultant="임다은 매니저" href="https://m.booking.naver.com/booking/5/bizes/957817/items/7168461" target="_blank" rel="noopener">
+            <img class="profileCard__img" src="assets/profile/manager5.jpg" alt="매니저 5 프로필" loading="lazy" />
+            <div class="profileCard__meta">
+              <div class="profileCard__name">임다은 매니저</div>
               <div class="profileCard__tags">
                 <span class="tag">꼼꼼한 비교</span>
                 <span class="tag">가성비 설계</span>
@@ -394,21 +451,25 @@
         </div>
 
         <div class="grid">
-          <a class="actionTile" href="https://naver.me/5f5pEd3p" target="_blank" rel="noopener">
-            <div class="actionTile__title">매장방문 상담예약</div>
-            <div class="actionTile__sub">네이버 예약 열기</div>
+          <a class="actionTile" data-cta="register_boss" data-card="t3" href="https://m.booking.naver.com/booking/5/bizes/957817/items/6484616" target="_blank" rel="noopener">
+            <div class="actionTile__title">김수현 점장 상담예약</div>
+            <div class="actionTile__sub">전 상품 통합 상담</div>
           </a>
-          <a class="actionTile" href="https://naver.me/xLsAvNJ1" target="_blank" rel="noopener">
-            <div class="actionTile__title">기기변경 상담예약</div>
-            <div class="actionTile__sub">네이버 예약 열기</div>
+          <a class="actionTile" data-cta="register_manager1" data-card="t3" href="https://m.booking.naver.com/booking/5/bizes/957817/items/6484577" target="_blank" rel="noopener">
+            <div class="actionTile__title">김승원 부점장 상담예약</div>
+            <div class="actionTile__sub">휴대폰/인터넷 결합 상담</div>
           </a>
-          <a class="actionTile" href="https://naver.me/IGZyAskv" target="_blank" rel="noopener">
-            <div class="actionTile__title">일반 CS업무 예약</div>
-            <div class="actionTile__sub">네이버 예약 열기</div>
+          <a class="actionTile" data-cta="register_manager2" data-card="t3" href="https://m.booking.naver.com/booking/5/bizes/957817/items/6484624" target="_blank" rel="noopener">
+            <div class="actionTile__title">윤기석 매니저 상담예약</div>
+            <div class="actionTile__sub">우리 매장 갤럭시 전문가!</div>
           </a>
-          <a class="actionTile" href="https://naver.me/G1mS9pHt" target="_blank" rel="noopener">
-            <div class="actionTile__title">유선상품 상담예약</div>
-            <div class="actionTile__sub">네이버 예약 열기</div>
+          <a class="actionTile" data-cta="register_manager3" data-card="t3" href="https://m.booking.naver.com/booking/5/bizes/957817/items/7178693" target="_blank" rel="noopener">
+            <div class="actionTile__title">이병훈 매니저 상담예약</div>
+            <div class="actionTile__sub">찾아가는 영업</div>
+          </a>
+          <a class="actionTile" data-cta="register_manager3" data-card="t3" href="https://m.booking.naver.com/booking/5/bizes/957817/items/7168461" target="_blank" rel="noopener">
+            <div class="actionTile__title">이호준/임다은 매니저</div>
+            <div class="actionTile__sub">애플 서비스센터 출신!</div>
           </a>
         </div>
       </div>
@@ -420,9 +481,9 @@
           <p class="section__desc">터치하면 바로 통화 연결됩니다.</p>
         </div>
 
-        <a class="callBanner" href="tel:041-622-6120">
+        <a class="callBanner" data-cta="phone_call" data-card="t3" href="tel:042-825-2780">
           <div class="callBanner__left">
-            <div class="callBanner__title">041-622-6120</div>
+            <div class="callBanner__title">042-825-2780</div>
             <div class="callBanner__sub">지금 전화로 빠르게 문의하기</div>
           </div>
           <div class="callBanner__right">전화</div>
@@ -436,7 +497,7 @@
           <p class="section__desc">매장 소식/이벤트를 가장 빠르게 확인하세요.</p>
         </div>
 
-        <a class="btnWide" href="https://www.naver.com" target="_blank" rel="noopener">
+        <a class="btnWide" data-cta="naver_blog" data-card="t3" href="https://blog.naver.com/yc20508" target="_blank" rel="noopener">
           블로그 바로가기 →
         </a>
       </div>
@@ -448,14 +509,14 @@
           <p class="section__desc">단골 등록 링크를 연결해두면 안내가 훨씬 쉬워집니다.</p>
         </div>
 
-        <a class="btnWide btnWide--accent" href="https://www.naver.com" target="_blank" rel="noopener">
+        <a class="btnWide btnWide--accent" data-cta="favorite_register" data-card="t3" href="https://su.kt.co.kr/SlRDJIC" target="_blank" rel="noopener">
           단골 등록하러 가기 →
         </a>
       </div>
 
       <footer class="footer">
-        <div class="footer__line">© KT플라자 만남로점</div>
-        <div class="footer__small">* 정책/재고/혜택은 상황에 따라 변동될 수 있습니다.</div>
+        <div class="footer__line">© KT플라자 유성점</div>
+        <div class="footer__small">* 세부 혜택 및 기타 문의사항은 바로 연락 주세요!</div>
       </footer>
     </section>
   </main>
@@ -475,5 +536,11 @@
       });
     }
   </script>
+  <!-- Floating Naver Reservation Button -->
+  <a class="fabNaver" data-cta="naver_reserve" data-card="floating" href="https://m.booking.naver.com/booking/5/bizes/957817?theme=place&entry=pll&lang=ko&area=pll" target="_blank" rel="noopener" aria-label="네이버 예약 바로가기">
+    <span class="fabNaver__logo" aria-hidden="true">N</span>
+    <span class="fabNaver__text">예약</span>
+  </a>
+
 </body>
 </html>
