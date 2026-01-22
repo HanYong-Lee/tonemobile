@@ -195,24 +195,14 @@ a{ color: inherit; }
 .heroCard--bg{
   position: relative;
   overflow: hidden;
-  background-image: url("assets/mainpage.png");
+  background: #fff;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 420px;
 }
 .heroCard--bg::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(
-    180deg,
-    rgba(11,27,59,.30) 0%,
-    rgba(11,27,59,.55) 55%,
-    rgba(11,27,59,.75) 100%
-  );
-  pointer-events:none;
-  z-index:0;
+  content: none;
 }
 .heroCard--bg > *{ position: relative; z-index:1; }
 .heroCard__media{
