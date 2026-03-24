@@ -157,6 +157,47 @@
       pointer-events: none;
     }
 
+    .hero-media {
+      position: relative;
+      margin-top: 26px;
+      overflow: hidden;
+      border-radius: 34px;
+      min-height: 260px;
+    }
+
+    .hero-media__img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .hero-media__overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.72) 100%);
+    }
+
+    .hero-media__overlay p {
+      margin: 8px 0 0;
+      color: #e5e5e5;
+      font-size: 14px;
+    }
+
+    .hero-media__badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(230,0,18,0.15);
+      color: #ff9ba4;
+      border: 1px solid rgba(230,0,18,0.18);
+    }
+
     .hero__wrap {
       position: relative;
       display: grid;
@@ -341,6 +382,46 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 18px;
+    }
+
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .promo-card {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .promo-card__thumb {
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, rgba(230,0,18,0.16), rgba(255,255,255,0.04));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .promo-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .promo-card__body {
+      padding: 22px;
+    }
+
+    .promo-card__body h3 {
+      margin: 14px 0 0;
+      font-size: 22px;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
+
+    .promo-card__body p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
     }
 
     .card {
@@ -638,7 +719,8 @@
       .stores-grid,
       .timeline,
       .cards-3,
-      .mapping-grid {
+      .mapping-grid,
+      .promo-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
@@ -667,9 +749,36 @@
       .stores-grid,
       .timeline,
       .cards-3,
-      .mapping-grid {
+      .mapping-grid,
+      .promo-grid {
         grid-template-columns: 1fr;
       }
+      .hero-media__img {
+        height: 200px;
+      }
+      .compare-table { overflow-x: auto; }
+      .compare-table__grid {
+        min-width: 740px;
+      }
+      .stores-head {
+        flex-direction: column;
+        align-items: start;
+      }
+      .hero__actions,
+      .cta-actions,
+      .store-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn,
+      .btn--small,
+      .header-cta { width: 100%; }
+      .floating-store-box {
+        right: 12px;
+        left: 12px;
+        width: auto;
+      }
+    }
       .compare-table { overflow-x: auto; }
       .compare-table__grid {
         min-width: 740px;
@@ -717,6 +826,15 @@
 
   <main id="top">
     <section class="hero">
+      <div class="container">
+        <div class="hero-media card" aria-label="대표 이미지 영역">
+          <img src="assets/ceo-main.jpg" alt="티원모바일 대표 사진" class="hero-media__img" />
+          <div class="hero-media__overlay">
+            <div class="hero-media__badge">대표 소개 이미지</div>
+            <p>PC/모바일 모두 자연스럽게 보이도록 상단 비주얼 배너 영역으로 구성했습니다.</p>
+          </div>
+        </div>
+      </div>
       <div class="container hero__wrap">
         <div>
           <div class="hero__badge">SKT 공식인증 직영점 브랜드 사이트 시안</div>
@@ -742,12 +860,12 @@
               <span>브랜드 신뢰 메시지</span>
             </div>
             <div class="stat-card">
-              <strong>누적 고객 수</strong>
-              <span>연혁 · 혜택 섹션과 연결</span>
+              <strong><span id="todayViews">0</span></strong>
+              <span>Today Views</span>
             </div>
             <div class="stat-card">
-              <strong>다점포 직영 운영</strong>
-              <span>가까운 매장 매핑 지원</span>
+              <strong><span id="totalViews">0</span></strong>
+              <span>Total Views</span>
             </div>
           </div>
 
@@ -774,6 +892,48 @@
             “이번 주 혜택”, “오늘 기준 상담 가능 매장”, “한정 프로모션”을 여기에 연동하면 방문 전환률을 더 높일 수 있습니다.
           </div>
         </aside>
+      </div>
+    </section>
+
+    <section class="section" id="promo-news" style="padding-top:72px; padding-bottom:72px; border-bottom:1px solid var(--line); background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0));">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">T1 Mobile News</span>
+          <h2 class="section-title">티원모바일 홍보 소식</h2>
+          <p class="section-desc">
+            티원모바일 매장이 기본적으로 제공하는 공통 혜택을 고객이 한눈에 이해할 수 있도록 카드형 소식 섹션을 구성했습니다.
+            각 카드에는 추후 썸네일 이미지를 넣을 수 있도록 이미지 영역도 함께 반영했습니다.
+          </p>
+        </div>
+
+        <div class="promo-grid">
+          <article class="promo-card card">
+            <div class="promo-card__thumb"><img src="assets/news-mobile.jpg" alt="휴대폰 최신 소식 썸네일" /></div>
+            <div class="promo-card__body">
+              <span class="chip">휴대폰 최신 소식</span>
+              <h3>IT 기술 변화와 매장 지원금 소식을 빠르게 안내</h3>
+              <p>신모델 이슈, AI 기능 변화, 시기별 매장 지원금 포인트를 고객 입장에서 이해하기 쉽게 전달하는 영역입니다.</p>
+            </div>
+          </article>
+
+          <article class="promo-card card">
+            <div class="promo-card__thumb"><img src="assets/news-wireline.jpg" alt="인터넷 TV 혜택 썸네일" /></div>
+            <div class="promo-card__body">
+              <span class="chip">인터넷 · TV 혜택</span>
+              <h3>인터넷 · TV 별도 지원금과 결합 혜택 강조</h3>
+              <p>휴대폰뿐 아니라 인터넷과 TV까지 함께 변경할 때의 추가 지원금과 결합 이점을 자연스럽게 보여주는 영역입니다.</p>
+            </div>
+          </article>
+
+          <article class="promo-card card">
+            <div class="promo-card__thumb"><img src="assets/news-cs.jpg" alt="오프라인 혜택 썸네일" /></div>
+            <div class="promo-card__body">
+              <span class="chip">CS · 오프라인 혜택</span>
+              <h3>스마트폰교실, 필름 · 케이스 교체 등 매장 강점 노출</h3>
+              <p>오프라인 매장만이 줄 수 있는 케어 경험과 방문 이유를 만들어주는 생활밀착형 서비스 소식에 적합한 카드입니다.</p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1026,6 +1186,8 @@
       }
     ];
 
+    const ANALYTICS_ENDPOINT = '';
+    const ANALYTICS_USE_GAS = false;
     const storeGrid = document.getElementById('storeGrid');
     const floatingStoreBox = document.getElementById('floatingStoreBox');
     const floatingStoreTitle = document.getElementById('floatingStoreTitle');
@@ -1036,6 +1198,85 @@
     const closeFloatingBoxBtn = document.getElementById('closeFloatingBoxBtn');
     const mobileNavToggle = document.getElementById('mobileNavToggle');
     const siteNav = document.getElementById('siteNav');
+    const todayViewsEl = document.getElementById('todayViews');
+    const totalViewsEl = document.getElementById('totalViews');
+
+    function getTodayKey() {
+      const now = new Date();
+      return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    }
+
+    function getAnalyticsBucket() {
+      const raw = localStorage.getItem('t1mobileAnalytics');
+      const fallback = { totalViews: 0, dailyViews: {}, ctaClicks: {}, nearbyClicks: [], sources: {} };
+      try {
+        return raw ? { ...fallback, ...JSON.parse(raw) } : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveAnalyticsBucket(bucket) {
+      localStorage.setItem('t1mobileAnalytics', JSON.stringify(bucket));
+    }
+
+    function getApproxGeo(lat, lng) {
+      const roundedLat = Number((Math.round(lat * 2000) / 2000).toFixed(4));
+      const roundedLng = Number((Math.round(lng * 2000) / 2000).toFixed(4));
+      return { lat: roundedLat, lng: roundedLng };
+    }
+
+    function updateViewCounters() {
+      const bucket = getAnalyticsBucket();
+      const todayKey = getTodayKey();
+      const sessionKey = `t1mobile_viewed_${todayKey}`;
+      if (!sessionStorage.getItem(sessionKey)) {
+        bucket.totalViews += 1;
+        bucket.dailyViews[todayKey] = (bucket.dailyViews[todayKey] || 0) + 1;
+        saveAnalyticsBucket(bucket);
+        sessionStorage.setItem(sessionKey, '1');
+        sendAnalytics('page_view', { today: todayKey, referrer: document.referrer || 'direct' });
+      }
+      const latest = getAnalyticsBucket();
+      todayViewsEl.textContent = latest.dailyViews[todayKey] || 0;
+      totalViewsEl.textContent = latest.totalViews || 0;
+    }
+
+    function trackCTA(name, extra = {}) {
+      const bucket = getAnalyticsBucket();
+      bucket.ctaClicks[name] = (bucket.ctaClicks[name] || 0) + 1;
+      saveAnalyticsBucket(bucket);
+      sendAnalytics('cta_click', { name, ...extra });
+    }
+
+    function extractSource() {
+      const params = new URLSearchParams(location.search);
+      return params.get('utm_source') || params.get('src') || (document.referrer ? new URL(document.referrer).hostname : 'direct');
+    }
+
+    function trackSource() {
+      const source = extractSource();
+      const bucket = getAnalyticsBucket();
+      bucket.sources[source] = (bucket.sources[source] || 0) + 1;
+      saveAnalyticsBucket(bucket);
+      sendAnalytics('source_visit', { source });
+    }
+
+    function sendAnalytics(eventName, payload = {}) {
+      if (!ANALYTICS_ENDPOINT) return;
+      const body = {
+        event: eventName,
+        page: location.pathname,
+        ts: new Date().toISOString(),
+        payload
+      };
+      fetch(ANALYTICS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(body),
+        mode: ANALYTICS_USE_GAS ? 'no-cors' : 'cors'
+      }).catch(() => {});
+    }
 
     function renderStores(list) {
       storeGrid.innerHTML = list.map((store, idx) => {
@@ -1116,6 +1357,15 @@
 
           renderStores(sorted);
           const nearest = sorted[0];
+          const approxGeo = getApproxGeo(latitude, longitude);
+          const bucket = getAnalyticsBucket();
+          bucket.nearbyClicks.push({
+            ts: new Date().toISOString(),
+            approx: approxGeo,
+            nearestStore: nearest.name
+          });
+          saveAnalyticsBucket(bucket);
+          sendAnalytics('nearby_store_search', { approxGeo, nearestStore: nearest.name });
           showFloatingBox(
             `가장 가까운 매장: ${nearest.name}`,
             `${nearest.address} · 현재 위치 기준 ${nearest.distanceText}. 아래 매장 카드에서 바로 상담 연결 또는 지도 보기를 이용해보세요.`
@@ -1150,11 +1400,29 @@
       siteNav.classList.toggle('is-open');
     });
 
-    findNearbyBtn.addEventListener('click', findNearbyStore);
-    findNearbyBtnSecondary.addEventListener('click', findNearbyStore);
-    retryLocationBtn.addEventListener('click', findNearbyStore);
+    findNearbyBtn.addEventListener('click', () => {
+      trackCTA('hero_find_nearby');
+      findNearbyStore();
+    });
+    findNearbyBtnSecondary.addEventListener('click', () => {
+      trackCTA('stores_find_nearby');
+      findNearbyStore();
+    });
+    retryLocationBtn.addEventListener('click', () => {
+      trackCTA('retry_location');
+      findNearbyStore();
+    });
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('a, button');
+      if (!target) return;
+      if (target.matches('a[href^="tel:"]')) trackCTA('call_click', { target: target.getAttribute('href') });
+      if (target.textContent && target.textContent.includes('지도 보기')) trackCTA('map_click');
+      if (target.textContent && target.textContent.includes('브랜드 스토리')) trackCTA('story_click');
+    });
     closeFloatingBoxBtn.addEventListener('click', hideFloatingBox);
 
+    trackSource();
+    updateViewCounters();
     resetDefaultStores();
   </script>
 </body>
