@@ -2,25 +2,84 @@ const ANALYTICS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyw67q3vYDGz
 const ANALYTICS_USE_GAS = true;
 
 const stores = [
-  { name: "원신흥점", lat: 36.3342, lng: 127.3406, address: "대전 유성구 원신흥동", points: ["강점 Point 1","강점 Point 2","강점 Point 3"], phone: "010-0000-0001", mapUrl: "https://map.naver.com/" },
-  { name: "용문점", lat: 36.3387, lng: 127.3938, address: "대전 서구 용문동", points: ["강점 Point 1","강점 Point 2","강점 Point 3"], phone: "010-0000-0002", mapUrl: "https://map.naver.com/" },
-  { name: "용운점", lat: 36.3213, lng: 127.4589, address: "대전 동구 용운동", points: ["강점 Point 1","강점 Point 2","강점 Point 3"], phone: "010-0000-0003", mapUrl: "https://map.naver.com/" },
-  { name: "아산권곡점", lat: 36.7775, lng: 127.0189, address: "충남 아산시 권곡동", points: ["강점 Point 1","강점 Point 2","강점 Point 3"], phone: "010-0000-0004", mapUrl: "https://map.naver.com/" },
-  { name: "아산세교점", lat: 36.7838, lng: 127.0004, address: "충남 아산시 세교리 인근", points: ["강점 Point 1","강점 Point 2","강점 Point 3"], phone: "010-0000-0005", mapUrl: "https://map.naver.com/" },
-  { name: "천안신불당점", lat: 36.8086, lng: 127.1082, address: "충남 천안시 서북구 불당동", points: ["강점 Point 1","강점 Point 2","강점 Point 3"], phone: "010-0000-0006", mapUrl: "https://map.naver.com/" },
-  { name: "홍성서우점", lat: 36.6014, lng: 126.6641, address: "충남 홍성군 홍성읍", points: ["강점 Point 1","강점 Point 2","강점 Point 3"], phone: "010-0000-0007", mapUrl: "https://map.naver.com/" }
+  {
+    name: "원신흥점",
+    lat: 36.3342,
+    lng: 127.3406,
+    address: "대전 유성구 원신흥동",
+    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    phone: "010-0000-0001",
+    mapUrl: "https://map.naver.com/"
+  },
+  {
+    name: "용문점",
+    lat: 36.3387,
+    lng: 127.3938,
+    address: "대전 서구 용문동",
+    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    phone: "010-0000-0002",
+    mapUrl: "https://map.naver.com/"
+  },
+  {
+    name: "용운점",
+    lat: 36.3213,
+    lng: 127.4589,
+    address: "대전 동구 용운동",
+    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    phone: "010-0000-0003",
+    mapUrl: "https://map.naver.com/"
+  },
+  {
+    name: "아산권곡점",
+    lat: 36.7775,
+    lng: 127.0189,
+    address: "충남 아산시 권곡동",
+    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    phone: "010-0000-0004",
+    mapUrl: "https://map.naver.com/"
+  },
+  {
+    name: "아산세교점",
+    lat: 36.7838,
+    lng: 127.0004,
+    address: "충남 아산시 세교리 인근",
+    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    phone: "010-0000-0005",
+    mapUrl: "https://map.naver.com/"
+  },
+  {
+    name: "천안신불당점",
+    lat: 36.8086,
+    lng: 127.1082,
+    address: "충남 천안시 서북구 불당동",
+    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    phone: "010-0000-0006",
+    mapUrl: "https://map.naver.com/"
+  },
+  {
+    name: "홍성서우점",
+    lat: 36.6014,
+    lng: 126.6641,
+    address: "충남 홍성군 홍성읍",
+    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    phone: "010-0000-0007",
+    mapUrl: "https://map.naver.com/"
+  }
 ];
 
 const storeGrid = document.getElementById('storeGrid');
 const floatingStoreBox = document.getElementById('floatingStoreBox');
 const floatingStoreTitle = document.getElementById('floatingStoreTitle');
 const floatingStoreDesc = document.getElementById('floatingStoreDesc');
+
 const findNearbyBtn = document.getElementById('findNearbyBtn');
 const findNearbyBtnSecondary = document.getElementById('findNearbyBtnSecondary');
 const retryLocationBtn = document.getElementById('retryLocationBtn');
 const closeFloatingBoxBtn = document.getElementById('closeFloatingBoxBtn');
+
 const mobileNavToggle = document.getElementById('mobileNavToggle');
 const siteNav = document.getElementById('siteNav');
+
 const totalViewsEl = document.getElementById('totalViews');
 
 function getSessionId() {
@@ -40,10 +99,17 @@ function getTodayKey() {
 
 function getAnalyticsBucket() {
   const raw = localStorage.getItem('t1mobileAnalytics');
-  const fallback = { totalViews: 0, dailyViews: {}, ctaClicks: {}, nearbyClicks: [], sources: {} };
+  const fallback = {
+    totalViews: 0,
+    dailyViews: {},
+    ctaClicks: {},
+    nearbyClicks: [],
+    sources: {}
+  };
+
   try {
     return raw ? { ...fallback, ...JSON.parse(raw) } : fallback;
-  } catch {
+  } catch (error) {
     return fallback;
   }
 }
@@ -64,12 +130,18 @@ function sleep(ms) {
 
 async function sendAnalytics(eventName, payload = {}) {
   if (!ANALYTICS_ENDPOINT) return null;
+
   const body = {
     event: eventName,
     page: location.pathname,
     ts: new Date().toISOString(),
-    payload: { ...payload, userAgent: navigator.userAgent || '', sessionId: getSessionId() }
+    payload: {
+      ...payload,
+      userAgent: navigator.userAgent || '',
+      sessionId: getSessionId()
+    }
   };
+
   try {
     return await fetch(ANALYTICS_ENDPOINT, {
       method: 'POST',
@@ -121,23 +193,6 @@ async function updateViewCounters() {
   }
 }
 
-  const localLatest = getAnalyticsBucket();
-  todayViewsEl.textContent = localLatest.dailyViews[todayKey] || 0;
-  totalViewsEl.textContent = localLatest.totalViews || 0;
-
-  if (!ANALYTICS_ENDPOINT) return;
-  try {
-    const response = await fetch(ANALYTICS_ENDPOINT, { method: 'GET' });
-    const data = await response.json();
-    if (data && data.ok) {
-      todayViewsEl.textContent = data.todayViews ?? todayViewsEl.textContent;
-      totalViewsEl.textContent = data.totalViews ?? totalViewsEl.textContent;
-    }
-  } catch (error) {
-    console.warn('Live counter fetch failed:', error);
-  }
-}
-
 function trackCTA(name, extra = {}) {
   const bucket = getAnalyticsBucket();
   bucket.ctaClicks[name] = (bucket.ctaClicks[name] || 0) + 1;
@@ -147,11 +202,18 @@ function trackCTA(name, extra = {}) {
 
 function extractSource() {
   const params = new URLSearchParams(location.search);
+
   if (params.get('utm_source')) return params.get('utm_source');
   if (params.get('src')) return params.get('src');
+
   if (document.referrer) {
-    try { return new URL(document.referrer).hostname; } catch { return 'referrer'; }
+    try {
+      return new URL(document.referrer).hostname;
+    } catch (error) {
+      return 'referrer';
+    }
   }
+
   return 'direct';
 }
 
@@ -165,10 +227,12 @@ function trackSource() {
 
 function renderStores(list) {
   if (!storeGrid) return;
+
   storeGrid.innerHTML = list.map((store, idx) => {
     const distanceHtml = store.distanceText
       ? `<span class="chip">현재 위치 기준 ${store.distanceText}</span>`
       : `<span class="chip">직영 매장</span>`;
+
     return `
       <article class="store-card" data-store-index="${idx}">
         <div class="store-card__top">
@@ -178,9 +242,11 @@ function renderStores(list) {
           </div>
           ${distanceHtml}
         </div>
+
         <div class="store-points">
           ${store.points.map(point => `<div class="store-point">${point}</div>`).join('')}
         </div>
+
         <div class="store-actions">
           <a class="btn btn--primary btn--small" href="tel:${store.phone}">상담 연결</a>
           <a class="btn btn--ghost btn--small" href="${store.mapUrl}" target="_blank" rel="noopener">지도 보기</a>
@@ -190,21 +256,27 @@ function renderStores(list) {
   }).join('');
 }
 
-function toRad(value) { return value * Math.PI / 180; }
+function toRad(value) {
+  return value * Math.PI / 180;
+}
 
 function getDistanceKm(lat1, lon1, lat2, lon2) {
   const R = 6371;
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
-  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
     Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 }
 
 function showFloatingBox(title, desc) {
   if (!floatingStoreBox || !floatingStoreTitle || !floatingStoreDesc) return;
+
   floatingStoreTitle.textContent = title;
   floatingStoreDesc.textContent = desc;
   floatingStoreBox.classList.add('is-visible');
@@ -217,55 +289,80 @@ function hideFloatingBox() {
 
 function findNearbyStore() {
   if (!navigator.geolocation) {
-    showFloatingBox('위치 기능을 사용할 수 없습니다', '브라우저에서 위치 서비스를 지원하지 않아 기본 매장 목록을 보여드립니다.');
+    showFloatingBox(
+      '위치 기능을 사용할 수 없습니다',
+      '브라우저에서 위치 서비스를 지원하지 않아 기본 매장 목록을 보여드립니다.'
+    );
     return;
   }
 
-  showFloatingBox('가까운 매장을 찾는 중입니다', '현재 위치 권한을 허용하면 가까운 순으로 매장을 다시 정렬합니다.');
+  showFloatingBox(
+    '가까운 매장을 찾는 중입니다',
+    '현재 위치 권한을 허용하면 가까운 순으로 매장을 다시 정렬합니다.'
+  );
 
-  navigator.geolocation.getCurrentPosition((position) => {
-    const { latitude, longitude } = position.coords;
-    const sorted = stores
-      .map(store => {
-        const distance = getDistanceKm(latitude, longitude, store.lat, store.lng);
-        return { ...store, distance, distanceText: distance < 1 ? `${Math.round(distance * 1000)}m` : `${distance.toFixed(1)}km` };
-      })
-      .sort((a, b) => a.distance - b.distance);
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords;
 
-    renderStores(sorted);
+      const sorted = stores
+        .map(store => {
+          const distance = getDistanceKm(latitude, longitude, store.lat, store.lng);
+          return {
+            ...store,
+            distance,
+            distanceText: distance < 1
+              ? `${Math.round(distance * 1000)}m`
+              : `${distance.toFixed(1)}km`
+          };
+        })
+        .sort((a, b) => a.distance - b.distance);
 
-    const nearest = sorted[0];
-    const approxGeo = getApproxGeo(latitude, longitude);
-    const bucket = getAnalyticsBucket();
+      renderStores(sorted);
 
-    bucket.nearbyClicks.push({
-      ts: new Date().toISOString(),
-      approx: approxGeo,
-      nearestStore: nearest.name
-    });
+      const nearest = sorted[0];
+      const approxGeo = getApproxGeo(latitude, longitude);
+      const bucket = getAnalyticsBucket();
 
-    saveAnalyticsBucket(bucket);
-    sendAnalytics('nearby_store_search', { approxGeo, nearestStore: nearest.name });
+      bucket.nearbyClicks.push({
+        ts: new Date().toISOString(),
+        approx: approxGeo,
+        nearestStore: nearest.name
+      });
 
-    showFloatingBox(
-      `가장 가까운 매장: ${nearest.name}`,
-      `${nearest.address} · 현재 위치 기준 ${nearest.distanceText}. 아래 매장 카드에서 바로 상담 연결 또는 지도 보기를 이용해보세요.`
-    );
+      saveAnalyticsBucket(bucket);
+      sendAnalytics('nearby_store_search', {
+        approxGeo,
+        nearestStore: nearest.name
+      });
 
-    const storesSection = document.getElementById('stores');
-    if (storesSection) {
-      storesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      showFloatingBox(
+        `가장 가까운 매장: ${nearest.name}`,
+        `${nearest.address} · 현재 위치 기준 ${nearest.distanceText}. 아래 매장 카드에서 바로 상담 연결 또는 지도 보기를 이용해보세요.`
+      );
+
+      const storesSection = document.getElementById('stores');
+      if (storesSection) {
+        storesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    },
+    (error) => {
+      let message = '위치 권한이 거부되었거나 현재 위치를 확인할 수 없어 기본 매장 목록을 보여드립니다.';
+
+      if (error.code === 2) {
+        message = '현재 위치 정보를 불러올 수 없어 기본 매장 목록을 보여드립니다.';
+      } else if (error.code === 3) {
+        message = '위치 확인 시간이 초과되어 기본 매장 목록을 보여드립니다.';
+      }
+
+      showFloatingBox('가까운 매장을 찾지 못했습니다', message);
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
     }
-  }, (error) => {
-    let message = '위치 권한이 거부되었거나 현재 위치를 확인할 수 없어 기본 매장 목록을 보여드립니다.';
-    if (error.code === 2) message = '현재 위치 정보를 불러올 수 없어 기본 매장 목록을 보여드립니다.';
-    else if (error.code === 3) message = '위치 확인 시간이 초과되어 기본 매장 목록을 보여드립니다.';
-    showFloatingBox('가까운 매장을 찾지 못했습니다', message);
-  }, {
-    enableHighAccuracy: true,
-    timeout: 10000,
-    maximumAge: 0
-  });
+  );
 }
 
 function resetDefaultStores() {
@@ -308,9 +405,18 @@ if (retryLocationBtn) {
 document.addEventListener('click', (e) => {
   const target = e.target.closest('a, button');
   if (!target) return;
-  if (target.matches('a[href^="tel:"]')) trackCTA('call_click', { target: target.getAttribute('href') });
-  if (target.textContent && target.textContent.includes('지도 보기')) trackCTA('map_click');
-  if (target.textContent && target.textContent.includes('브랜드 스토리')) trackCTA('story_click');
+
+  if (target.matches('a[href^="tel:"]')) {
+    trackCTA('call_click', { target: target.getAttribute('href') });
+  }
+
+  if (target.textContent && target.textContent.includes('지도 보기')) {
+    trackCTA('map_click');
+  }
+
+  if (target.textContent && target.textContent.includes('브랜드 스토리')) {
+    trackCTA('story_click');
+  }
 });
 
 if (closeFloatingBoxBtn) {
