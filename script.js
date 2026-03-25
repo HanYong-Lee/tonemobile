@@ -1,4 +1,4 @@
-const ANALYTICS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxefwMEvZjBII-xUU8_7ZjuANtr7D-S82JnWUb67osvMUnbypM7KBu2M9wiDs---LylLw/exec';
+const ANALYTICS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxVpVf_24lbPP_Hudo4KgrOi4_q9mNNfc8-BshVrYnN-nylMi1BkCIA819tfOiAchjx/exec';
 const ANALYTICS_USE_GAS = true;
 
 const stores = [
