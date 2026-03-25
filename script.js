@@ -21,7 +21,6 @@ const retryLocationBtn = document.getElementById('retryLocationBtn');
 const closeFloatingBoxBtn = document.getElementById('closeFloatingBoxBtn');
 const mobileNavToggle = document.getElementById('mobileNavToggle');
 const siteNav = document.getElementById('siteNav');
-const todayViewsEl = document.getElementById('todayViews');
 const totalViewsEl = document.getElementById('totalViews');
 
 function getSessionId() {
@@ -85,7 +84,8 @@ async function sendAnalytics(eventName, payload = {}) {
 }
 
 async function updateViewCounters() {
-  if (!todayViewsEl || !totalViewsEl) return;
+  if (!totalViewsEl) return;
+
   const bucket = getAnalyticsBucket();
   const todayKey = getTodayKey();
   const sessionKey = `t1mobile_viewed_${todayKey}`;
@@ -103,6 +103,23 @@ async function updateViewCounters() {
 
     await sleep(700);
   }
+
+  const localLatest = getAnalyticsBucket();
+  totalViewsEl.textContent = localLatest.totalViews || 0;
+
+  if (!ANALYTICS_ENDPOINT) return;
+
+  try {
+    const response = await fetch(ANALYTICS_ENDPOINT, { method: 'GET' });
+    const data = await response.json();
+
+    if (data && data.ok) {
+      totalViewsEl.textContent = data.totalViews ?? totalViewsEl.textContent;
+    }
+  } catch (error) {
+    console.warn('Live counter fetch failed:', error);
+  }
+}
 
   const localLatest = getAnalyticsBucket();
   todayViewsEl.textContent = localLatest.dailyViews[todayKey] || 0;
