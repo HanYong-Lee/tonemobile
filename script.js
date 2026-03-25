@@ -1,4 +1,4 @@
-const ANALYTICS_ENDPOINT = 'YOUR_DEPLOYED_APPS_SCRIPT_WEBAPP_URL';
+const ANALYTICS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyw67q3vYDGzze1viH5YtoMHrP6f3r3lw4a9eoy1ku4XB7EHPDzXO1PdLKE4Nugso4y/exec';
 const ANALYTICS_USE_GAS = true;
 
 const stores = [
