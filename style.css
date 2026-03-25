@@ -100,7 +100,7 @@ img { max-width: 100%; display: block; }
 }
 
 .brand__logo {
-  width: clamp(36px, 4vw, 48px);
+  width: clamp(48px, 4vw, 64px);
   height: clamp(36px, 4vw, 48px);
   object-fit: contain;
   filter: drop-shadow(0 0 6px rgba(230,0,18,0.4));
