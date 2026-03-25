@@ -1,4 +1,4 @@
-const ANALYTICS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx2keXvSTu7lgDEL_QfZ_UGImdJE-4jXIX9ZmSjrg4v2kuA8iEcHAjsjrsFXH0kg4U8/exec';
+const ANALYTICS_ENDPOINT = 'YOUR_DEPLOYED_APPS_SCRIPT_WEBAPP_URL';
 const ANALYTICS_USE_GAS = true;
 
 const stores = [
@@ -125,7 +125,7 @@ function getApproxGeo(lat, lng) {
   return { lat: roundedLat, lng: roundedLng };
 }
 
-function updateViewCounters() {
+async function updateViewCounters() {
   if (!todayViewsEl || !totalViewsEl) return;
 
   const bucket = getAnalyticsBucket();
@@ -137,15 +137,30 @@ function updateViewCounters() {
     bucket.dailyViews[todayKey] = (bucket.dailyViews[todayKey] || 0) + 1;
     saveAnalyticsBucket(bucket);
     sessionStorage.setItem(sessionKey, '1');
+
     sendAnalytics('page_view', {
       today: todayKey,
       referrer: document.referrer || 'direct'
     });
   }
 
-  const latest = getAnalyticsBucket();
-  todayViewsEl.textContent = latest.dailyViews[todayKey] || 0;
-  totalViewsEl.textContent = latest.totalViews || 0;
+  const localLatest = getAnalyticsBucket();
+  todayViewsEl.textContent = localLatest.dailyViews[todayKey] || 0;
+  totalViewsEl.textContent = localLatest.totalViews || 0;
+
+  if (!ANALYTICS_ENDPOINT) return;
+
+  try {
+    const response = await fetch(ANALYTICS_ENDPOINT, { method: 'GET' });
+    const data = await response.json();
+
+    if (data && data.ok) {
+      todayViewsEl.textContent = data.todayViews ?? todayViewsEl.textContent;
+      totalViewsEl.textContent = data.totalViews ?? totalViewsEl.textContent;
+    }
+  } catch (error) {
+    console.warn('Live counter fetch failed:', error);
+  }
 }
 
 function trackCTA(name, extra = {}) {
