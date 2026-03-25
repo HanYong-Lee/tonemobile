@@ -1,5 +1,5 @@
-const ANALYTICS_ENDPOINT = '';
-const ANALYTICS_USE_GAS = false;
+const ANALYTICS_ENDPOINT = 'YOUR_DEPLOYED_APPS_SCRIPT_WEBAPP_URL';
+const ANALYTICS_USE_GAS = true;
 
 const stores = [
   {
@@ -82,6 +82,16 @@ const siteNav = document.getElementById('siteNav');
 
 const todayViewsEl = document.getElementById('todayViews');
 const totalViewsEl = document.getElementById('totalViews');
+
+function getSessionId() {
+  const key = 't1mobile_session_id';
+  let sessionId = localStorage.getItem(key);
+  if (!sessionId) {
+    sessionId = `sess_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+    localStorage.setItem(key, sessionId);
+  }
+  return sessionId;
+}
 
 function getTodayKey() {
   const now = new Date();
@@ -177,7 +187,11 @@ function sendAnalytics(eventName, payload = {}) {
     event: eventName,
     page: location.pathname,
     ts: new Date().toISOString(),
-    payload
+    payload: {
+      ...payload,
+      userAgent: navigator.userAgent || '',
+      sessionId: getSessionId()
+    }
   };
 
   fetch(ANALYTICS_ENDPOINT, {
@@ -239,7 +253,6 @@ function getDistanceKm(lat1, lon1, lat2, lon2) {
 
 function showFloatingBox(title, desc) {
   if (!floatingStoreBox || !floatingStoreTitle || !floatingStoreDesc) return;
-
   floatingStoreTitle.textContent = title;
   floatingStoreDesc.textContent = desc;
   floatingStoreBox.classList.add('is-visible');
