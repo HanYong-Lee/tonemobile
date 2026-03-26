@@ -349,7 +349,12 @@ img { max-width: 100%; display: block; }
 }
 
 /* 공통 카드 */
-.card,
+.card {
+  height: auto;           /* 핵심 */
+  min-height: unset;      /* 혹시 있을 경우 제거 */
+  padding: 18px 20px;     /* 살짝 줄여서 밀도↑ */
+}
+
 .store-card,
 .quick-card,
 .timeline-card,
@@ -370,6 +375,12 @@ img { max-width: 100%; display: block; }
 .cta-card {
   border-radius: 28px;
   padding: 24px;
+}
+
+.cards-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px; /* ← 여기서 간격도 같이 잡음 */
 }
 
 .quick-panel {
