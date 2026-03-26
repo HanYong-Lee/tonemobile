@@ -349,12 +349,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* 공통 카드 */
-.card {
-  height: auto;           /* 핵심 */
-  min-height: unset;      /* 혹시 있을 경우 제거 */
-  padding: 18px 20px;     /* 살짝 줄여서 밀도↑ */
-}
-
+.card,
 .store-card,
 .quick-card,
 .timeline-card,
@@ -377,6 +372,11 @@ img { max-width: 100%; display: block; }
   padding: 24px;
 }
 
+.card_ben {
+  height: auto;           /* 핵심 */
+  min-height: unset;      /* 혹시 있을 경우 제거 */
+  padding: 18px 20px;     /* 살짝 줄여서 밀도↑ */
+}
 .cards-3 {
   display: grid;
   grid-template-columns: 1fr;
