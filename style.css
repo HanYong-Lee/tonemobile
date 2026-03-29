@@ -250,7 +250,14 @@ img { max-width: 100%; display: block; }
   font-size: 17px;
 }
 
-.hero__actions,
+.hero__actions {
+  margin: 0 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
 .cta-actions,
 .store-actions {
   display: flex;
