@@ -386,6 +386,7 @@ img { max-width: 100%; display: block; }
 }
 
 .card-ben {
+  margin: 0 0 -8px;
   background: var(--card);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
