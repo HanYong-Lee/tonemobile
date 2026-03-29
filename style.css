@@ -386,7 +386,6 @@ img { max-width: 100%; display: block; }
 }
 
 .card-ben {
-  margin: 0 0 -8px;
   background: var(--card);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
@@ -399,6 +398,7 @@ img { max-width: 100%; display: block; }
 }
 
 .card-ben h3 {
+  margin-top: -16px;
   margin-bottom: 8px;
 }
 
