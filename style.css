@@ -826,6 +826,7 @@ img { max-width: 100%; display: block; }
   .hero-media__img {
     object-fit: contain;
     background: #000;
+    gap: 12px;
   }
 
   .promo-card {
