@@ -162,7 +162,7 @@ img { max-width: 100%; display: block; }
 }
 
 .hero-media {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: auto;
   overflow: hidden;
 }
 
