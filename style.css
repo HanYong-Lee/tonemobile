@@ -171,6 +171,7 @@ img { max-width: 100%; display: block; }
   height: auto;
   object-fit: cover;
   object-position: center top;
+  margin-top: 24px;
 }
 
 .hero-media__overlay {
