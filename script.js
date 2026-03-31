@@ -29,6 +29,15 @@ const stores = [
     phone: "0507-1319-5033",
     mapUrl: "https://naver.me/5ZjdrJ3Q"
   },
+    {
+    name: "청주지웰시티점",
+    lat: 36.6369,
+    lng: 127.4266,
+    address: "충북 청주시 흥덕구 복대동 288-15(대농로 47)",
+    points: ["주차는 어떻게 해요?", "강점 Point 2", "강점 Point 3"],
+    phone: "010-0000-0000",
+    mapUrl: "https://naver.me/xUwgrDjt"
+  },
   {
     name: "아산권곡점",
     lat: 36.7775,
