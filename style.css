@@ -470,8 +470,9 @@ img { max-width: 100%; display: block; }
 .stores-grid,
 .mapping-grid,
 .features-grid {
+  margin: 0 0 8px ;
   display: grid;
-  gap: 8px;
+  gap: 16px;
   max-width: 980px;
 }
 
