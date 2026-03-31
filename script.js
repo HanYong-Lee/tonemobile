@@ -6,64 +6,64 @@ const stores = [
     name: "원신흥점",
     lat: 36.3342,
     lng: 127.3406,
-    address: "대전 유성구 원신흥동",
-    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
-    phone: "010-0000-0001",
-    mapUrl: "https://map.naver.com/"
+    address: "대전 유성구 원신흥동 491-1(봉명로 27-3)",
+    points: ["지하주차장 주차 가능"<br/>"주의: 출입구 공간 협소", "강점 Point 2", "강점 Point 3"],
+    phone: "0507-1355-2017",
+    mapUrl: "https://naver.me/5pEzM5AE"
   },
   {
     name: "용문점",
     lat: 36.3387,
     lng: 127.3938,
-    address: "대전 서구 용문동",
-    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
-    phone: "010-0000-0002",
-    mapUrl: "https://map.naver.com/"
+    address: "대전 서구 용문동 244-15(계룡로 661-1)",
+    points: ["건너편 우체국 주차 가능", "강점 Point 2", "강점 Point 3"],
+    phone: "0507-1477-2076",
+    mapUrl: "https://naver.me/FytQtAEK"
   },
   {
     name: "용운점",
     lat: 36.3213,
     lng: 127.4589,
-    address: "대전 동구 용운동",
-    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
-    phone: "010-0000-0003",
-    mapUrl: "https://map.naver.com/"
+    address: "대전 동구 용운동 783(용운로 203)",
+    points: ["유료주차장 이용 가능(2시간 지원)", "강점 Point 2", "강점 Point 3"],
+    phone: "0507-1319-5033",
+    mapUrl: "https://naver.me/5ZjdrJ3Q"
   },
   {
     name: "아산권곡점",
     lat: 36.7775,
     lng: 127.0189,
-    address: "충남 아산시 권곡동",
-    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
-    phone: "010-0000-0004",
-    mapUrl: "https://map.naver.com/"
+    address: "충남 아산시 권곡동 219-21(문화로 271-6 106호)",
+    points: ["아산마트 주차장 무료이용 가능", "강점 Point 2", "강점 Point 3"],
+    phone: "0507-7867-2010",
+    mapUrl: "https://naver.me/GplJeXqn"
   },
   {
     name: "아산세교점",
     lat: 36.7838,
     lng: 127.0004,
-    address: "충남 아산시 세교리 인근",
+    address: "충남 아산시 배방읍 세교리 1585(동방로 180-3)",
     points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
-    phone: "010-0000-0005",
-    mapUrl: "https://map.naver.com/"
+    phone: "0507-1338-8200",
+    mapUrl: "https://naver.me/FG3plz6q"
   },
   {
     name: "천안신불당점",
     lat: 36.8086,
     lng: 127.1082,
-    address: "충남 천안시 서북구 불당동",
+    address: "충남 천안시 서북구 불당동 1617(불당33길 26)",
     points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
-    phone: "010-0000-0006",
-    mapUrl: "https://map.naver.com/"
+    phone: "0507-1417-0338",
+    mapUrl: "https://naver.me/FBaVF2Gg"
   },
   {
     name: "홍성서우점",
     lat: 36.6014,
     lng: 126.6641,
-    address: "충남 홍성군 홍성읍",
+    address: "충남 홍성군 홍성읍 월산리 896-5(법원로 7)",
     points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
-    phone: "010-0000-0007",
-    mapUrl: "https://map.naver.com/"
+    phone: "0507-1425-3009",
+    mapUrl: "https://naver.me/x58PthN3"
   }
 ];
 
