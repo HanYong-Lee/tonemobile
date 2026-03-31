@@ -471,7 +471,7 @@ img { max-width: 100%; display: block; }
 .mapping-grid,
 .features-grid {
   display: grid;
-  gap: 18px;
+  gap: 8px;
   max-width: 980px;
 }
 
