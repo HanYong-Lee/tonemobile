@@ -46,7 +46,10 @@ img { max-width: 100%; display: block; }
   margin: 0 auto;
 }
 
-.section { padding: 96px 0; }
+.section {
+  position: relative;
+  padding: 96px 0;
+}
 
 .section-head {
   max-width: 700px;
@@ -199,6 +202,15 @@ img { max-width: 100%; display: block; }
   background: rgba(230,0,18,0.10);
   filter: blur(90px);
   transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 160px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
   pointer-events: none;
 }
 
@@ -544,12 +556,67 @@ img { max-width: 100%; display: block; }
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 }
 
-/* ===== Promo ===== */
+/* ===== Section Distinction ===== */
+#benefits.section::before,
+#stores.section::before,
+#marketing.section::before,
+.story.section::before,
+.promo-news.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#benefits {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));
+}
+
+#benefits::before {
+  background:
+    radial-gradient(circle at left center, rgba(255,255,255,0.03), transparent 28%);
+}
+
 .promo-news {
   background:
     linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
 }
 
+.promo-news::before {
+  background:
+    radial-gradient(circle at center top, rgba(91,140,255,0.05), transparent 25%);
+}
+
+.story {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at right top, rgba(230,0,18,0.10), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+}
+
+#stores {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.03));
+}
+
+#stores::before {
+  background:
+    radial-gradient(circle at right center, rgba(91,140,255,0.04), transparent 26%);
+}
+
+#marketing {
+  background:
+    linear-gradient(180deg, #121318 0%, #0e0f13 100%);
+}
+
+#marketing::before {
+  background:
+    radial-gradient(circle at left top, rgba(230,0,18,0.08), transparent 24%);
+}
+
+/* ===== Promo ===== */
 .promo-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -695,7 +762,7 @@ img { max-width: 100%; display: block; }
   margin-bottom: 2px;
 }
 
-/* ===== Table / Story / Mapping ===== */
+/* ===== Table / Stores / Mapping ===== */
 .compare-table {
   overflow: hidden;
   border-radius: 32px;
@@ -728,14 +795,6 @@ img { max-width: 100%; display: block; }
 .floating-store-box__title {
   color: #fff;
   font-weight: 800;
-}
-
-.story {
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background:
-    radial-gradient(circle at right top, rgba(230,0,18,0.10), transparent 30%),
-    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
 }
 
 .stores-head {
