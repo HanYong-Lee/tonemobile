@@ -673,7 +673,7 @@ img { max-width: 100%; display: block; }
 
 .stores-head {
   display: flex;
-  gap: 16px;
+  gap: 8px;
   align-items: end;
   justify-content: space-between;
   margin-bottom: 34px;
