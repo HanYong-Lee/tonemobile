@@ -7,7 +7,7 @@ const stores = [
     lat: 36.3342,
     lng: 127.3406,
     address: "대전 유성구 원신흥동 491-1(봉명로 27-3)",
-    points: ["지하주차장 주차 가능"<br/>"주의: 출입구 공간 협소", "강점 Point 2", "강점 Point 3"],
+    points: ["지하주차장 이용가능(출입구 공간 협소)", "강점 Point 2", "강점 Point 3"],
     phone: "0507-1355-2017",
     mapUrl: "https://naver.me/5pEzM5AE"
   },
