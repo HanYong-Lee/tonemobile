@@ -1338,3 +1338,406 @@ span[style*="color: #ffffff"] {
     border: 1px solid rgba(148,163,184,0.20);
   }
 }
+
+/* =========================================
+   2차 패치 : 맘카페 친화형 소프트 톤 업그레이드
+   기존 모바일 구조 유지 / 1차 패치 아래에 추가
+   ========================================= */
+
+:root {
+  --bg: #f7f9fc;
+  --bg-soft: #ffffff;
+  --bg-elevated: #ffffff;
+  --card: rgba(255,255,255,0.98);
+  --card-strong: rgba(255,255,255,1);
+  --line: rgba(148,163,184,0.16);
+  --line-strong: rgba(148,163,184,0.22);
+
+  --text: #1f2937;
+  --muted: #667085;
+  --muted-2: #98a2b3;
+
+  --point: #2563eb;
+  --point-dark: #1d4ed8;
+  --point-soft: rgba(37,99,235,0.08);
+
+  --shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
+  --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.05);
+
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --radius-md: 18px;
+}
+
+/* 전체 배경을 더 부드럽게 */
+body {
+  background:
+    radial-gradient(circle at top left, rgba(59,130,246,0.06), transparent 26%),
+    radial-gradient(circle at top right, rgba(125,211,252,0.08), transparent 20%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 48%, #f3f7fd 100%);
+  color: var(--text);
+}
+
+/* 섹션 제목/설명 더 편안하게 */
+.section-title {
+  color: #0f172a;
+  letter-spacing: -0.04em;
+}
+
+.section-desc {
+  color: #5f6b7a;
+  line-height: 1.8;
+}
+
+.eyebrow {
+  color: #60a5fa;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+}
+
+/* 헤더 더 밝고 가벼운 느낌 */
+.site-header {
+  background: rgba(255,255,255,0.92);
+  border-bottom: 1px solid rgba(148,163,184,0.14);
+  box-shadow: 0 6px 20px rgba(15,23,42,0.04);
+}
+
+.brand span {
+  color: #0f172a;
+}
+
+.nav a {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.nav a:hover {
+  color: #2563eb;
+}
+
+.header-cta {
+  border-radius: 999px;
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 10px 24px rgba(37,99,235,0.16);
+}
+
+/* 히어로를 더 부드러운 소개형으로 */
+.hero {
+  background:
+    radial-gradient(circle at 50% 8%, rgba(96,165,250,0.10), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 56%, #f1f6ff 100%);
+}
+
+.hero__kicker {
+  color: #7c8aa0;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+}
+
+.hero__title {
+  color: #0f172a;
+  line-height: 1.14;
+}
+
+.hero__title .point,
+.cta-card .point {
+  color: #2563eb;
+}
+
+.hero__desc {
+  color: #5f6b7a;
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+/* 이미지 카드 더 가볍게 */
+.hero-media,
+.card,
+.quick-panel,
+.stat-card,
+.timeline-card,
+.feature-card,
+.mapping-card,
+.store-card,
+.cta-card,
+.card-ben,
+.promo-card {
+  border-radius: 24px;
+  border: 1px solid rgba(148,163,184,0.14);
+  box-shadow: 0 12px 28px rgba(15,23,42,0.05);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+}
+
+.hero-media__img {
+  border-radius: 18px;
+}
+
+.hero-media__overlay {
+  background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.16) 100%);
+}
+
+/* 버튼 톤 부드럽게 */
+.btn {
+  border-radius: 999px;
+  min-height: 52px;
+  font-weight: 800;
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+  box-shadow: 0 10px 24px rgba(37,99,235,0.18);
+}
+
+.btn--primary:hover {
+  box-shadow: 0 14px 28px rgba(37,99,235,0.20);
+}
+
+.btn--ghost {
+  background: #f0f7ff;
+  color: #2563eb;
+  border: 1px solid #cfe3ff;
+}
+
+.btn--ghost:hover {
+  background: #e7f1ff;
+  border-color: #b9d5ff;
+}
+
+/* 통계 카드: 숫자는 또렷하게, 전체는 부드럽게 */
+.hero-stats {
+  gap: 14px;
+}
+
+.stat-card {
+  padding: 20px 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid rgba(96,165,250,0.16);
+}
+
+.stat-number {
+  color: #2563eb;
+  font-size: 32px;
+}
+
+.stat-label {
+  color: #334155;
+  font-weight: 800;
+}
+
+.stat-sub {
+  color: #94a3b8;
+}
+
+/* notice-bar를 '안내박스'처럼 */
+.notice-bar {
+  margin-top: 20px;
+  background: linear-gradient(180deg, #eff6ff 0%, #f8fbff 100%);
+  border: 1px solid #cfe3ff;
+  border-radius: 18px;
+  color: #34527a;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.05);
+}
+
+/* 퀵패널: 상담형 느낌 */
+.quick-panel {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.quick-panel__head h3 {
+  color: #0f172a;
+}
+
+.quick-card {
+  background: #f8fbff;
+  border: 1px solid #dbeafe;
+  color: #334155;
+  border-radius: 16px;
+}
+
+.quick-card:hover {
+  background: #eef6ff;
+  border-color: #93c5fd;
+}
+
+.quick-note {
+  background: #f7fbff;
+  border: 1px solid #d6e8ff;
+  color: #5b6474;
+  border-radius: 18px;
+}
+
+/* 프로모션 카드: 과한 광고 느낌 줄이기 */
+.promo-card {
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.promo-card__thumb {
+  background: #eaf3ff;
+}
+
+.promo-card__overlay {
+  background:
+    linear-gradient(180deg, rgba(15,23,42,0.02) 0%, rgba(15,23,42,0.10) 50%, rgba(15,23,42,0.24) 100%);
+}
+
+.promo-card__body {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+}
+
+.promo-card__body h3 {
+  color: #0f172a;
+  line-height: 1.45;
+}
+
+.promo-card__body p {
+  color: #667085;
+  line-height: 1.7;
+}
+
+.promo-card__chip,
+.hero-media__badge,
+.chip {
+  background: #eef6ff;
+  color: #2563eb;
+  border: 1px solid #cfe3ff;
+}
+
+.promo-card__cta {
+  color: #2563eb;
+  font-weight: 800;
+}
+
+/* 비교표도 덜 딱딱하게 */
+.compare-table {
+  border-radius: 24px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(148,163,184,0.14);
+  box-shadow: 0 12px 28px rgba(15,23,42,0.05);
+}
+
+.compare-table__head {
+  background: linear-gradient(180deg, #eff6ff 0%, #f7fbff 100%);
+}
+
+.compare-table__head > div {
+  color: #1d4ed8;
+  font-weight: 800;
+}
+
+.compare-table__grid {
+  color: #5f6b7a;
+  border-bottom: 1px solid rgba(148,163,184,0.12);
+}
+
+.compare-table__label {
+  color: #334155;
+  font-weight: 700;
+}
+
+/* 작은 카드들 가독성 */
+.card-ben h3,
+.timeline-card h3,
+.store-card h3,
+.mapping-card h3,
+.feature-card h3 {
+  color: #0f172a;
+}
+
+.card-ben p,
+.timeline-card p,
+.store-card p,
+.mapping-card p,
+.feature-card p,
+.feature-item,
+.store-point {
+  color: #667085;
+}
+
+/* 섹션별 배경 구분을 더 자연스럽게 */
+#benefits {
+  background: linear-gradient(180deg, #f9fbff, #f5f9ff);
+}
+
+.promo-news {
+  background: linear-gradient(180deg, #ffffff, #f7fbff);
+}
+
+.story {
+  background:
+    radial-gradient(circle at right top, rgba(59,130,246,0.06), transparent 28%),
+    linear-gradient(180deg, #f8fbff, #f3f8ff);
+}
+
+#stores {
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+}
+
+#marketing {
+  background: linear-gradient(180deg, #f8fbff 0%, #f1f6ff 100%);
+}
+
+/* hover를 과하지 않게 */
+.card:hover,
+.promo-card:hover,
+.stat-card:hover,
+.quick-card:hover,
+.card-ben:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px rgba(37,99,235,0.08);
+}
+
+/* 인라인 컬러 들어간 부분 완화 */
+span[style*="color: #f97316"] {
+  color: #2563eb !important;
+}
+
+span[style*="color: #3b82f6"] {
+  color: #2563eb !important;
+}
+
+span[style*="color: #ffffff"] {
+  color: #2563eb !important;
+}
+
+/* 모바일에서 더 편안하게 */
+@media (max-width: 960px) {
+  .hero {
+    background: linear-gradient(180deg, #ffffff 0%, #f7fbff 100%);
+  }
+
+  .hero__title {
+    font-size: clamp(32px, 8vw, 48px);
+    line-height: 1.18;
+  }
+
+  .hero__desc,
+  .section-desc {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .quick-panel,
+  .card,
+  .promo-card,
+  .stat-card,
+  .compare-table,
+  .timeline-card,
+  .store-card {
+    border-radius: 20px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .hero__actions {
+    gap: 10px;
+  }
+
+  .nav {
+    background: rgba(255,255,255,0.98);
+    border-radius: 20px;
+  }
+}
