@@ -1736,3 +1736,20 @@ span[style*="color: #ffffff"] {
     border-radius: 20px;
   }
 }
+
+/* hero 하단 효과 제거 */
+.hero::after,
+.hero::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* promo-news 시작부 배경 효과 제거 */
+.promo-news::before {
+  content: none !important;
+  display: none !important;
+}
+
+.promo-news {
+  background: #ffffff !important;
+}
