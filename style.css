@@ -1121,7 +1121,7 @@ body {
 }
 
 .hero::after {
-  background: linear-gradient(180deg, transparent 0%, rgba(37,99,235,0.03) 100%);
+  content: none;
 }
 
 .hero__kicker {
