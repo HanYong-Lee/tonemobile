@@ -1,27 +1,24 @@
-
-
 :root {
-  --bg: #0b0b0d;
-  --bg-soft: #141418;
-  --bg-elevated: #1a1b20;
-  --card: rgba(255,255,255,0.07);
-  --card-strong: rgba(255,255,255,0.11);
-  --line: rgba(255,255,255,0.12);
-  --line-strong: rgba(255,255,255,0.18);
-  --text: #f7f7f8;
-  --muted: #c9cad1;
-  --muted-2: #9ea3ad;
-  --point: #e60012;
-  --point-dark: #8f000b;
-  --point-soft: rgba(230,0,18,0.14);
-  --accent-blue: #5b8cff;
-  --accent-orange: #ff9a3d;
-  --shadow: 0 20px 60px rgba(0,0,0,0.30);
-  --shadow-soft: 0 12px 30px rgba(0,0,0,0.18);
-  --radius-xl: 32px;
-  --radius-lg: 22px;
-  --radius-md: 16px;
-  --max: 1080px;
+  --bg: #f5f7fb;
+  --bg-soft: #ffffff;
+  --bg-elevated: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --muted-2: #8b95a7;
+
+  --point: #2563eb;
+  --point-dark: #1d4ed8;
+  --point-soft: rgba(37,99,235,0.10);
+  --accent-blue: #2563eb;
+  --accent-orange: #ff8a3d;
+
+  --card: rgba(255,255,255,0.96);
+  --card-strong: rgba(255,255,255,1);
+  --line: rgba(37,99,235,0.10);
+  --line-strong: rgba(37,99,235,0.18);
+
+  --shadow: 0 12px 30px rgba(0,0,0,0.06);
+  --shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.06);
 }
 
 * { box-sizing: border-box; }
@@ -205,10 +202,6 @@ img { max-width: 100%; display: block; }
   filter: blur(90px);
   transform: translateX(-50%);
   pointer-events: none;
-}
-
-.hero::after {
-  content: none;
 }
 
 .hero-media {
@@ -418,6 +411,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* ===== Cards ===== */
+
 .card,
 .store-card,
 .quick-card,
@@ -427,18 +421,19 @@ img { max-width: 100%; display: block; }
 .cta-card {
   background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
   border: 1px solid rgba(255,255,255,0.11);
+  border-radius: 28px;
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px);
+  padding: 24px;
 }
 
-.card,
-.timeline-card,
-.store-card,
-.feature-card,
-.mapping-card,
-.cta-card {
-  border-radius: 28px;
-  padding: 24px;
+.stat-card,
+.quick-panel,
+.compare-table {
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.98));
+  border: 1px solid rgba(148,163,184,0.18);
+  box-shadow: 0 12px 30px rgba(15,23,42,0.06);
+  backdrop-filter: none;
 }
 
 .cards-3 {
@@ -1021,26 +1016,6 @@ img { max-width: 100%; display: block; }
    기존 다크 구조/모바일 반응형 유지
    ================================ */
 
-:root {
-  --bg: #f5f7fb;
-  --bg-soft: #ffffff;
-  --bg-elevated: #ffffff;
-  --card: rgba(255,255,255,0.96);
-  --card-strong: rgba(255,255,255,1);
-  --line: rgba(37,99,235,0.10);
-  --line-strong: rgba(37,99,235,0.18);
-  --text: #111827;
-  --muted: #5b6474;
-  --muted-2: #8b95a7;
-  --point: #2563eb;
-  --point-dark: #1d4ed8;
-  --point-soft: rgba(37,99,235,0.10);
-  --accent-blue: #2563eb;
-  --accent-orange: #ff8a3d;
-  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-  --shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.06);
-}
-
 /* body / 공통 */
 body {
   background:
@@ -1172,23 +1147,7 @@ body {
 }
 
 /* 카드류 */
-.card,
-.store-card,
-.quick-card,
-.timeline-card,
-.feature-card,
-.mapping-card,
-.cta-card,
-.card-ben,
-.promo-card,
-.stat-card,
-.quick-panel,
-.compare-table {
-  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.98));
-  border: 1px solid rgba(148,163,184,0.18);
-  box-shadow: 0 12px 30px rgba(15,23,42,0.06);
-  backdrop-filter: none;
-}
+
 
 .card-ben:hover,
 .quick-card:hover,
@@ -1341,30 +1300,6 @@ span[style*="color: #ffffff"] {
    기존 모바일 구조 유지 / 1차 패치 아래에 추가
    ========================================= */
 
-:root {
-  --bg: #f7f9fc;
-  --bg-soft: #ffffff;
-  --bg-elevated: #ffffff;
-  --card: rgba(255,255,255,0.98);
-  --card-strong: rgba(255,255,255,1);
-  --line: rgba(148,163,184,0.16);
-  --line-strong: rgba(148,163,184,0.22);
-
-  --text: #1f2937;
-  --muted: #667085;
-  --muted-2: #98a2b3;
-
-  --point: #2563eb;
-  --point-dark: #1d4ed8;
-  --point-soft: rgba(37,99,235,0.08);
-
-  --shadow: 0 14px 34px rgba(15, 23, 42, 0.06);
-  --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.05);
-
-  --radius-xl: 28px;
-  --radius-lg: 22px;
-  --radius-md: 18px;
-}
 
 /* 전체 배경을 더 부드럽게 */
 body {
