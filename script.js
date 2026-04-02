@@ -7,7 +7,7 @@ const stores = [
     lat: 36.3342,
     lng: 127.3406,
     address: "대전 유성구 원신흥동 491-1(봉명로 27-3)",
-    points: ["지하주차장 이용가능(출입구 공간 협소)", "강점 Point 2", "강점 Point 3"],
+    points: ["지하주차장 이용가능(출입구 공간 협소)"],
     phone: "0507-1355-2017",
     mapUrl: "https://naver.me/5pEzM5AE"
   },
@@ -16,7 +16,7 @@ const stores = [
     lat: 36.3387,
     lng: 127.3938,
     address: "대전 서구 용문동 244-15(계룡로 661-1)",
-    points: ["건너편 우체국 주차 가능", "강점 Point 2", "강점 Point 3"],
+    points: ["건너편 우체국 주차 가능"],
     phone: "0507-1477-2076",
     mapUrl: "https://naver.me/FytQtAEK"
   },
@@ -25,7 +25,7 @@ const stores = [
     lat: 36.3213,
     lng: 127.4589,
     address: "대전 동구 용운동 783(용운로 203)",
-    points: ["유료주차장 이용 가능(2시간 지원)", "강점 Point 2", "강점 Point 3"],
+    points: ["유료주차장 이용 가능(2시간 지원)"],
     phone: "0507-1319-5033",
     mapUrl: "https://naver.me/5ZjdrJ3Q"
   },
@@ -34,7 +34,7 @@ const stores = [
     lat: 36.6369,
     lng: 127.4266,
     address: "충북 청주시 흥덕구 복대동 288-15(대농로 47)",
-    points: ["주차는 어떻게 해요?", "강점 Point 2", "강점 Point 3"],
+    points: ["주차는 어떻게 해요?"],
     phone: "010-0000-0000",
     mapUrl: "https://naver.me/xUwgrDjt"
   },
@@ -43,7 +43,7 @@ const stores = [
     lat: 36.7775,
     lng: 127.0189,
     address: "충남 아산시 권곡동 219-21(문화로 271-6 106호)",
-    points: ["아산마트 주차장 무료이용 가능", "강점 Point 2", "강점 Point 3"],
+    points: ["아산마트 주차장 무료이용 가능"],
     phone: "0507-7867-2010",
     mapUrl: "https://naver.me/GplJeXqn"
   },
@@ -52,7 +52,7 @@ const stores = [
     lat: 36.7838,
     lng: 127.0004,
     address: "충남 아산시 배방읍 세교리 1585(동방로 180-3)",
-    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    points: ["강점 Point 1"],
     phone: "0507-1338-8200",
     mapUrl: "https://naver.me/FG3plz6q"
   },
@@ -61,7 +61,7 @@ const stores = [
     lat: 36.8086,
     lng: 127.1082,
     address: "충남 천안시 서북구 불당동 1617(불당33길 26)",
-    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    points: "강점 Point 3",
     phone: "0507-1417-0338",
     mapUrl: "https://naver.me/FBaVF2Gg"
   },
@@ -70,7 +70,7 @@ const stores = [
     lat: 36.6014,
     lng: 126.6641,
     address: "충남 홍성군 홍성읍 월산리 896-5(법원로 7)",
-    points: ["강점 Point 1", "강점 Point 2", "강점 Point 3"],
+    points: ["강점 Point 1"],
     phone: "0507-1425-3009",
     mapUrl: "https://naver.me/x58PthN3"
   }
