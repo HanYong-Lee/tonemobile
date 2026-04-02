@@ -413,7 +413,8 @@ function findNearbyStore() {
 
       showFloatingBox(
         `가장 가까운 매장: ${nearest.name}`,
-        `${nearest.address} · 현재 위치 기준 ${nearest.distanceText}. 아래 매장 카드에서 바로 상담 연결 또는 지도 보기를 이용해보세요.`
+        `${nearest.address}`,
+        `· 현재 위치 기준 ${nearest.distanceText}`
       );
 
       const storesSection = document.getElementById('stores');
