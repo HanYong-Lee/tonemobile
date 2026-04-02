@@ -822,13 +822,14 @@ img { max-width: 100%; display: block; }
 
 .floating-store-box {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
+  top: 50%;
+  left: 50%;
   z-index: 90;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: min(340px, calc(100vw - 24px));
+  width: min(92vw, 420px);
+  z-index: 300;
   padding: 18px;
   border-radius: 24px;
   background: rgba(20,21,25,0.92);
@@ -837,14 +838,14 @@ img { max-width: 100%; display: block; }
   backdrop-filter: blur(18px);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(16px);
-  transition: .24s ease;
+  transform: translate(-50%, -50%) scale(0.95);
+  transition: all 0.25s ease;
 }
 
 .floating-store-box.is-visible {
   opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
   pointer-events: auto;
-  transform: translateY(0);
 }
 
 .floating-store-box__desc {
