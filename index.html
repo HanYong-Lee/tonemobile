@@ -314,6 +314,32 @@
     </div>
   </aside>
 
+  <!-- 오늘의 특가 팝업 -->
+  <div class="promo-popup is-open" id="promoPopup" aria-hidden="false">
+    <div class="promo-popup__backdrop" id="promoPopupBackdrop"></div>
+  
+    <div class="promo-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="promoPopupTitle">
+      <button class="promo-popup__close" id="promoPopupClose" aria-label="오늘의 특가 팝업 닫기">✕</button>
+  
+      <a href="#stores" class="promo-popup__poster" id="promoPopupPoster">
+        <img src="assets/today-special.jpg" alt="오늘의 특가 포스터" />
+      </a>
+    </div>
+  </div>
+  
+  <!-- 왼쪽 하단 퀵 아이콘 -->
+  <div class="floating-quick">
+    <button class="floating-quick__btn floating-quick__btn--nearby" id="floatingNearbyBtn" type="button">
+      <span class="floating-quick__emoji">📍</span>
+      <span class="floating-quick__text">주변매장 찾기</span>
+    </button>
+  
+    <button class="floating-quick__btn floating-quick__btn--special" id="floatingSpecialBtn" type="button">
+      <span class="floating-quick__emoji">🎁</span>
+      <span class="floating-quick__text">오늘의 특가!</span>
+    </button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
