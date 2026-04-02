@@ -9,7 +9,9 @@ const stores = [
     address: "대전 유성구 원신흥동 491-1(봉명로 27-3)",
     points: ["지하주차장 이용가능(출입구 공간 협소)"],
     phone: "0507-1355-2017",
-    mapUrl: "https://naver.me/5pEzM5AE"
+    mapUrl: "https://naver.me/5pEzM5AE",
+    review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
+    meta: "40대 / 자녀폰 상담"
   },
   {
     name: "용문점",
@@ -18,7 +20,9 @@ const stores = [
     address: "대전 서구 용문동 244-15(계룡로 661-1)",
     points: ["건너편 우체국 주차 가능"],
     phone: "0507-1477-2076",
-    mapUrl: "https://naver.me/FytQtAEK"
+    mapUrl: "https://naver.me/FytQtAEK",
+    review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
+    meta: "40대 / 자녀폰 상담"
   },
   {
     name: "용운점",
@@ -27,7 +31,9 @@ const stores = [
     address: "대전 동구 용운동 783(용운로 203)",
     points: ["유료주차장 이용 가능(2시간 지원)"],
     phone: "0507-1319-5033",
-    mapUrl: "https://naver.me/5ZjdrJ3Q"
+    mapUrl: "https://naver.me/5ZjdrJ3Q",
+    review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
+    meta: "40대 / 자녀폰 상담"
   },
     {
     name: "청주지웰시티점",
@@ -36,7 +42,9 @@ const stores = [
     address: "충북 청주시 흥덕구 복대동 288-15(대농로 47)",
     points: ["주차는 어떻게 해요?"],
     phone: "010-0000-0000",
-    mapUrl: "https://naver.me/xUwgrDjt"
+    mapUrl: "https://naver.me/xUwgrDjt",
+    review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
+    meta: "40대 / 자녀폰 상담"
   },
   {
     name: "아산권곡점",
@@ -45,7 +53,9 @@ const stores = [
     address: "충남 아산시 권곡동 219-21(문화로 271-6 106호)",
     points: ["아산마트 주차장 무료이용 가능"],
     phone: "0507-7867-2010",
-    mapUrl: "https://naver.me/GplJeXqn"
+    mapUrl: "https://naver.me/GplJeXqn",
+    review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
+    meta: "40대 / 자녀폰 상담"
   },
   {
     name: "아산세교점",
@@ -54,7 +64,9 @@ const stores = [
     address: "충남 아산시 배방읍 세교리 1585(동방로 180-3)",
     points: ["강점 Point 1"],
     phone: "0507-1338-8200",
-    mapUrl: "https://naver.me/FG3plz6q"
+    mapUrl: "https://naver.me/FG3plz6q",
+    review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
+    meta: "40대 / 자녀폰 상담"
   },
   {
     name: "천안신불당점",
@@ -63,7 +75,9 @@ const stores = [
     address: "충남 천안시 서북구 불당동 1617(불당33길 26)",
     points: ["강점 Point 3"],
     phone: "0507-1417-0338",
-    mapUrl: "https://naver.me/FBaVF2Gg"
+    mapUrl: "https://naver.me/FBaVF2Gg",
+    review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
+    meta: "40대 / 자녀폰 상담"
   },
   {
     name: "홍성서우점",
@@ -72,7 +86,9 @@ const stores = [
     address: "충남 홍성군 홍성읍 월산리 896-5(법원로 7)",
     points: ["강점 Point 1"],
     phone: "0507-1425-3009",
-    mapUrl: "https://naver.me/x58PthN3"
+    mapUrl: "https://naver.me/x58PthN3",
+    review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
+    meta: "40대 / 자녀폰 상담"
   }
 ];
 
@@ -243,23 +259,36 @@ function renderStores(list) {
       : `<span class="chip">직영 매장</span>`;
 
     return `
-      <article class="store-card" data-store-index="${idx}">
-        <div class="store-card__top">
-          <div>
-            <h3>${store.name}</h3>
-            <div class="store-card__sub">${store.address}</div>
-          </div>
+      <article class="store-card store-card--review" data-store-index="${idx}">
+    
+        <div class="store-top">
+          <h3>${store.name}</h3>
           ${distanceHtml}
         </div>
-
-        <div class="store-points">
-          ${store.points.map(point => `<div class="store-point">${point}</div>`).join('')}
+    
+        ${store.review ? `
+          <p class="store-review">
+            "${store.review}"
+          </p>
+        ` : ""}
+    
+        ${store.meta ? `
+          <div class="store-meta">${store.meta}</div>
+        ` : ""}
+    
+        <div class="store-point">
+          ${store.points.map(p => `✔ ${p}`).join('<br>')}
         </div>
-
+    
         <div class="store-actions">
-          <a class="btn btn--primary btn--small" href="tel:${store.phone}">상담 연결</a>
-          <a class="btn btn--ghost btn--small" href="${store.mapUrl}" target="_blank" rel="noopener">지도 보기</a>
+          <a class="btn btn--ghost btn--small" href="${store.mapUrl}" target="_blank" rel="noopener">
+            위치 확인
+          </a>
+          <a class="btn btn--primary btn--small" href="tel:${store.phone}">
+            전화 상담
+          </a>
         </div>
+    
       </article>
     `;
   }).join('');
