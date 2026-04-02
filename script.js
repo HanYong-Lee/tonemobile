@@ -258,39 +258,53 @@ function renderStores(list) {
       ? `<span class="chip">현재 위치 기준 ${store.distanceText}</span>`
       : `<span class="chip">직영 매장</span>`;
 
+    function renderStores(list) {
+  if (!storeGrid) return;
+
+  storeGrid.innerHTML = list.map((store, idx) => {
+    const distanceHtml = store.distanceText
+      ? `<span class="chip">현재 위치 기준 ${store.distanceText}</span>`
+      : `<span class="chip">직영 매장</span>`;
+
+    const isFeatured = idx === 0;
+    const featuredClass = isFeatured ? ' store-card--featured store-card--review' : ' store-card--review';
+    const featuredBadge = isFeatured
+      ? `<span class="store-featured-badge">가장 가까운 추천 매장</span>`
+      : '';
+
     return `
-      <article class="store-card store-card--review" data-store-index="${idx}">
-    
+      <article class="store-card${featuredClass}" data-store-index="${idx}">
+        ${featuredBadge}
+
         <div class="store-top">
           <h3>${store.name}</h3>
           ${distanceHtml}
         </div>
-    
+
         ${store.review ? `
           <p class="store-review">
             "${store.review}"
           </p>
         ` : ""}
-    
+
         ${store.meta ? `
           <div class="store-meta">${store.meta}</div>
         ` : ""}
-    
+
+        <div class="store-card__sub">${store.address}</div>
+
         <div class="store-point">
-          ${store.points.map(p => `✔ ${p}`).join('<br>')}
+          ${store.points.map(point => `✔ ${point}`).join('<br>')}
         </div>
-    
+
         <div class="store-actions">
-          <a class="btn btn--ghost btn--small" href="${store.mapUrl}" target="_blank" rel="noopener">
-            위치 확인
-          </a>
-          <a class="btn btn--primary btn--small" href="tel:${store.phone}">
-            전화 상담
-          </a>
+          <a class="btn btn--ghost btn--small" href="${store.mapUrl}" target="_blank" rel="noopener">위치 확인</a>
+          <a class="btn btn--primary btn--small" href="tel:${store.phone}">전화 상담</a>
         </div>
-    
       </article>
     `;
+  }).join('');
+}
   }).join('');
 }
 
