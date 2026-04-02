@@ -1877,9 +1877,9 @@ span[style*="color: #ffffff"] {
   white-space: nowrap;
 }
 
-/* 살짝 시간차 주기 */
-.floating-quick__btn--special {
-  animation-delay: 0.15s;
+/* 시간차 없애기 */
+.floating-quick__btn {
+  animation: bounceFloat 1.8s ease-in-out infinite;
 }
 
 /* 애니메이션 */
