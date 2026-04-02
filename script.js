@@ -258,14 +258,6 @@ function renderStores(list) {
       ? `<span class="chip">현재 위치 기준 ${store.distanceText}</span>`
       : `<span class="chip">직영 매장</span>`;
 
-    function renderStores(list) {
-  if (!storeGrid) return;
-
-  storeGrid.innerHTML = list.map((store, idx) => {
-    const distanceHtml = store.distanceText
-      ? `<span class="chip">현재 위치 기준 ${store.distanceText}</span>`
-      : `<span class="chip">직영 매장</span>`;
-
     const isFeatured = idx === 0;
     const featuredClass = isFeatured ? ' store-card--featured store-card--review' : ' store-card--review';
     const featuredBadge = isFeatured
@@ -303,8 +295,6 @@ function renderStores(list) {
         </div>
       </article>
     `;
-  }).join('');
-}
   }).join('');
 }
 
