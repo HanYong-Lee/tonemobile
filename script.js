@@ -61,7 +61,7 @@ const stores = [
     lat: 36.8086,
     lng: 127.1082,
     address: "충남 천안시 서북구 불당동 1617(불당33길 26)",
-    points: "강점 Point 3",
+    points: ["강점 Point 3"],
     phone: "0507-1417-0338",
     mapUrl: "https://naver.me/FBaVF2Gg"
   },
