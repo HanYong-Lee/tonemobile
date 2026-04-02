@@ -35,7 +35,7 @@ const stores = [
     review: "아이 첫 휴대폰이라 걱정 많았는데 쉽게 설명해주셔서 바로 결정했어요 👍",
     meta: "40대 / 자녀폰 상담"
   },
-    {
+  {
     name: "청주지웰시티점",
     lat: 36.6369,
     lng: 127.4266,
@@ -106,6 +106,14 @@ const mobileNavToggle = document.getElementById('mobileNavToggle');
 const siteNav = document.getElementById('siteNav');
 
 const totalViewsEl = document.getElementById('totalViews');
+
+/* ===== 오늘의 특가 팝업 / 왼쪽 하단 퀵버튼 ===== */
+const promoPopup = document.getElementById('promoPopup');
+const promoPopupClose = document.getElementById('promoPopupClose');
+const promoPopupBackdrop = document.getElementById('promoPopupBackdrop');
+const promoPopupPoster = document.getElementById('promoPopupPoster');
+const floatingSpecialBtn = document.getElementById('floatingSpecialBtn');
+const floatingNearbyBtn = document.getElementById('floatingNearbyBtn');
 
 function getSessionId() {
   const key = 't1mobile_session_id';
@@ -248,6 +256,31 @@ function trackSource() {
   bucket.sources[source] = (bucket.sources[source] || 0) + 1;
   saveAnalyticsBucket(bucket);
   sendAnalytics('source_visit', { source });
+}
+
+/* ===== 오늘의 특가 팝업 ===== */
+function shouldOpenPromoToday() {
+  const key = 't1mobile_promo_seen_date';
+  const today = getTodayKey();
+  return localStorage.getItem(key) !== today;
+}
+
+function markPromoSeenToday() {
+  const key = 't1mobile_promo_seen_date';
+  localStorage.setItem(key, getTodayKey());
+}
+
+function openPromoPopup() {
+  if (!promoPopup) return;
+  promoPopup.classList.add('is-open');
+  promoPopup.setAttribute('aria-hidden', 'false');
+}
+
+function closePromoPopup() {
+  if (!promoPopup) return;
+  promoPopup.classList.remove('is-open');
+  promoPopup.setAttribute('aria-hidden', 'true');
+  markPromoSeenToday();
 }
 
 function renderStores(list) {
@@ -444,6 +477,40 @@ if (retryLocationBtn) {
   });
 }
 
+if (promoPopupClose) {
+  promoPopupClose.addEventListener('click', () => {
+    trackCTA('promo_popup_close');
+    closePromoPopup();
+  });
+}
+
+if (promoPopupBackdrop) {
+  promoPopupBackdrop.addEventListener('click', () => {
+    trackCTA('promo_popup_backdrop_close');
+    closePromoPopup();
+  });
+}
+
+if (promoPopupPoster) {
+  promoPopupPoster.addEventListener('click', () => {
+    trackCTA('promo_popup_poster_click');
+  });
+}
+
+if (floatingSpecialBtn) {
+  floatingSpecialBtn.addEventListener('click', () => {
+    trackCTA('floating_special_open');
+    openPromoPopup();
+  });
+}
+
+if (floatingNearbyBtn) {
+  floatingNearbyBtn.addEventListener('click', () => {
+    trackCTA('floating_nearby_click');
+    findNearbyStore();
+  });
+}
+
 document.addEventListener('click', (e) => {
   const target = e.target.closest('a, button');
   if (!target) return;
@@ -452,7 +519,7 @@ document.addEventListener('click', (e) => {
     trackCTA('call_click', { target: target.getAttribute('href') });
   }
 
-  if (target.textContent && target.textContent.includes('지도 보기')) {
+  if (target.textContent && (target.textContent.includes('지도 보기') || target.textContent.includes('위치 확인'))) {
     trackCTA('map_click');
   }
 
@@ -468,3 +535,7 @@ if (closeFloatingBoxBtn) {
 trackSource();
 updateViewCounters();
 resetDefaultStores();
+
+if (shouldOpenPromoToday()) {
+  openPromoPopup();
+}
