@@ -1574,6 +1574,7 @@ body {
 .store-card h3,
 .mapping-card h3,
 .feature-card h3 {
+  margin-top: 0;
   color: #0f172a;
 }
 
