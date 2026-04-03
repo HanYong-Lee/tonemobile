@@ -1407,6 +1407,7 @@ body {
 
 .hero-media__img {
   border-radius: 18px;
+  gap: 6px;
 }
 
 .hero-media__overlay {
