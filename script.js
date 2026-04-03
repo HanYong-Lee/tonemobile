@@ -544,8 +544,6 @@ const heroSliderTrack = document.getElementById('heroSliderTrack');
 const heroSliderDots = document.getElementById('heroSliderDots');
 const heroSliderCaption = document.getElementById('heroSliderCaption');
 const heroSliderViewport = document.getElementById('heroSliderViewport');
-const heroSliderPrev = document.getElementById('heroSliderPrev');
-const heroSliderNext = document.getElementById('heroSliderNext');
 const heroSliderToggle = document.getElementById('heroSliderToggle');
 
 let heroCurrentIndex = 1;
@@ -583,7 +581,7 @@ function buildHeroSlider() {
   updateHeroSliderUI(false);
   bindHeroSliderDots();
   bindHeroSliderTouch();
-  bindHeroSliderButtons();
+  bindHeroSliderToggle();
   startHeroSliderAutoPlay();
 }
 
@@ -650,35 +648,6 @@ function bindHeroSliderDots() {
   });
 }
 
-function bindHeroSliderButtons() {
-  if (heroSliderPrev) {
-    heroSliderPrev.addEventListener('click', () => {
-      prevHeroSlide();
-      restartHeroSliderAutoPlay();
-    });
-  }
-
-  if (heroSliderNext) {
-    heroSliderNext.addEventListener('click', () => {
-      nextHeroSlide();
-      restartHeroSliderAutoPlay();
-    });
-  }
-
-  if (heroSliderToggle) {
-    heroSliderToggle.addEventListener('click', () => {
-      heroIsPaused = !heroIsPaused;
-
-      if (heroIsPaused) {
-        stopHeroSliderAutoPlay();
-      } else {
-        startHeroSliderAutoPlay();
-      }
-
-      updateHeroSliderUI(false);
-    });
-  }
-}
 
 function startHeroSliderAutoPlay() {
   if (heroIsPaused) return;
@@ -759,6 +728,21 @@ updateViewCounters();
 resetDefaultStores();
 buildHeroSlider();
 
+function bindHeroSliderToggle() {
+  if (!heroSliderToggle) return;
+
+  heroSliderToggle.addEventListener('click', () => {
+    heroIsPaused = !heroIsPaused;
+
+    if (heroIsPaused) {
+      stopHeroSliderAutoPlay();
+    } else {
+      startHeroSliderAutoPlay();
+    }
+
+    updateHeroSliderUI(false);
+  });
+}
 if (shouldOpenPromoToday()) {
   openPromoPopup();
 }
