@@ -533,6 +533,227 @@ if (closeFloatingBoxBtn) {
   closeFloatingBoxBtn.addEventListener('click', hideFloatingBox);
 }
 
+const heroSlides = [
+  { name: "원신흥점", image: "assets/wonshinheung.jpg" },
+  { name: "용운점", image: "assets/yongwoon.jpg" },
+  { name: "용문점", image: "assets/yongmoon.jpg" },
+  { name: "아산권곡점", image: "assets/kwongok.jpg" }
+];
+
+const heroSliderTrack = document.getElementById('heroSliderTrack');
+const heroSliderDots = document.getElementById('heroSliderDots');
+const heroSliderCaption = document.getElementById('heroSliderCaption');
+const heroSliderViewport = document.getElementById('heroSliderViewport');
+const heroSliderPrev = document.getElementById('heroSliderPrev');
+const heroSliderNext = document.getElementById('heroSliderNext');
+const heroSliderToggle = document.getElementById('heroSliderToggle');
+
+let heroCurrentIndex = 1;
+let heroIsAnimating = false;
+let heroAutoPlay = null;
+let heroStartX = 0;
+let heroCurrentX = 0;
+let heroIsDragging = false;
+let heroIsPaused = false;
+
+function buildHeroSlider() {
+  if (!heroSliderTrack || !heroSlides.length) return;
+
+  const slidesForLoop = [
+    heroSlides[heroSlides.length - 1],
+    ...heroSlides,
+    heroSlides[0]
+  ];
+
+  heroSliderTrack.innerHTML = slidesForLoop.map((slide) => `
+    <div class="hero-slide">
+      <img src="${slide.image}" alt="${slide.name}" class="hero-slide__img" />
+    </div>
+  `).join('');
+
+  heroSliderDots.innerHTML = heroSlides.map((_, idx) => `
+    <button
+      type="button"
+      class="hero-slider__dot"
+      data-dot-index="${idx}"
+      aria-label="${idx + 1}번째 이미지 보기"
+    ></button>
+  `).join('');
+
+  updateHeroSliderUI(false);
+  bindHeroSliderDots();
+  bindHeroSliderTouch();
+  bindHeroSliderButtons();
+  startHeroSliderAutoPlay();
+}
+
+function updateHeroSliderUI(animate = true) {
+  if (!heroSliderTrack) return;
+
+  heroSliderTrack.style.transition = animate
+    ? 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)'
+    : 'none';
+
+  heroSliderTrack.style.transform = `translateX(-${heroCurrentIndex * 100}%)`;
+
+  const realIndex = getHeroRealIndex();
+  const currentSlide = heroSlides[realIndex];
+
+  if (heroSliderCaption && currentSlide) {
+    heroSliderCaption.textContent = currentSlide.name;
+  }
+
+  if (heroSliderDots) {
+    [...heroSliderDots.children].forEach((dot, idx) => {
+      dot.classList.toggle('is-active', idx === realIndex);
+    });
+  }
+
+  if (heroSliderToggle) {
+    heroSliderToggle.textContent = heroIsPaused ? 'Play' : 'Pause';
+    heroSliderToggle.setAttribute('aria-label', heroIsPaused ? '자동재생 시작' : '자동재생 일시정지');
+  }
+}
+
+function getHeroRealIndex() {
+  if (heroCurrentIndex === 0) return heroSlides.length - 1;
+  if (heroCurrentIndex === heroSlides.length + 1) return 0;
+  return heroCurrentIndex - 1;
+}
+
+function goToHeroSlide(nextIndex) {
+  if (heroIsAnimating) return;
+  heroIsAnimating = true;
+  heroCurrentIndex = nextIndex;
+  updateHeroSliderUI(true);
+}
+
+function nextHeroSlide() {
+  goToHeroSlide(heroCurrentIndex + 1);
+}
+
+function prevHeroSlide() {
+  goToHeroSlide(heroCurrentIndex - 1);
+}
+
+function bindHeroSliderDots() {
+  if (!heroSliderDots) return;
+
+  heroSliderDots.addEventListener('click', (e) => {
+    const btn = e.target.closest('.hero-slider__dot');
+    if (!btn) return;
+
+    const dotIndex = Number(btn.dataset.dotIndex);
+    heroCurrentIndex = dotIndex + 1;
+    updateHeroSliderUI(true);
+    restartHeroSliderAutoPlay();
+  });
+}
+
+function bindHeroSliderButtons() {
+  if (heroSliderPrev) {
+    heroSliderPrev.addEventListener('click', () => {
+      prevHeroSlide();
+      restartHeroSliderAutoPlay();
+    });
+  }
+
+  if (heroSliderNext) {
+    heroSliderNext.addEventListener('click', () => {
+      nextHeroSlide();
+      restartHeroSliderAutoPlay();
+    });
+  }
+
+  if (heroSliderToggle) {
+    heroSliderToggle.addEventListener('click', () => {
+      heroIsPaused = !heroIsPaused;
+
+      if (heroIsPaused) {
+        stopHeroSliderAutoPlay();
+      } else {
+        startHeroSliderAutoPlay();
+      }
+
+      updateHeroSliderUI(false);
+    });
+  }
+}
+
+function startHeroSliderAutoPlay() {
+  if (heroIsPaused) return;
+  stopHeroSliderAutoPlay();
+
+  heroAutoPlay = setInterval(() => {
+    nextHeroSlide();
+  }, 3500);
+}
+
+function stopHeroSliderAutoPlay() {
+  if (heroAutoPlay) {
+    clearInterval(heroAutoPlay);
+    heroAutoPlay = null;
+  }
+}
+
+function restartHeroSliderAutoPlay() {
+  if (heroIsPaused) return;
+  stopHeroSliderAutoPlay();
+  startHeroSliderAutoPlay();
+}
+
+function bindHeroSliderTouch() {
+  if (!heroSliderViewport) return;
+
+  heroSliderViewport.addEventListener('touchstart', (e) => {
+    if (!e.touches.length) return;
+    heroIsDragging = true;
+    heroStartX = e.touches[0].clientX;
+    heroCurrentX = heroStartX;
+    stopHeroSliderAutoPlay();
+  }, { passive: true });
+
+  heroSliderViewport.addEventListener('touchmove', (e) => {
+    if (!heroIsDragging || !e.touches.length) return;
+    heroCurrentX = e.touches[0].clientX;
+  }, { passive: true });
+
+  heroSliderViewport.addEventListener('touchend', () => {
+    if (!heroIsDragging) return;
+
+    const diffX = heroCurrentX - heroStartX;
+    heroIsDragging = false;
+
+    if (Math.abs(diffX) > 40) {
+      if (diffX < 0) {
+        nextHeroSlide();
+      } else {
+        prevHeroSlide();
+      }
+    }
+    restartHeroSliderAutoPlay();
+  });
+  heroSliderViewport.addEventListener('mouseenter', () => {
+    stopHeroSliderAutoPlay();
+  });
+  heroSliderViewport.addEventListener('mouseleave', () => {
+    if (!heroIsPaused) startHeroSliderAutoPlay();
+  });
+}
+if (heroSliderTrack) {
+  heroSliderTrack.addEventListener('transitionend', () => {
+    if (heroCurrentIndex === 0) {
+      heroCurrentIndex = heroSlides.length;
+      updateHeroSliderUI(false);
+    }
+    if (heroCurrentIndex === heroSlides.length + 1) {
+      heroCurrentIndex = 1;
+      updateHeroSliderUI(false);
+    }
+    heroIsAnimating = false;
+  });
+}
+
 trackSource();
 updateViewCounters();
 resetDefaultStores();
