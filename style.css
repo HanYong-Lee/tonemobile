@@ -1963,3 +1963,131 @@ span[style*="color: #ffffff"] {
   flex-shrink: 0;
   object-fit: cover;
 }
+
+/* =========================
+   HERO PREMIUM SLIDER
+========================= */
+
+.hero-slider {
+  padding: 14px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(244,248,255,0.98));
+  border: 1px solid rgba(37,99,235,0.10);
+  box-shadow:
+    0 18px 40px rgba(15,23,42,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.65);
+}
+
+.hero-slider__viewport {
+  overflow: hidden;
+  border-radius: 22px;
+  position: relative;
+  background: #eaf2ff;
+}
+
+.hero-slider__track {
+  display: flex;
+  will-change: transform;
+}
+
+.hero-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.hero-slide__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hero-slider__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 4px 2px;
+}
+
+.hero-slider__caption {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.hero-slider__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.hero-slider__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(148,163,184,0.45);
+  cursor: pointer;
+  transition:
+    transform 0.25s ease,
+    width 0.25s ease,
+    background 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.hero-slider__dot.is-active {
+  width: 22px;
+  background: linear-gradient(90deg, #2563eb, #60a5fa);
+  opacity: 1;
+}
+
+.hero-slider__dot:hover {
+  transform: scale(1.08);
+}
+
+@media (max-width: 820px) {
+  .hero-slider {
+    padding: 10px;
+    border-radius: 22px;
+  }
+
+  .hero-slider__viewport {
+    border-radius: 18px;
+  }
+
+  .hero-slide__img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero-slider__bottom {
+    padding: 12px 2px 2px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .hero-slider__caption {
+    font-size: 14px;
+  }
+
+  .hero-slider__dots {
+    gap: 7px;
+  }
+
+  .hero-slider__dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .hero-slider__dot.is-active {
+    width: 18px;
+  }
+}
