@@ -211,6 +211,7 @@ img { max-width: 100%; display: block; }
 
 .hero-media__img {
   width: 100%;
+  top-margin: 2px;
   height: auto;
   object-fit: cover;
   object-position: center top;
@@ -957,6 +958,7 @@ img { max-width: 100%; display: block; }
 
   .hero-media__img {
     width: 100%;
+    top-margin: 2px;
     height: auto;
     background: transparent;
   }
