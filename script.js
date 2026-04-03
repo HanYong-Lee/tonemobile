@@ -757,10 +757,11 @@ if (heroSliderTrack) {
 trackSource();
 updateViewCounters();
 resetDefaultStores();
+buildHeroSlider();
 
 if (shouldOpenPromoToday()) {
   openPromoPopup();
-}
+
 
 /* =========================
    HERO 캐러셀
