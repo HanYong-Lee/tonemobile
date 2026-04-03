@@ -540,3 +540,22 @@ resetDefaultStores();
 if (shouldOpenPromoToday()) {
   openPromoPopup();
 }
+
+/* =========================
+   HERO 캐러셀
+========================= */
+
+const heroTrack = document.getElementById('heroTrack');
+
+if (heroTrack) {
+  const slides = heroTrack.children;
+  let index = 0;
+  function nextSlide() {
+    index++;
+    if (index >= slides.length) {
+      index = 0;
+    }
+    heroTrack.style.transform = `translateX(-${index * 100}%)`;
+  }
+  setInterval(nextSlide, 3000);
+}
