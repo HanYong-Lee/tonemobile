@@ -1994,13 +1994,17 @@ span[style*="color: #ffffff"] {
   min-width: 100%;
   flex-shrink: 0;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-slide__img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
   object-position: center;
   user-select: none;
   -webkit-user-drag: none;
@@ -2064,10 +2068,9 @@ span[style*="color: #ffffff"] {
   }
 
   .hero-slide__img {
-    display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: auto;
+    max-height: 58vw;
     object-fit: contain;
   }
 
