@@ -19,7 +19,6 @@ const stores = [
     lat: 36.3387,
     lng: 127.3938,
     image: "assets/yongmoon.jpg",
-    image: "assets/yongwoon.jpg",
     address: "대전 서구 용문동 244-15(계룡로 661-1)",
     points: ["건너편 우체국 주차 가능"],
     phone: "0507-1477-2076",
