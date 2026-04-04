@@ -313,6 +313,11 @@ function renderStores(list) {
           <h3>${store.name}</h3>
           ${distanceHtml}
         </div>
+        
+        <div class="store-top">
+          <h3>${store.name}</h3>
+          ${distanceHtml}
+        </div>
 
         ${store.review ? `
           <p class="store-review">
