@@ -314,10 +314,11 @@ function renderStores(list) {
           ${distanceHtml}
         </div>
         
-        <div class="store-top">
-          <h3>${store.name}</h3>
-          ${distanceHtml}
-        </div>
+        ${store.image ? `
+          <div class="store-image">
+            <img src="${store.image}" alt="${store.name}" />
+          </div>
+        ` : ""}
 
         ${store.review ? `
           <p class="store-review">
