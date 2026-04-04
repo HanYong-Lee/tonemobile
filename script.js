@@ -174,6 +174,7 @@ async function sendAnalytics(eventName, payload = {}) {
   const body = {
     event: eventName,
     page: location.pathname,
+    hash: location.hash || '',
     ts: new Date().toISOString(),
     payload: {
       ...payload,
@@ -245,6 +246,9 @@ function extractSource() {
 
   if (params.get('utm_source')) return params.get('utm_source');
   if (params.get('src')) return params.get('src');
+
+  const hash = location.hash.replace('#', '').trim();
+  if (hash) return hash;
 
   if (document.referrer) {
     try {
