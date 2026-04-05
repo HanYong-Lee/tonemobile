@@ -218,7 +218,9 @@ async function updateViewCounters() {
   }
 
   const localLatest = getAnalyticsBucket();
-  totalViewsEl.textContent = localLatest.totalViews || 0;
+  const total = localLatest.totalViews || 0;
+  totalViewsEl.textContent = total;
+  animateVisitorCount(total);
 
   if (!ANALYTICS_ENDPOINT) return;
 
@@ -227,7 +229,9 @@ async function updateViewCounters() {
     const data = await response.json();
 
     if (data && data.ok) {
-      totalViewsEl.textContent = data.totalViews ?? totalViewsEl.textContent;
+      const total = Number(data.totalViews ?? totalViewsEl.textContent ?? 0);
+      totalViewsEl.textContent = total;
+      animateVisitorCount(total);
     }
   } catch (error) {
     console.warn('Live counter fetch failed:', error);
@@ -747,6 +751,7 @@ trackSource();
 updateViewCounters();
 resetDefaultStores();
 buildHeroSlider();
+initStatCountUp();
 
 function bindHeroSliderToggle() {
   if (!heroSliderToggle) return;
@@ -784,4 +789,86 @@ if (heroTrack) {
     heroTrack.style.transform = `translateX(-${index * 100}%)`;
   }
   setInterval(nextSlide, 3000);
+}
+
+function formatCountValue(value, format = '', suffix = '') {
+  let output = '';
+
+  if (format === 'comma') {
+    output = Math.round(value).toLocaleString('ko-KR');
+  } else if (Number.isInteger(Number(value))) {
+    output = Math.round(value).toString();
+  } else {
+    output = Number(value).toFixed(1);
+  }
+
+  return `${output}${suffix}`;
+}
+
+function animateCountUp(el) {
+  if (!el || el.dataset.animated === 'true') return;
+
+  const target = Number(el.dataset.target || 0);
+  const suffix = el.dataset.suffix || '';
+  const format = el.dataset.format || '';
+  const duration = 1400;
+  const startTime = performance.now();
+
+  function step(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const currentValue = target * eased;
+
+    el.textContent = formatCountValue(currentValue, format, suffix);
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.textContent = formatCountValue(target, format, suffix);
+      el.dataset.animated = 'true';
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+function initStatCountUp() {
+  const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+  if (!statNumbers.length) return;
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      animateCountUp(entry.target);
+      obs.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.45
+  });
+
+  statNumbers.forEach(el => observer.observe(el));
+}
+
+function animateVisitorCount(target) {
+  const el = document.getElementById('visitorCount');
+  if (!el) return;
+
+  const duration = 1200;
+  const startTime = performance.now();
+
+  function step(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = target * eased;
+
+    el.textContent = Math.round(current).toLocaleString('ko-KR');
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.textContent = target.toLocaleString('ko-KR');
+    }
+  }
+
+  requestAnimationFrame(step);
 }
