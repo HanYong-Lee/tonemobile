@@ -850,7 +850,7 @@ function initStatCountUp() {
 }
 
 function animateVisitorCount(target) {
-  const el = document.getElementById('visitorCount');
+  const el = document.getElementById('totalViews');
   if (!el) return;
 
   const duration = 1200;
