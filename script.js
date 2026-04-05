@@ -140,7 +140,7 @@ function getTodayKey() {
 function getAnalyticsBucket() {
   const raw = localStorage.getItem('t1mobileAnalytics');
   const fallback = {
-    totalViews: 0,
+    visitorCount: 0,
     dailyViews: {},
     ctaClicks: {},
     nearbyClicks: [],
@@ -204,7 +204,7 @@ async function updateViewCounters() {
   const sessionKey = `t1mobile_viewed_${todayKey}`;
 
   if (!sessionStorage.getItem(sessionKey)) {
-    bucket.totalViews += 1;
+    bucket.visitorCount += 1;
     bucket.dailyViews[todayKey] = (bucket.dailyViews[todayKey] || 0) + 1;
     saveAnalyticsBucket(bucket);
     sessionStorage.setItem(sessionKey, '1');
@@ -218,7 +218,7 @@ async function updateViewCounters() {
   }
 
   const localLatest = getAnalyticsBucket();
-  const total = localLatest.totalViews || 0;
+  const total = localLatest.visitorCount || 0;
   totalViewsEl.textContent = total;
   animateVisitorCount(total);
 
@@ -229,7 +229,7 @@ async function updateViewCounters() {
     const data = await response.json();
 
     if (data && data.ok) {
-      const total = Number(data.totalViews ?? totalViewsEl.textContent ?? 0);
+      const total = Number(data.visitorCount ?? totalViewsEl.textContent ?? 0);
       totalViewsEl.textContent = total;
       animateVisitorCount(total);
     }
