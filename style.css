@@ -1668,10 +1668,17 @@ span[style*="color: #ffffff"] {
     border-radius: 20px;
   }
   
-  .stat-card img {
-    display: block;
+  /* 이미지 */
+  .stat-image {
     width: 100%;
-    margin-bottom: 10px;
+    border-radius: 14px;
+  }
+  
+  /* 텍스트 영역 (여기가 핵심) */
+  .stat-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .btn {
