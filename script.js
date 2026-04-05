@@ -140,7 +140,7 @@ function getTodayKey() {
 function getAnalyticsBucket() {
   const raw = localStorage.getItem('t1mobileAnalytics');
   const fallback = {
-    visitorCount: 0,
+    visitorCount: 48,
     dailyViews: {},
     ctaClicks: {},
     nearbyClicks: [],
