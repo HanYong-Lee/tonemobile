@@ -362,6 +362,7 @@ img { max-width: 100%; display: block; }
   flex: 1;
   min-width: 220px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 16px;
   padding: 20px 22px;
@@ -1665,6 +1666,12 @@ span[style*="color: #ffffff"] {
   .timeline-card,
   .store-card {
     border-radius: 20px;
+  }
+  
+  .stat-card img {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
   }
 
   .btn {
