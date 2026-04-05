@@ -112,7 +112,7 @@ const closeFloatingBoxBtn = document.getElementById('closeFloatingBoxBtn');
 const mobileNavToggle = document.getElementById('mobileNavToggle');
 const siteNav = document.getElementById('siteNav');
 
-const totalViewsEl = document.getElementById('totalViews');
+const totalViewsEl = document.getElementById('visitorCount');
 
 /* ===== 오늘의 특가 팝업 / 왼쪽 하단 퀵버튼 ===== */
 const promoPopup = document.getElementById('promoPopup');
@@ -850,7 +850,7 @@ function initStatCountUp() {
 }
 
 function animateVisitorCount(target) {
-  const el = document.getElementById('totalViews');
+  const el = document.getElementById('visitorCount');
   if (!el) return;
 
   const duration = 1200;
