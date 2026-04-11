@@ -43,7 +43,7 @@ const stores = [
     lat: 36.64206725549196,
     lng: 127.42751718278974,
     address: "충북 청주시 흥덕구 복대동 288-15(대농로 47)",
-    points: ["4월 11일 Open 예정"],
+    points: ["4월 12일 Open 예정"],
     phone: "010-0000-0000",
     mapUrl: "https://naver.me/xUwgrDjt",
     review: "-",
@@ -67,11 +67,11 @@ const stores = [
     lng: 127.09468261095023,
     image: "assets/segyo.jpg",
     address: "충남 아산시 배방읍 세교리 1585(동방로 180-3)",
-    points: ["강점 Point 1"],
+    points: ["건물 뒷편 공영주차장 이용 가능"],
     phone: "0507-1338-8200",
     mapUrl: "https://naver.me/FG3plz6q",
-    review: "아이 첫 휴대폰이라 걱정 많았는데, 할인 조건이 깔끔해서 바로 결정했어요 👍",
-    meta: "30대 여 / 자녀폰 상담"
+    review: "직원분들도 너무 친절하고, 다양한 참여 혜택이 많아서 재밌고 만족스러웠어요 👍",
+    meta: "30대 여 / 가족 인터넷+티비 상담"
   },
   {
     name: "천안신불당점",
@@ -91,7 +91,7 @@ const stores = [
     lng: 126.65209552343222,
     image: "assets/seowoo.jpg",
     address: "충남 홍성군 홍성읍 월산리 896-5(법원로 7)",
-    points: ["강점 Point 1"],
+    points: ["매장 앞 무료주차 가능"],
     phone: "0507-1425-3009",
     mapUrl: "https://naver.me/x58PthN3",
     review: "필름/케이스를 계속 교체해주고, 주기적으로 요금제 점검도 해줘서 관리 받고 있다는 느낌이 확 들어요👍",
