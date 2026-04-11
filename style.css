@@ -2356,13 +2356,13 @@ span[style*="color: #ffffff"] {
   width: 54px;
   height: 54px;
   border-radius: 16px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  background: #fff; /* 혹은 투명 */
   box-shadow: 0 10px 20px rgba(15,23,42,0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: hidden;
 }
 
 .store-contact__item:hover .store-contact__icon {
