@@ -12,7 +12,11 @@ const stores = [
     phone: "0507-1355-2017",
     mapUrl: "https://naver.me/5pEzM5AE",
     review: "내가 어떻게 할인을 받는지, 뭘 해야 하는지 깔끔히 설명해주셔서 믿고 구매할 수 있었습니다 😊",
-    meta: "30대 여자 / 온가족 결합상품 문의자"
+    meta: "30대 여자 / 온가족 결합상품 문의자",
+
+    carrotUrl: "https://www.daangn.com/kr/local-profile/nj35pauscpaq/",
+    naverUrl: "https://naver.me/Glmu4Q66",
+    kakaoUrl: "https://open.kakao.com/o/sfLlCoag"
   },
   {
     name: "용문점",
@@ -24,7 +28,11 @@ const stores = [
     phone: "0507-1477-2076",
     mapUrl: "https://naver.me/FytQtAEK",
     review: "앞에 돌아다니기만 하다가 한 번 들어가봤는데, 이렇게 싸게 파는 줄 몰랐어요! 앞으로 휴대폰 살 땐 여기부터 알아보려고 해요 :)",
-    meta: "40대 여 / 인터넷&티비 상담 고객"
+    meta: "40대 여 / 인터넷&티비 상담 고객",
+
+    carrotUrl: "https://www.daangn.com/kr/local-profile/j69a7cum7pqm/",
+    naverUrl: "https://naver.me/GgUe0vNy",
+    kakaoUrl: ""
   },
   {
     name: "용운점",
@@ -346,6 +354,38 @@ function renderStores(list) {
         <div class="store-actions">
           <a class="btn btn--ghost btn--small" href="${store.mapUrl}" target="_blank" rel="noopener">위치 확인</a>
           <a class="btn btn--primary btn--small" href="tel:${store.phone}">전화 상담</a>
+        </div>
+
+        <div class="store-contact">
+          <div class="store-contact__title">상담신청/문의</div>
+        
+          <div class="store-contact__list">
+            <a class="store-contact__item" href="tel:${store.phone}">
+              <span class="store-contact__icon">📞</span>
+              <span class="store-contact__label">전화</span>
+            </a>
+        
+            ${store.naverUrl ? `
+              <a class="store-contact__item" href="${store.naverUrl}" target="_blank" rel="noopener">
+                <span class="store-contact__icon">🟢</span>
+                <span class="store-contact__label">네이버</span>
+              </a>
+            ` : ""}
+        
+            ${store.carrotUrl ? `
+              <a class="store-contact__item" href="${store.carrotUrl}" target="_blank" rel="noopener">
+                <span class="store-contact__icon">🥕</span>
+                <span class="store-contact__label">당근</span>
+              </a>
+            ` : ""}
+        
+            ${store.kakaoUrl ? `
+              <a class="store-contact__item" href="${store.kakaoUrl}" target="_blank" rel="noopener">
+                <span class="store-contact__icon">💬</span>
+                <span class="store-contact__label">카카오</span>
+              </a>
+            ` : ""}
+          </div>
         </div>
       </article>
     `;
