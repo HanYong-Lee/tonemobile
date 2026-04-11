@@ -44,18 +44,26 @@ const stores = [
     phone: "0507-1319-5033",
     mapUrl: "https://naver.me/5ZjdrJ3Q",
     review: "다른 곳에서 상담 받고 오셔도 된다고 해서 의아했는데, 진짜 여기보다 싸게 파는 곳이 없더라구요 😍",
-    meta: "30대 남 / 갤럭시 프리미엄 매니아"
+    meta: "30대 남 / 갤럭시 프리미엄 매니아",
+
+    carrotUrl: "",
+    naverUrl: "https://naver.me/5ZjdrJ3Q",
+    kakaoUrl: ""
   },
   {
     name: "청주지웰시티점",
     lat: 36.64206725549196,
     lng: 127.42751718278974,
     address: "충북 청주시 흥덕구 복대동 288-15(대농로 47)",
-    points: ["4월 15일 Open 예정"],
+    points: ["😍4월 12일 Open 예정😍"],
     phone: "043-233-3010",
     mapUrl: "https://naver.me/xUwgrDjt",
     review: "-",
-    meta: "-"
+    meta: "-",
+
+    carrotUrl: "",
+    naverUrl: "https://naver.me/xUwgrDjt",
+    kakaoUrl: ""
   },
   {
     name: "아산권곡점",
@@ -353,11 +361,6 @@ function renderStores(list) {
 
         <div class="store-point">
           ${store.points.map(point => `✔ ${point}`).join('<br>')}
-        </div>
-
-        <div class="store-actions">
-          <a class="btn btn--ghost btn--small" href="${store.mapUrl}" target="_blank" rel="noopener">위치 확인</a>
-          <a class="btn btn--primary btn--small" href="tel:${store.phone}">전화 상담</a>
         </div>
 
         <div class="store-contact">
