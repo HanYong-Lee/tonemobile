@@ -51,8 +51,8 @@ const stores = [
     lat: 36.64206725549196,
     lng: 127.42751718278974,
     address: "충북 청주시 흥덕구 복대동 288-15(대농로 47)",
-    points: ["4월 12일 Open 예정"],
-    phone: "010-0000-0000",
+    points: ["4월 15일 Open 예정"],
+    phone: "043-233-3010",
     mapUrl: "https://naver.me/xUwgrDjt",
     review: "-",
     meta: "-"
@@ -67,7 +67,11 @@ const stores = [
     phone: "0507-7867-2010",
     mapUrl: "https://naver.me/GplJeXqn",
     review: "휴대폰 기능 문의 때문에 들렀는데, 너무 친절하게 알려주셔서 여기서 휴대폰도 바꿨어요.",
-    meta: "60대 / 기능문의 시니어 고객"
+    meta: "60대 / 기능문의 시니어 고객",
+
+    carrotUrl: "https://www.daangn.com/kr/local-profile/iutk11xfiu5b/",
+    naverUrl: "https://naver.me/50JGTvtn",
+    kakaoUrl: "https://open.kakao.com/o/gaP6InWh"
   },
   {
     name: "아산세교점",
