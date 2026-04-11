@@ -364,7 +364,7 @@ function renderStores(list) {
           <div class="store-contact__title">상담신청/문의</div>
         
           <div class="store-contact__list">
-            <a class="store-contact__item" href="tel:${store.phone}">
+            <a class="store-contact__item store-contact__item--phone" href="tel:${store.phone}">
                 <span class="store-contact__icon">
                   <img src="icons/call.png" alt="전화" />
                 </span>
@@ -373,7 +373,7 @@ function renderStores(list) {
             </a>
         
             ${store.naverUrl ? `
-              <a class="store-contact__item" href="${store.naverUrl}" target="_blank" rel="noopener">
+              <a class="store-contact__item store-contact__item--naver" href="${store.naverUrl}" target="_blank" rel="noopener">
                 <span class="store-contact__icon">
                   <img src="icons/naver.png" alt="네이버" />
                 </span>
@@ -382,7 +382,7 @@ function renderStores(list) {
             ` : ""}
         
             ${store.carrotUrl ? `
-              <a class="store-contact__item" href="${store.carrotUrl}" target="_blank" rel="noopener">
+              <a class="store-contact__item store-contact__item--carrot" href="${store.carrotUrl}" target="_blank" rel="noopener">
                 <span class="store-contact__icon">
                   <img src="icons/daangn.png" alt="당근" />
                 </span>
@@ -391,7 +391,7 @@ function renderStores(list) {
             ` : ""}
         
             ${store.kakaoUrl ? `
-              <a class="store-contact__item" href="${store.kakaoUrl}" target="_blank" rel="noopener">
+              <a class="store-contact__item store-contact__item--kakao" href="${store.kakaoUrl}" target="_blank" rel="noopener">
                 <span class="store-contact__icon">
                   <img src="icons/kakao.png" alt="카카오" />
                 </span>
