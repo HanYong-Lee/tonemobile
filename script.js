@@ -361,27 +361,36 @@ function renderStores(list) {
         
           <div class="store-contact__list">
             <a class="store-contact__item" href="tel:${store.phone}">
-              <span class="store-contact__icon">📞</span>
-              <span class="store-contact__label">전화</span>
+                <span class="store-contact__icon">
+                  <img src="icons/call.png" alt="전화" />
+                </span>
+                <span class="store-contact__label">전화</span>
+              </a>
             </a>
         
             ${store.naverUrl ? `
               <a class="store-contact__item" href="${store.naverUrl}" target="_blank" rel="noopener">
-                <span class="store-contact__icon">🟢</span>
+                <span class="store-contact__icon">
+                  <img src="icons/naver.png" alt="네이버" />
+                </span>
                 <span class="store-contact__label">네이버</span>
               </a>
             ` : ""}
         
             ${store.carrotUrl ? `
               <a class="store-contact__item" href="${store.carrotUrl}" target="_blank" rel="noopener">
-                <span class="store-contact__icon">🥕</span>
+                <span class="store-contact__icon">
+                  <img src="icons/daangn.png" alt="당근" />
+                </span>
                 <span class="store-contact__label">당근</span>
               </a>
             ` : ""}
         
             ${store.kakaoUrl ? `
               <a class="store-contact__item" href="${store.kakaoUrl}" target="_blank" rel="noopener">
-                <span class="store-contact__icon">💬</span>
+                <span class="store-contact__icon">
+                  <img src="icons/kakao.png" alt="카카오" />
+                </span>
                 <span class="store-contact__label">카카오</span>
               </a>
             ` : ""}
