@@ -4,8 +4,8 @@ const ANALYTICS_USE_GAS = true;
 const stores = [
   {
     name: "원신흥점",
-    lat: 36.3342,
-    lng: 127.3406,
+    lat: 36.34217832389156,
+    lng: 127.34261515812987,
     image: "assets/wonshinheung.jpg",
     address: "대전 유성구 원신흥동 491-1(봉명로 27-3)",
     points: ["지하주차장 이용가능(출입구 공간 협소)"],
@@ -16,8 +16,8 @@ const stores = [
   },
   {
     name: "용문점",
-    lat: 36.3387,
-    lng: 127.3938,
+    lat: 36.33723627082111,
+    lng: 127.39489427547278,
     image: "assets/yongmoon.jpg",
     address: "대전 서구 용문동 244-15(계룡로 661-1)",
     points: ["건너편 우체국 주차 가능"],
@@ -28,8 +28,8 @@ const stores = [
   },
   {
     name: "용운점",
-    lat: 36.3213,
-    lng: 127.4589,
+    lat: 36.32795906726769,
+    lng: 127.4620266934382,
     image: "assets/yongwoon.jpg",
     address: "대전 동구 용운동 783(용운로 203)",
     points: ["유료주차장 이용 가능(2시간 지원)"],
@@ -40,8 +40,8 @@ const stores = [
   },
   {
     name: "청주지웰시티점",
-    lat: 36.6369,
-    lng: 127.4266,
+    lat: 36.64206725549196,
+    lng: 127.42751718278974,
     address: "충북 청주시 흥덕구 복대동 288-15(대농로 47)",
     points: ["4월 11일 Open 예정"],
     phone: "010-0000-0000",
@@ -51,8 +51,8 @@ const stores = [
   },
   {
     name: "아산권곡점",
-    lat: 36.7775,
-    lng: 127.0189,
+    lat: 36.788342575970425,
+    lng: 127.01581654750537,
     image: "assets/kwongok.jpg",
     address: "충남 아산시 권곡동 219-21(문화로 271-6 106호)",
     points: ["아산마트 주차장 무료이용 가능"],
@@ -63,8 +63,8 @@ const stores = [
   },
   {
     name: "아산세교점",
-    lat: 36.7838,
-    lng: 127.0004,
+    lat: 36.77842747205894,
+    lng: 127.09468261095023,
     image: "assets/segyo.jpg",
     address: "충남 아산시 배방읍 세교리 1585(동방로 180-3)",
     points: ["강점 Point 1"],
@@ -75,8 +75,8 @@ const stores = [
   },
   {
     name: "천안신불당점",
-    lat: 36.8086,
-    lng: 127.1082,
+    lat: 36.77842747205894,
+    lng: 127.09468261095023,
     image: "assets/shinbuldang.jpg",
     address: "충남 천안시 서북구 불당동 1617(불당33길 26)",
     points: ["건물 무료주차 1시간 제공"],
@@ -87,8 +87,8 @@ const stores = [
   },
   {
     name: "홍성서우점",
-    lat: 36.6014,
-    lng: 126.6641,
+    lat: 36.599560738985524,
+    lng: 126.65209552343222,
     image: "assets/seowoo.jpg",
     address: "충남 홍성군 홍성읍 월산리 896-5(법원로 7)",
     points: ["강점 Point 1"],
