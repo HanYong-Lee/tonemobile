@@ -24,7 +24,7 @@ const stores = [
     lng: 127.39489427547278,
     image: "assets/yongmoon.jpg",
     address: "대전 서구 용문동 244-15(계룡로 661-1)",
-    points: ["건너편 우체국 주차 가능"],
+    points: ["매장 제공주차장 없음","인근 주차장 이용 필요"],
     phone: "0507-1477-2076",
     mapUrl: "https://naver.me/FytQtAEK",
     review: "앞에 돌아다니기만 하다가 한 번 들어가봤는데, 이렇게 싸게 파는 줄 몰랐어요! 앞으로 휴대폰 살 땐 여기부터 알아보려고 해요 :)",
