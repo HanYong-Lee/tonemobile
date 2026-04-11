@@ -2321,6 +2321,7 @@ span[style*="color: #ffffff"] {
 
 /* =========================
    매장 카드 상담/문의 아이콘 영역
+   앱 아이콘 스타일
 ========================= */
 
 .store-contact {
@@ -2346,43 +2347,68 @@ span[style*="color: #ffffff"] {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  min-width: 56px;
+  min-width: 60px;
   text-decoration: none;
   color: inherit;
 }
 
 .store-contact__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-  border: 1px solid rgba(37,99,235,0.12);
-  box-shadow: 0 8px 18px rgba(15,23,42,0.06);
-  font-size: 22px;
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(15,23,42,0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
 }
 
 .store-contact__item:hover .store-contact__icon {
   transform: translateY(-2px);
-  box-shadow: 0 12px 22px rgba(37,99,235,0.12);
+  box-shadow: 0 14px 24px rgba(15,23,42,0.14);
 }
 
+/* 아이콘 하단 텍스트 */
 .store-contact__label {
-  margin-top: 6px;
+  margin-top: 7px;
   font-size: 12px;
   font-weight: 700;
   color: #64748b;
   line-height: 1.2;
 }
 
+/* 이모지 버전 */
+.store-contact__icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+/* 이미지 아이콘 버전 */
 .store-contact__icon img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
+}
+
+/* 채널별 앱 아이콘 배경색 */
+.store-contact__item--phone .store-contact__icon {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.store-contact__item--naver .store-contact__icon {
+  background: linear-gradient(180deg, #03c75a 0%, #02b351 100%);
+}
+
+.store-contact__item--carrot .store-contact__icon {
+  background: linear-gradient(180deg, #ff7a00 0%, #f26400 100%);
+}
+
+.store-contact__item--kakao .store-contact__icon {
+  background: linear-gradient(180deg, #fee500 0%, #f7db00 100%);
+  color: #181600;
 }
 
 @media (max-width: 820px) {
@@ -2391,14 +2417,14 @@ span[style*="color: #ffffff"] {
   }
 
   .store-contact__item {
-    min-width: 52px;
+    min-width: 56px;
   }
 
   .store-contact__icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    font-size: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 22px;
   }
 
   .store-contact__label {
