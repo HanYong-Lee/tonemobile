@@ -616,6 +616,7 @@ const heroSlides = [
   { name: "용문점", image: "assets/yongmoon.jpg" },
   { name: "용운점", image: "assets/yongwoon.jpg" },
   { name: "아산권곡점", image: "assets/kwongok.jpg" },
+  { name: "청주 지웰시티점", image: "assets/gwellcity.jpg" },
   { name: "아산세교점", image: "assets/segyo.jpg" },
   { name: "천안신불당점", image: "assets/shinbuldang.jpg" },
   { name: "홍성서우점", image: "assets/seowoo.jpg" }
