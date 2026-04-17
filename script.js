@@ -54,6 +54,7 @@ const stores = [
     name: "청주지웰시티점",
     lat: 36.64206725549196,
     lng: 127.42751718278974,
+    image: "assets/gwellcity.jpg",
     address: "충북 청주시 흥덕구 복대동 288-15(대농로 47)",
     points: ["건물 주차장 이용 가능(2시간 지원)"],
     phone: "043-233-3010",
