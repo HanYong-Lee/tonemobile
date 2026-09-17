@@ -97,9 +97,33 @@
   }
 
   const aliases={"아이폰":"iphone","갤럭시":"galaxy","프맥":"promax","프로맥스":"promax","프로 맥스":"promax","울트라":"ultra","플립":"flip","폴드":"fold","기가":"gb","지비":"gb","흰색":"화이트","하양":"화이트","검정":"블랙","까망":"블랙"};
+  function rawNorm(value){return String(value||"").toLowerCase().replace(/\s+|[^a-z0-9가-힣]/g,"")}
   function norm(value){let v=String(value||"").toLowerCase();Object.entries(aliases).sort((a,b)=>b[0].length-a[0].length).forEach(([a,b])=>v=v.split(a).join(b));return v.replace(/\s+|[^a-z0-9가-힣]/g,"")}
-  function lev(a,b){const d=Array.from({length:a.length+1},()=>Array(b.length+1).fill(0));for(let i=0;i<=a.length;i++)d[i][0]=i;for(let j=0;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]}
-  function matchesQuery(item,query){if(!query)return true;const q=norm(query),hay=norm(`${item.model}${item.storage}${item.color}`);if(hay.includes(q))return true;const tokens=query.trim().split(/\s+/).map(norm).filter(Boolean);return tokens.every(t=>hay.includes(t)||lev(t,norm(item.model))<=Math.max(1,Math.floor(t.length*.22)))}
+  function searchTokens(value,normalizer){const tokens=String(value||"").trim().split(/\s+/).map(normalizer).filter(token=>token.length>=2);if(tokens.length)return tokens;const compact=normalizer(value);return compact.length>=2?[compact]:[]}
+  function longestCommonLength(a,b){let best=0;const row=Array(b.length+1).fill(0);for(let i=1;i<=a.length;i++){for(let j=b.length;j>=1;j--){row[j]=a[i-1]===b[j-1]?row[j-1]+1:0;if(row[j]>best)best=row[j]}}return best}
+  function bigramDice(a,b){if(a.length<2||b.length<2)return 0;const counts=new Map();for(let i=0;i<a.length-1;i++){const gram=a.slice(i,i+2);counts.set(gram,(counts.get(gram)||0)+1)}let hits=0;for(let i=0;i<b.length-1;i++){const gram=b.slice(i,i+2),count=counts.get(gram)||0;if(count){hits++;counts.set(gram,count-1)}}return 2*hits/((a.length-1)+(b.length-1))}
+  function fuzzyFieldScore(query,field,weight=1){if(!query||!field)return 0;const common=longestCommonLength(query,field);if(common<2)return 0;return Math.max(common/query.length,bigramDice(query,field))*weight}
+  function rankSearch(item,query){
+    if(!String(query||"").trim())return{matchType:"direct",score:1};
+    const rawTokens=searchTokens(query,rawNorm),canonicalTokens=searchTokens(query,norm);
+    if(!rawTokens.length&&!canonicalTokens.length)return{matchType:"none",score:0};
+    const rawFields=[rawNorm(item.model),rawNorm(item.storage),rawNorm(item.color)];
+    const canonicalFields=[norm(item.model),norm(item.storage),norm(item.color)];
+    const directRaw=rawTokens.length&&rawTokens.every(token=>rawFields.some(field=>field.includes(token)));
+    const directCanonical=canonicalTokens.length&&canonicalTokens.every(token=>canonicalFields.some(field=>field.includes(token)));
+    if(directRaw||directCanonical){
+      const compactRaw=rawNorm(query),compactCanonical=norm(query);
+      const modelExact=rawFields[0].includes(compactRaw)||canonicalFields[0].includes(compactCanonical);
+      return{matchType:"direct",score:modelExact?3:2};
+    }
+    const scoreTokens=(tokens,fields)=>{
+      if(!tokens.length)return 0;
+      const scores=tokens.map(token=>Math.max(fuzzyFieldScore(token,fields[0],1.2),fuzzyFieldScore(token,fields[1]),fuzzyFieldScore(token,fields[2])));
+      return scores.every(score=>score>0)?scores.reduce((sum,score)=>sum+score,0)/scores.length:0;
+    };
+    const score=Math.max(scoreTokens(rawTokens,rawFields),scoreTokens(canonicalTokens,canonicalFields));
+    return score>0?{matchType:"similar",score}:{matchType:"none",score:0};
+  }
   function fillFilters(){const store=$("#storeFilter"),storage=$("#storageFilter"),color=$("#colorFilter");store.innerHTML='<option value="">상관없음</option>'+[...new Set(state.stores.map(s=>s.name))].map(x=>`<option>${esc(x)}</option>`).join('');storage.innerHTML='<option value="">전체 용량</option>'+[...new Set(state.inventory.map(x=>x.storage))].map(x=>`<option>${esc(x)}</option>`).join('');color.innerHTML='<option value="">전체 색상</option>'+[...new Set(state.inventory.map(x=>x.color))].map(x=>`<option>${esc(x)}</option>`).join('')}
   function stockStatus(qty){if(qty<=0)return{label:"품절",cls:"soldout"};if(qty<=2)return{label:"소진 임박🔥",cls:"urgent"};return{label:"재고 있어요😊",cls:""}}
   function searchInventory(event){
@@ -108,18 +132,22 @@
     const store=$("#storeFilter")?.value||"";
     const storage=$("#storageFilter")?.value||"";
     const color=$("#colorFilter")?.value||"";
-    let results=state.inventory
-      .filter(x=>(!storage||x.storage===storage)&&(!color||x.color===color)&&matchesQuery(x,q))
-      .map(x=>({...x,qty:store?toQty(x.stockByStore?.[store]):toQty(x.companyQty)}));
-    const available=results.filter(x=>x.qty>0),soldout=results.filter(x=>x.qty<=0);
-    results=[...available,...soldout];
+    const queryTooShort=String(q).trim()&&rawNorm(q).length<2&&norm(q).length<2;
+    let results=queryTooShort?[]:state.inventory
+      .filter(x=>(!storage||x.storage===storage)&&(!color||x.color===color))
+      .map(x=>({...x,qty:store?toQty(x.stockByStore?.[store]):toQty(x.companyQty),...rankSearch(x,q)}))
+      .filter(x=>x.matchType!=="none")
+      .sort((a,b)=>(a.matchType===b.matchType?0:a.matchType==="direct"?-1:1)||(b.score-a.score)||((b.qty>0)-(a.qty>0))||a.model.localeCompare(b.model,"ko"));
     const scope=store||"전사";
-    $("#resultSummary").textContent=results.length?`${scope} 기준 ${results.length}개의 재고를 찾았어요. 재고는 실시간 판매에 따라 달라질 수 있습니다.`:"조건에 맞는 재고가 없어요. 검색어 또는 매장을 바꿔보세요.";
+    const directCount=results.filter(x=>x.matchType==="direct").length,similarCount=results.length-directCount;
+    $("#resultSummary").textContent=queryTooShort?"검색어를 두 글자 이상 입력해 주세요.":results.length?`${scope} 기준 일치 재고 ${directCount}개${similarCount?`, 유사 재고 ${similarCount}개`:""}를 찾았어요.`:"조건에 맞는 재고가 없어요. 검색어 또는 매장을 바꿔보세요.";
+    let similarStarted=false;
     $("#inventoryList").innerHTML=results.length?results.map((x,i)=>{
       const status=stockStatus(x.qty);
-      if(!store)return `<article class="stock-card"><div class="card-top"><div><div class="stock-title"><h3>${esc(x.model)}</h3></div><p class="spec">${esc(x.storage)} · ${esc(x.color)}<br>🏢 전사 재고</p></div><span class="stock-badge ${status.cls}">${status.label}</span></div><div class="card-actions one"><button class="action-button primary" data-reserve="${i}" ${x.qty<=0?'disabled':''}>문의할 매장 선택</button></div></article>`;
+      const divider=x.matchType==="similar"&&!similarStarted?(similarStarted=true,`<div class="match-divider"><strong>비슷한 모델도 함께 보여드려요</strong><span>검색어와 유사한 순서로 정렬했습니다.</span></div>`):"";
+      if(!store)return `${divider}<article class="stock-card${x.matchType==="similar"?" similar-result":""}"><div class="card-top"><div><div class="stock-title"><h3>${esc(x.model)}</h3></div><p class="spec">${esc(x.storage)} · ${esc(x.color)}<br>🏢 전사 재고</p></div><span class="stock-badge ${status.cls}">${status.label}</span></div><div class="card-actions one"><button class="action-button primary" data-reserve="${i}" ${x.qty<=0?'disabled':''}>문의할 매장 선택</button></div></article>`;
       const storeData=state.stores.find(v=>v.name===store)||{name:store,phone:"",naver:"#"};
-      return `<article class="stock-card"><div class="card-top"><div><div class="stock-title"><h3>${esc(x.model)}</h3></div><p class="spec">${esc(x.storage)} · ${esc(x.color)}<br>📍 ${esc(store)}</p></div><span class="stock-badge ${status.cls}">${status.label}</span></div><div class="card-actions three">${actionLink("전화문의",`tel:${storeData.phone}`,"inventory_call",storeData,x.qty>0)}${actionLink("길찾기",mapUrl(storeData),"inventory_map",storeData)}<button class="action-button" data-reserve="${i}" ${x.qty<=0?'disabled':''}>재고 예약</button></div></article>`;
+      return `${divider}<article class="stock-card${x.matchType==="similar"?" similar-result":""}"><div class="card-top"><div><div class="stock-title"><h3>${esc(x.model)}</h3></div><p class="spec">${esc(x.storage)} · ${esc(x.color)}<br>📍 ${esc(store)}</p></div><span class="stock-badge ${status.cls}">${status.label}</span></div><div class="card-actions three">${actionLink("전화문의",`tel:${storeData.phone}`,"inventory_call",storeData,x.qty>0)}${actionLink("길찾기",mapUrl(storeData),"inventory_map",storeData)}<button class="action-button" data-reserve="${i}" ${x.qty<=0?'disabled':''}>재고 예약</button></div></article>`;
     }).join(''):`<div class="empty-state"><strong>검색 결과가 없습니다.</strong>다른 모델명이나 조건으로 다시 검색해 주세요.</div>`;
     $$('[data-reserve]').forEach(button=>button.onclick=()=>{const item=results[+button.dataset.reserve];trackCta("inventory_reserve",{store:store||"전사",model:item.model,storage:item.storage,color:item.color});startContact(item,"inventory")});
     bindLogs();
