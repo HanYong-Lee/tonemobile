@@ -1,11 +1,11 @@
 (() => {
   const config = window.T1_CONFIG || {};
   const FALLBACK_STORES = [
-    {id:"wonsin",name:"원신흥본점",address:"대전 유성구 봉명로 27-3",image:"images/wonshinheung.jpg",lat:36.34217832389156,lng:127.34261515812987,phone:"010-2024-2011",naver:"https://naver.me/5pEzM5AE",navertalk:"https://naver.me/Glmu4Q66",daangn:"https://www.daangn.com/kr/local-profile/nj35pauscpaq/",tworld:"https://tworldfriends.co.kr/D634190000/subscribers/create"},
-    {id:"yongun",name:"용운점",address:"대전 동구 용운로 203",image:"images/yongwoon.jpg",lat:36.32795906726769,lng:127.4620266934382,phone:"010-4880-5010",naver:"https://naver.me/5ZjdrJ3Q",navertalk:"#",daangn:"https://www.daangn.com/kr/local-profile/5wc4p38gfuoy/",tworld:"https://tworldfriends.co.kr/D634190010/subscribers/create"},
-    {id:"yongmun",name:"용문점",address:"대전 서구 계룡로 661-1",image:"images/yongmoon.jpg",lat:36.33723627082111,lng:127.39489427547278,phone:"010-2859-6011",naver:"https://naver.me/FytQtAEK",navertalk:"https://naver.me/GgUe0vNy",daangn:"https://www.daangn.com/kr/local-profile/j69a7cum7pqm/",tworld:"https://tworldfriends.co.kr/D634190013/subscribers/create"},
-    {id:"asankwongok",name:"아산권곡점",address:"충남 아산시 문화로 271-6",image:"images/kwongok.jpg",lat:36.788342575970425,lng:127.01581654750537,phone:"010-3072-6011",naver:"https://naver.me/GplJeXqn",navertalk:"https://naver.me/50JGTvtn",daangn:"https://www.daangn.com/kr/local-profile/iutk11xfiu5b/",tworld:"https://tworldfriends.co.kr/D634190012/subscribers/create"},
-    {id:"jiwell",name:"지웰시티점",address:"충북 청주시 흥덕구 대농로 47",image:"images/gwellcity.jpg",lat:36.64206725549196,lng:127.42751718278974,phone:"010-6213-2010",naver:"https://naver.me/xUwgrDjt",navertalk:"https://naver.me/xUwgrDjt",daangn:"https://www.daangn.com/kr/local-profile/bo2se7i65gii/",tworld:"https://tworldfriends.co.kr/D634190015/subscribers/create"}
+    {id:"wonsin",name:"원신흥본점",address:"대전 유성구 봉명로 27-3",image:"images/store-wonsin.jpg",lat:36.34217832389156,lng:127.34261515812987,phone:"010-2024-2011",naver:"https://naver.me/5pEzM5AE",navertalk:"https://naver.me/Glmu4Q66",daangn:"https://www.daangn.com/kr/local-profile/nj35pauscpaq/",tworld:"https://tworldfriends.co.kr/D634190000/subscribers/create"},
+    {id:"yongun",name:"용운점",address:"대전 동구 용운로 203",image:"images/store-yongun.jpg",lat:36.32795906726769,lng:127.4620266934382,phone:"010-4880-5010",naver:"https://naver.me/5ZjdrJ3Q",navertalk:"#",daangn:"https://www.daangn.com/kr/local-profile/5wc4p38gfuoy/",tworld:"https://tworldfriends.co.kr/D634190010/subscribers/create"},
+    {id:"yongmun",name:"용문점",address:"대전 서구 계룡로 661-1",image:"images/store-yongmun.jpg",lat:36.33723627082111,lng:127.39489427547278,phone:"010-2859-6011",naver:"https://naver.me/FytQtAEK",navertalk:"https://naver.me/GgUe0vNy",daangn:"https://www.daangn.com/kr/local-profile/j69a7cum7pqm/",tworld:"https://tworldfriends.co.kr/D634190013/subscribers/create"},
+    {id:"asankwongok",name:"아산권곡점",address:"충남 아산시 문화로 271-6",image:"images/store-asankwongok.jpg",lat:36.788342575970425,lng:127.01581654750537,phone:"010-3072-6011",naver:"https://naver.me/GplJeXqn",navertalk:"https://naver.me/50JGTvtn",daangn:"https://www.daangn.com/kr/local-profile/iutk11xfiu5b/",tworld:"https://tworldfriends.co.kr/D634190012/subscribers/create"},
+    {id:"jiwell",name:"지웰시티점",address:"충북 청주시 흥덕구 대농로 47",image:"images/store-jiwell.jpg",lat:36.64206725549196,lng:127.42751718278974,phone:"010-6213-2010",naver:"https://naver.me/xUwgrDjt",navertalk:"https://naver.me/xUwgrDjt",daangn:"https://www.daangn.com/kr/local-profile/bo2se7i65gii/",tworld:"https://tworldfriends.co.kr/D634190015/subscribers/create"}
   ];
   const DEFAULT_STORE_COLUMNS = {
     "원신흥":"원신흥본점",
@@ -24,15 +24,25 @@
   const esc = value => String(value ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
 
   function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");clearTimeout(el.timer);el.timer=setTimeout(()=>el.classList.remove("show"),2400)}
-  function log(action, details={}){
-    const payload={timestamp:new Date().toISOString(),action,...details};
+  function sendAnalytics(eventType, details={}){
+    const payload={occurredAt:new Date().toISOString(),eventType,...details};
     if(!config.analyticsEndpoint) return;
-    fetch(config.analyticsEndpoint,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)}).catch(()=>{});
+    fetch(config.analyticsEndpoint,{method:"POST",mode:"no-cors",keepalive:true,headers:{"Content-Type":"text/plain"},body:JSON.stringify(payload)}).catch(()=>{});
+  }
+  function trackCta(ctaName,details={}){sendAnalytics("CTA_CLICK",{ctaName,...details})}
+  function trackSourceVisit(){
+    const rawHash=location.hash.slice(1);let hash=rawHash;
+    try{hash=decodeURIComponent(rawHash)}catch(e){}
+    hash=hash.trim();
+    const source=!hash||["home","stores","inventory"].includes(hash)?"direct":hash;
+    const key=`t1-source-visit:${source}`;
+    try{if(sessionStorage.getItem(key))return;sessionStorage.setItem(key,"1")}catch(e){}
+    sendAnalytics("SOURCE_VISIT",{source});
   }
   function setTheme(theme){document.documentElement.dataset.theme=theme;localStorage.setItem("t1-theme",theme);const dark=theme==="dark";$("#themeToggle span").textContent=dark?"☀":"☾";$("#themeToggle").ariaLabel=dark?"라이트 모드로 변경":"다크 모드로 변경";$("meta[name=theme-color]").content=dark?"#071426":"#ffffff"}
   function initTheme(){const saved=localStorage.getItem("t1-theme");setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));$("#themeToggle").onclick=()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")}
-  function openView(name){$$('.view').forEach(v=>v.classList.toggle('active',v.dataset.view===name));scrollTo({top:0,behavior:'smooth'});if(name!=="home") location.hash=name;else history.replaceState(null,"",location.pathname);log(`home_${name}_click`)}
-  function openModal(id){const modal=document.getElementById(id);if(modal&&!modal.open){modal.showModal();document.body.style.overflow="hidden";if(id==="specialModal")log("home_special_click");if(id==="csModal")log("home_cs_click")}}
+  function openView(name,track=true){$$('.view').forEach(v=>v.classList.toggle('active',v.dataset.view===name));scrollTo({top:0,behavior:'smooth'});if(name!=="home") location.hash=name;else history.replaceState(null,"",location.pathname);if(track&&name!=="home")trackCta(`home_${name}`)}
+  function openModal(id){const modal=document.getElementById(id);if(modal&&!modal.open){modal.showModal();document.body.style.overflow="hidden";if(id==="specialModal")trackCta("home_special");if(id==="csModal")trackCta("home_cs")}}
   function closeModal(modal){if(modal?.open)modal.close();document.body.style.overflow=""}
   function bindNavigation(){$$('[data-open-view]').forEach(b=>b.onclick=()=>openView(b.dataset.openView));$$('[data-open-modal]').forEach(b=>b.onclick=()=>openModal(b.dataset.openModal));$$('[data-close-modal]').forEach(b=>b.onclick=()=>closeModal(b.closest('dialog')));$$('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)closeModal(d)}))}
 
@@ -75,7 +85,16 @@
     $("#storeList").innerHTML=list.map(s=>`<article class="store-card store-photo-card"><div class="store-photo"><img src="${esc(s.image||`images/store-${s.id}.jpg`)}" alt="${esc(s.name)} 매장 전경" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="store-photo-placeholder" hidden><span>T1</span><strong>${esc(s.name)}</strong><small>매장 사진 준비 중</small></div>${s.distance!==null?`<span class="distance photo-distance">약 ${s.distance.toFixed(1)}km</span>`:''}</div><div class="store-card-body"><div class="store-info"><h3>${esc(s.name)}</h3><p class="address">${esc(s.address)}</p></div><div class="card-actions store-actions">${actionLink("전화",`tel:${s.phone}`,"store_call",s,true)}${actionLink("길찾기",mapUrl(s),"store_map",s)}${actionLink("네이버톡",s.navertalk,"store_naver",s)}${actionLink("당근",s.daangn,"store_daangn",s)}</div></div></article>`).join("");
     bindLogs();
   }
-  function locate(){if(!navigator.geolocation){$("#locationStatus").textContent="이 브라우저에서는 위치 확인이 어려워요. 전체 매장을 안내합니다.";return}const b=$("#locateButton");b.disabled=true;b.textContent="확인 중…";navigator.geolocation.getCurrentPosition(p=>{renderStores(p);$("#locationStatus").textContent="현재 위치에서 가까운 순으로 정렬했어요.";b.textContent="다시 확인";b.disabled=false;log("gps_allow")},()=>{$("#locationStatus").textContent="위치 권한 없이 전체 매장을 안내하고 있어요.";b.textContent="내 위치 확인";b.disabled=false;toast("브라우저에서 위치 권한을 허용해 주세요.")},{enableHighAccuracy:false,timeout:8000,maximumAge:300000})}
+  function locate(){
+    trackCta("nearby_search");
+    if(!navigator.geolocation){$("#locationStatus").textContent="이 브라우저에서는 위치 확인이 어려워요. 전체 매장을 안내합니다.";return}
+    const b=$("#locateButton");b.disabled=true;b.textContent="확인 중…";
+    navigator.geolocation.getCurrentPosition(p=>{
+      const nearest=state.stores.map(store=>({...store,distance:distanceKm(p.coords.latitude,p.coords.longitude,store.lat,store.lng)})).sort((a,b)=>a.distance-b.distance)[0];
+      renderStores(p);$("#locationStatus").textContent="현재 위치에서 가까운 순으로 정렬했어요.";b.textContent="다시 확인";b.disabled=false;
+      if(nearest)sendAnalytics("NEARBY_SEARCH",{store:nearest.name,distanceKm:Number(nearest.distance.toFixed(2))});
+    },()=>{$("#locationStatus").textContent="위치 권한 없이 전체 매장을 안내하고 있어요.";b.textContent="내 위치 확인";b.disabled=false;toast("브라우저에서 위치 권한을 허용해 주세요.")},{enableHighAccuracy:false,timeout:8000,maximumAge:300000});
+  }
 
   const aliases={"아이폰":"iphone","갤럭시":"galaxy","프맥":"promax","프로맥스":"promax","프로 맥스":"promax","울트라":"ultra","플립":"flip","폴드":"fold","기가":"gb","지비":"gb","흰색":"화이트","하양":"화이트","검정":"블랙","까망":"블랙"};
   function norm(value){let v=String(value||"").toLowerCase();Object.entries(aliases).sort((a,b)=>b[0].length-a[0].length).forEach(([a,b])=>v=v.split(a).join(b));return v.replace(/\s+|[^a-z0-9가-힣]/g,"")}
@@ -102,9 +121,9 @@
       const storeData=state.stores.find(v=>v.name===store)||{name:store,phone:"",naver:"#"};
       return `<article class="stock-card"><div class="card-top"><div><div class="stock-title"><h3>${esc(x.model)}</h3></div><p class="spec">${esc(x.storage)} · ${esc(x.color)}<br>📍 ${esc(store)}</p></div><span class="stock-badge ${status.cls}">${status.label}</span></div><div class="card-actions three">${actionLink("전화문의",`tel:${storeData.phone}`,"inventory_call",storeData,x.qty>0)}${actionLink("길찾기",mapUrl(storeData),"inventory_map",storeData)}<button class="action-button" data-reserve="${i}" ${x.qty<=0?'disabled':''}>재고 예약</button></div></article>`;
     }).join(''):`<div class="empty-state"><strong>검색 결과가 없습니다.</strong>다른 모델명이나 조건으로 다시 검색해 주세요.</div>`;
-    $$('[data-reserve]').forEach(button=>button.onclick=()=>startContact(results[+button.dataset.reserve],"inventory"));
+    $$('[data-reserve]').forEach(button=>button.onclick=()=>{const item=results[+button.dataset.reserve];trackCta("inventory_reserve",{store:store||"전사",model:item.model,storage:item.storage,color:item.color});startContact(item,"inventory")});
     bindLogs();
-    if(event)log("inventory_search",{query:q,store:store||"전사",storage,color,resultCount:results.length});
+    if(event?.type==="submit")trackCta("inventory_search",{store:store||"전사",model:q,storage,color});
   }
   function bindLogs(){
     $$('[data-log]').forEach(el=>{
@@ -112,15 +131,15 @@
       el.dataset.bound='1';
       el.addEventListener('click',e=>{
         if(el.getAttribute('href')==='#'){e.preventDefault();toast("운영 링크를 연결해 주세요.")}
-        log(el.dataset.log,{store:el.dataset.store});
+        trackCta(el.dataset.log,{store:el.dataset.store});
       });
     });
   }
 
   function renderSlides(){const images=config.specialImages?.length?config.specialImages:["images/today-special1.jpg"];$("#slides").innerHTML=images.map((src,i)=>`<div class="slide"><img src="${esc(src)}" alt="오늘의 특가 ${i+1}" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="image-placeholder" hidden><span>%</span><strong>${esc(src.split('/').pop())}</strong><p>이 위치에 3:4 특가 이미지를 넣어주세요.</p></div></div>`).join('');$("#slideIndicators").innerHTML=images.map((_,i)=>`<button aria-label="${i+1}번 특가" data-slide="${i}"></button>`).join('');$$('[data-slide]').forEach(b=>b.onclick=()=>goSlide(+b.dataset.slide));goSlide(0);let startX=0;$("#specialSlider").addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});$("#specialSlider").addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>45)goSlide(state.slide+(dx<0?1:-1))},{passive:true})}
-  function goSlide(index){const len=config.specialImages?.length||1;state.slide=(index+len)%len;$("#slides").style.transform=`translateX(-${state.slide*100}%)`;$$('[data-slide]').forEach((b,i)=>b.classList.toggle('active',i===state.slide));state.specialId=`today-special${state.slide+1}`;log("special_view",{campaign:state.specialId})}
-  function startContact(context,type){state.contactContext={context,type,campaign:type==="special"?state.specialId:"inventory"};$("#contactTitle").textContent="문의할 매장을 선택해 주세요";$("#contactSteps").innerHTML=`<div class="choice-grid">${state.stores.map(s=>`<button class="choice-button" data-contact-store="${esc(s.id)}"><strong>${esc(s.name)}</strong><span>${esc(s.address)}</span></button>`).join('')}</div>`;closeModal($("#specialModal"));openModal("contactModal");$$('[data-contact-store]').forEach(b=>b.onclick=()=>chooseMethod(state.stores.find(s=>s.id===b.dataset.contactStore)))}
-  function chooseMethod(store){const c=state.contactContext;c.store=store;$("#contactTitle").textContent=`${store.name} 문의 방식`;$("#contactSteps").innerHTML=`<div class="choice-grid"><a class="choice-button" href="tel:${esc(store.phone)}" data-method="call"><strong>☎ 전화</strong><span>${esc(store.phone)}</span></a><a class="choice-button" href="${esc(store.navertalk||'#')}" data-method="naver"><strong>💬 네이버톡</strong><span>채팅으로 편하게 문의</span></a><a class="choice-button" href="${esc(store.daangn||'#')}" data-method="daangn"><strong>🥕 당근</strong><span>동네 매장으로 문의</span></a></div>`;$$('[data-method]').forEach(a=>a.onclick=e=>{if(a.getAttribute('href')==='#'){e.preventDefault();toast("운영 링크를 연결해 주세요.")}const item=c.context||{};log(`${c.type}_${a.dataset.method}`,{store:store.name,model:item.model,storage:item.storage,color:item.color,campaign:c.campaign})})}
-  function init(){initTheme();bindNavigation();renderSlides();$("#locateButton").onclick=locate;$("#inventoryForm").onsubmit=searchInventory;[$("#storeFilter"),$("#storageFilter"),$("#colorFilter")].forEach(x=>x.onchange=searchInventory);$("#slidePrev").onclick=()=>goSlide(state.slide-1);$("#slideNext").onclick=()=>goSlide(state.slide+1);$("#specialContactButton").onclick=()=>{log("special_contact",{campaign:state.specialId});startContact(null,"special")};loadData();const hash=location.hash.slice(1);if(["stores","inventory"].includes(hash))openView(hash)}
+  function goSlide(index){const len=config.specialImages?.length||1;state.slide=(index+len)%len;$("#slides").style.transform=`translateX(-${state.slide*100}%)`;$$('[data-slide]').forEach((b,i)=>b.classList.toggle('active',i===state.slide));state.specialId=`today-special${state.slide+1}`}
+  function startContact(context,type){state.contactContext={context,type,campaign:type==="special"?state.specialId:"inventory"};$("#contactTitle").textContent="문의할 매장을 선택해 주세요";$("#contactSteps").innerHTML=`<div class="choice-grid">${state.stores.map(s=>`<button class="choice-button" data-contact-store="${esc(s.id)}"><strong>${esc(s.name)}</strong><span>${esc(s.address)}</span></button>`).join('')}</div>`;closeModal($("#specialModal"));openModal("contactModal");$$('[data-contact-store]').forEach(b=>b.onclick=()=>{const store=state.stores.find(s=>s.id===b.dataset.contactStore);trackCta("contact_store_select",{store:store.name,campaign:state.contactContext.campaign});chooseMethod(store)})}
+  function chooseMethod(store){const c=state.contactContext;c.store=store;$("#contactTitle").textContent=`${store.name} 문의 방식`;$("#contactSteps").innerHTML=`<div class="choice-grid"><a class="choice-button" href="tel:${esc(store.phone)}" data-method="call"><strong>☎ 전화</strong><span>${esc(store.phone)}</span></a><a class="choice-button" href="${esc(store.navertalk||'#')}" data-method="naver"><strong>💬 네이버톡</strong><span>채팅으로 편하게 문의</span></a><a class="choice-button" href="${esc(store.daangn||'#')}" data-method="daangn"><strong>🥕 당근</strong><span>동네 매장으로 문의</span></a></div>`;$$('[data-method]').forEach(a=>a.onclick=e=>{if(a.getAttribute('href')==='#'){e.preventDefault();toast("운영 링크를 연결해 주세요.")}const item=c.context||{};trackCta(`${c.type}_${a.dataset.method}`,{store:store.name,model:item.model,storage:item.storage,color:item.color,campaign:c.campaign})})}
+  function init(){initTheme();bindNavigation();renderSlides();trackSourceVisit();$("#locateButton").onclick=locate;$("#inventoryForm").onsubmit=searchInventory;[$("#storeFilter"),$("#storageFilter"),$("#colorFilter")].forEach(x=>x.onchange=searchInventory);$("#slidePrev").onclick=()=>goSlide(state.slide-1);$("#slideNext").onclick=()=>goSlide(state.slide+1);$("#specialContactButton").onclick=()=>{trackCta("special_contact",{campaign:state.specialId});startContact(null,"special")};loadData();const hash=location.hash.slice(1);if(["stores","inventory"].includes(hash))openView(hash,false)}
   document.addEventListener("DOMContentLoaded",init);
 })();
